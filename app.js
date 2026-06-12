@@ -13,10 +13,30 @@ const editorParams = new URLSearchParams(window.location.search);
 const isBackstageEditor =
   editorParams.get("editor") === "1" || window.location.hash === "#editor";
 const requestedDay = Number(editorParams.get("day"));
+const launchMonday = new Date("2026-06-15T00:00:00");
+
+function getScheduledGameIndex() {
+  const today = new Date();
+  const localToday = new Date(
+    today.getFullYear(),
+    today.getMonth(),
+    today.getDate()
+  );
+  const daysSinceLaunch = Math.floor(
+    (localToday - launchMonday) / 86400000
+  );
+
+  if (daysSinceLaunch < 0) {
+    return 0;
+  }
+
+  return daysSinceLaunch % 7;
+}
+
 const initialGameIndex =
   Number.isInteger(requestedDay) && requestedDay >= 1 && requestedDay <= 7
     ? requestedDay - 1
-    : 0;
+    : getScheduledGameIndex();
 const activeWeekGames = cloneGame(TOP_TIER_WEEK_DRAFTS);
 const finalWeekGames = Array(activeWeekGames.length).fill(null);
 let activeGameIndex = initialGameIndex;
