@@ -1,0 +1,322 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Top Tier</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&family=Geist+Mono:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <main class="app-shell">
+      <section id="entryScreen" class="screen screen-active">
+        <div class="entry-stage">
+          <button
+            id="logoButton"
+            class="brand-logo"
+            type="button"
+            aria-label="Enter Top Tier"
+          >
+            <span class="logo-crop" aria-hidden="true">
+              <img
+                class="logo-image"
+                src="top-tier-logo-entry.png"
+                alt=""
+              />
+            </span>
+            <span class="visually-hidden">Top Tier</span>
+            <span class="tap-hint">Tap the mark to enter.</span>
+          </button>
+        </div>
+      </section>
+
+      <section id="briefingScreen" class="screen">
+        <div class="start-layout">
+          <div class="welcome-card">
+            <img
+              class="welcome-logo"
+              src="top-tier-logo-entry.png"
+              alt="Top Tier logo"
+            />
+
+            <div class="welcome-copy">
+              <p class="welcome-kicker">Welcome back to</p>
+              <h1>Top Tier</h1>
+              <p id="welcomePrompt">Brad Kester, ready to test today's ceiling?</p>
+
+              <div class="creator-credit">
+                <p>Created By Brad J Kester</p>
+                <p id="editorCredit" hidden></p>
+                <p id="organizationCredit" hidden></p>
+              </div>
+            </div>
+
+            <div class="welcome-stats" aria-label="Daily challenge details">
+              <div>
+                <strong>12</strong>
+                <span>questions</span>
+              </div>
+              <div>
+                <strong>4</strong>
+                <span>tiers</span>
+              </div>
+              <div>
+                <strong>30s</strong>
+                <span>each</span>
+              </div>
+            </div>
+
+            <div class="welcome-focus">
+              <p>Today's challenge</p>
+              <ul id="welcomeFocusList">
+                <li>Warm-Up to Top Tier</li>
+                <li>First miss locks your official result</li>
+                <li>Play the rest for practice</li>
+              </ul>
+            </div>
+
+            <button id="startButton" class="primary-action" type="button">
+              Start today's run
+            </button>
+          </div>
+        </div>
+      </section>
+
+      <section id="editorScreen" class="screen">
+        <div class="editor-layout">
+          <header class="editor-header">
+            <div>
+              <p class="eyebrow">Top Tier Editor</p>
+              <h1>Question Draft</h1>
+            </div>
+
+            <div class="editor-actions">
+              <button id="backToBriefingButton" class="light-action" type="button">
+                Player View
+              </button>
+              <button id="previewDraftButton" class="light-action" type="button">
+                Preview Draft
+              </button>
+              <button id="playtestDraftButton" class="primary-action" type="button">
+                Playtest Draft
+              </button>
+              <button id="copyDraftButton" class="secondary-editor-action" type="button">
+                Copy Draft JSON
+              </button>
+              <button id="submitFinalButton" class="final-action" type="button">
+                Submit Final
+              </button>
+            </div>
+          </header>
+
+          <section class="editor-panel week-panel">
+            <div>
+              <p class="editor-section-title">Week 1 Games</p>
+              <p id="editorGameStatus" class="editor-helper-text"></p>
+            </div>
+
+            <nav id="gameList" class="game-list" aria-label="Week games"></nav>
+          </section>
+
+          <section class="editor-panel editor-meta-panel">
+            <div class="editor-row two-columns">
+              <label>
+                <span>Edited By</span>
+                <input id="editorNameInput" type="text" />
+              </label>
+
+              <label>
+                <span>News Organization</span>
+                <input id="editorOrganizationInput" type="text" />
+              </label>
+            </div>
+          </section>
+
+          <div class="editor-grid">
+            <nav id="questionList" class="question-list" aria-label="Questions"></nav>
+
+            <section class="editor-panel">
+              <div class="editor-row two-columns">
+                <label>
+                  <span>Question Type</span>
+                  <input id="editorType" type="text" />
+                </label>
+
+                <label>
+                  <span>Correct Answer</span>
+                  <select id="editorAnswer"></select>
+                </label>
+              </div>
+
+              <label>
+                <span>Prompt</span>
+                <textarea id="editorPrompt" rows="4"></textarea>
+              </label>
+
+              <div class="editor-row four-columns">
+                <label>
+                  <span>A</span>
+                  <input id="editorChoice0" type="text" />
+                </label>
+                <label>
+                  <span>B</span>
+                  <input id="editorChoice1" type="text" />
+                </label>
+                <label>
+                  <span>C</span>
+                  <input id="editorChoice2" type="text" />
+                </label>
+                <label>
+                  <span>D</span>
+                  <input id="editorChoice3" type="text" />
+                </label>
+              </div>
+
+              <label>
+                <span>Explanation</span>
+                <textarea id="editorExplanation" rows="4"></textarea>
+              </label>
+
+              <label>
+                <span>Editor Notes</span>
+                <textarea id="editorNotes" rows="3"></textarea>
+              </label>
+
+              <div id="editorSavedState" class="editor-saved-state" aria-live="polite"></div>
+              <textarea
+                id="draftJsonOutput"
+                class="draft-json-output"
+                readonly
+                hidden
+              ></textarea>
+            </section>
+          </div>
+        </div>
+      </section>
+
+      <section id="gameScreen" class="screen">
+        <header class="game-header">
+          <div>
+            <p id="modeLabel" class="eyebrow">Official Run</p>
+            <h1 id="questionCounter">Question 1 of 12</h1>
+          </div>
+        </header>
+
+        <div class="game-stage">
+          <section class="question-panel">
+            <div class="question-meta">
+              <span id="tierLabel">Tier 1: Warm-Up</span>
+              <span id="typeLabel">Odd One Out</span>
+            </div>
+
+            <h2 id="promptText" class="prompt"></h2>
+            <div id="choiceGrid" class="choice-grid"></div>
+
+            <div id="answerState" class="answer-state" aria-live="polite"></div>
+
+            <div class="question-actions">
+              <button id="finishButton" class="ghost-action" type="button">
+                View Results Now
+              </button>
+              <button id="nextButton" class="secondary-action" type="button">
+                Next Question
+              </button>
+            </div>
+          </section>
+
+          <aside class="game-sidebar">
+            <div class="timer-wrap" aria-label="Question timer">
+              <div id="timerRing" class="timer-hourglass">
+                <span class="hourglass-icon" aria-hidden="true">
+                  <span class="hourglass-cap top"></span>
+                  <span class="hourglass-cap bottom"></span>
+                  <span class="hourglass-post left"></span>
+                  <span class="hourglass-post right"></span>
+                  <span class="hourglass-glass"></span>
+                  <span class="hourglass-sand-mask top">
+                    <span class="hourglass-top-sand"></span>
+                  </span>
+                  <span class="hourglass-stream"></span>
+                  <span class="hourglass-sand-mask bottom">
+                    <span class="hourglass-bottom-sand"></span>
+                  </span>
+                </span>
+                <span id="timerText" class="timer-count">30</span>
+              </div>
+            </div>
+
+            <div class="tier-pyramid">
+              <p class="tier-pyramid-title">Tier climb</p>
+              <nav id="tierTrack" class="tier-track" aria-label="Tier progress"></nav>
+            </div>
+          </aside>
+        </div>
+      </section>
+
+      <section id="resultsScreen" class="screen">
+        <div class="results-layout">
+          <div class="results-main">
+            <p class="eyebrow">Run Complete</p>
+            <h1 id="resultTitle">Tier reached</h1>
+            <p id="resultSubtitle" class="result-subtitle"></p>
+          </div>
+
+          <div class="score-grid">
+            <div>
+              <span>Official Result</span>
+              <strong id="officialResult"></strong>
+            </div>
+            <div>
+              <span>Practice Total</span>
+              <strong id="totalScore"></strong>
+            </div>
+            <div>
+              <span>First Miss</span>
+              <strong id="firstMiss"></strong>
+            </div>
+            <div>
+              <span>Brain Style</span>
+              <strong id="brainStyle"></strong>
+            </div>
+          </div>
+
+          <section class="dashboard-panel">
+            <div>
+              <p class="dashboard-kicker">Climb Moment</p>
+              <h2 id="firstMissMoment"></h2>
+            </div>
+          </section>
+
+          <section class="dashboard-panel">
+            <div>
+              <p class="dashboard-kicker">Pressure Read</p>
+              <div id="pressureRead" class="pressure-read"></div>
+            </div>
+          </section>
+
+          <section class="dashboard-panel">
+            <div>
+              <p class="dashboard-kicker">Tier Path</p>
+              <div id="tierPath" class="tier-path"></div>
+            </div>
+          </section>
+
+          <p class="dashboard-kicker">Question Review</p>
+          <div id="reviewList" class="review-list"></div>
+
+          <button id="playAgainButton" class="primary-action" type="button">
+            Play Again
+          </button>
+        </div>
+      </section>
+    </main>
+
+    <script src="data.js"></script>
+    <script src="app.js"></script>
+  </body>
+</html>

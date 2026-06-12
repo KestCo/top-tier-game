@@ -1,0 +1,98 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 900" role="img" aria-labelledby="title desc">
+  <title id="title">Top Tier logo</title>
+  <desc id="desc">A layered double T monogram above glowing tier steps.</desc>
+  <defs>
+    <radialGradient id="ambientGlow" cx="50%" cy="47%" r="58%">
+      <stop offset="0%" stop-color="#f5d274" stop-opacity="0.46" />
+      <stop offset="42%" stop-color="#f5d274" stop-opacity="0.13" />
+      <stop offset="100%" stop-color="#0c1017" stop-opacity="0" />
+    </radialGradient>
+    <linearGradient id="ivoryT" x1="20%" y1="0%" x2="80%" y2="100%">
+      <stop offset="0%" stop-color="#fff9e9" />
+      <stop offset="48%" stop-color="#d5cec0" />
+      <stop offset="100%" stop-color="#8c8579" />
+    </linearGradient>
+    <linearGradient id="navyT" x1="18%" y1="0%" x2="82%" y2="100%">
+      <stop offset="0%" stop-color="#2e4b6d" />
+      <stop offset="52%" stop-color="#122a46" />
+      <stop offset="100%" stop-color="#06101d" />
+    </linearGradient>
+    <linearGradient id="gold" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#fff1b0" />
+      <stop offset="48%" stop-color="#d79625" />
+      <stop offset="100%" stop-color="#68400e" />
+    </linearGradient>
+    <linearGradient id="stepDark" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#25344a" />
+      <stop offset="100%" stop-color="#070a0f" />
+    </linearGradient>
+    <filter id="letterShadow" x="-25%" y="-25%" width="150%" height="160%">
+      <feDropShadow dx="0" dy="16" stdDeviation="15" flood-color="#000000" flood-opacity="0.46" />
+    </filter>
+    <filter id="warmGlow" x="-80%" y="-80%" width="260%" height="260%">
+      <feGaussianBlur stdDeviation="15" result="blur" />
+      <feMerge>
+        <feMergeNode in="blur" />
+        <feMergeNode in="SourceGraphic" />
+      </feMerge>
+    </filter>
+  </defs>
+
+  <rect width="900" height="900" fill="#101318" />
+  <circle cx="450" cy="410" r="360" fill="url(#ambientGlow)" />
+
+  <g filter="url(#letterShadow)">
+    <text
+      x="392"
+      y="650"
+      text-anchor="middle"
+      font-family="Didot, 'Bodoni 72', Bodoni, Georgia, 'Times New Roman', serif"
+      font-size="610"
+      font-weight="700"
+      fill="url(#ivoryT)"
+      stroke="#302a20"
+      stroke-width="8"
+      paint-order="stroke fill"
+      transform="scale(1.08 1)"
+    >T</text>
+    <text
+      x="507"
+      y="650"
+      text-anchor="middle"
+      font-family="Didot, 'Bodoni 72', Bodoni, Georgia, 'Times New Roman', serif"
+      font-size="610"
+      font-weight="800"
+      fill="url(#navyT)"
+      stroke="#02060c"
+      stroke-width="10"
+      paint-order="stroke fill"
+      transform="scale(0.98 1)"
+    >T</text>
+  </g>
+
+  <g filter="url(#warmGlow)">
+    <path
+      d="M378 596H522L554 754H346Z"
+      fill="url(#gold)"
+      stroke="#1b1207"
+      stroke-width="7"
+      stroke-linejoin="round"
+    />
+    <circle cx="450" cy="668" r="54" fill="#ffe38b" opacity="0.92" />
+    <circle cx="450" cy="668" r="19" fill="#fff8ca" />
+  </g>
+
+  <g>
+    <path d="M286 755H614V808H286Z" fill="url(#stepDark)" stroke="#c9902f" stroke-width="5" />
+    <path d="M334 703H566V755H334Z" fill="#13263f" stroke="#d69c31" stroke-width="5" />
+    <path d="M384 652H516V703H384Z" fill="#213c5e" stroke="#f1bd51" stroke-width="5" />
+    <path d="M415 606H485V652H415Z" fill="#f2bf54" stroke="#181008" stroke-width="5" />
+  </g>
+
+  <g opacity="0.7">
+    <path d="M220 206H540" stroke="#fff8e7" stroke-width="7" stroke-linecap="round" />
+    <path d="M336 178H690" stroke="#6889ad" stroke-width="6" stroke-linecap="round" />
+    <path d="M246 640H534" stroke="#06090e" stroke-width="8" stroke-linecap="round" />
+    <path d="M365 640H654" stroke="#02050a" stroke-width="8" stroke-linecap="round" />
+  </g>
+</svg>
