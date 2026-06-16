@@ -13,7 +13,41 @@ const editorParams = new URLSearchParams(window.location.search);
 const isBackstageEditor =
   editorParams.get("editor") === "1" || window.location.hash === "#editor";
 const requestedDay = Number(editorParams.get("day"));
+const requestedWeek = Number(editorParams.get("week"));
+const requestedGame = Number(editorParams.get("game"));
 const launchMonday = new Date("2026-06-15T00:00:00");
+
+function getRequestedGameIndex() {
+  if (
+    Number.isInteger(requestedGame) &&
+    requestedGame >= 1 &&
+    requestedGame <= TOP_TIER_WEEK_DRAFTS.length
+  ) {
+    return requestedGame - 1;
+  }
+
+  if (
+    Number.isInteger(requestedWeek) &&
+    requestedWeek >= 1 &&
+    Number.isInteger(requestedDay) &&
+    requestedDay >= 1 &&
+    requestedDay <= 7
+  ) {
+    const index = TOP_TIER_WEEK_DRAFTS.findIndex(
+      (game) => game.week === requestedWeek && game.day === requestedDay
+    );
+
+    if (index >= 0) {
+      return index;
+    }
+  }
+
+  if (Number.isInteger(requestedDay) && requestedDay >= 1 && requestedDay <= 7) {
+    return requestedDay - 1;
+  }
+
+  return null;
+}
 
 function getScheduledGameIndex() {
   const today = new Date();
@@ -30,13 +64,12 @@ function getScheduledGameIndex() {
     return 0;
   }
 
-  return daysSinceLaunch % 7;
+  return daysSinceLaunch % TOP_TIER_WEEK_DRAFTS.length;
 }
 
+const requestedGameIndex = getRequestedGameIndex();
 const initialGameIndex =
-  Number.isInteger(requestedDay) && requestedDay >= 1 && requestedDay <= 7
-    ? requestedDay - 1
-    : getScheduledGameIndex();
+  requestedGameIndex === null ? getScheduledGameIndex() : requestedGameIndex;
 const activeWeekGames = cloneGame(TOP_TIER_WEEK_DRAFTS);
 const finalWeekGames = Array(activeWeekGames.length).fill(null);
 let activeGameIndex = initialGameIndex;
@@ -66,6 +99,7 @@ const tierLabel = document.getElementById("tierLabel");
 const typeLabel = document.getElementById("typeLabel");
 const promptText = document.getElementById("promptText");
 const choiceGrid = document.getElementById("choiceGrid");
+const submitAnswerButton = document.getElementById("submitAnswerButton");
 const answerState = document.getElementById("answerState");
 const nextButton = document.getElementById("nextButton");
 const finishButton = document.getElementById("finishButton");
@@ -110,6 +144,7 @@ function createInitialState() {
     timeLeft: 30,
     timerId: null,
     locked: false,
+    selectedChoice: null,
     officialActive: true,
     officialEnd: null,
     totalCorrect: 0,
@@ -119,7 +154,7 @@ function createInitialState() {
 }
 
 function getGameHeading(game) {
-  return `${game.label} - Day ${game.day}`;
+  return `Week ${game.week}, ${game.label} - Day ${game.day}`;
 }
 
 function setActiveGame(index) {
@@ -238,7 +273,7 @@ function renderGameList() {
     } ${game.status === "final" ? "final" : ""}`;
     button.innerHTML = `
       <strong>${game.label}</strong>
-      <span>Day ${game.day} - Difficulty ${game.difficulty}</span>
+      <span>Week ${game.week} - Day ${game.day} - Difficulty ${game.difficulty}</span>
       <em>${game.status === "final" ? "Final" : "Draft"}</em>
     `;
     button.addEventListener("click", () => {
@@ -272,6 +307,7 @@ function renderTierTrack() {
 function renderQuestion() {
   const question = QUESTIONS[state.index];
   state.locked = false;
+  state.selectedChoice = null;
   state.timeLeft = 30;
   state.questionStartedAt = Date.now();
 
@@ -290,6 +326,9 @@ function renderQuestion() {
   }
 
   answerState.innerHTML = "";
+  submitAnswerButton.disabled = true;
+  submitAnswerButton.textContent = "Choose an option";
+  submitAnswerButton.classList.remove("hide");
   nextButton.classList.remove("show");
   finishButton.classList.remove("show");
   choiceGrid.innerHTML = "";
@@ -299,7 +338,8 @@ function renderQuestion() {
     button.className = "choice-button";
     button.type = "button";
     button.textContent = choice;
-    button.addEventListener("click", () => lockAnswer(choice, false));
+    button.setAttribute("aria-pressed", "false");
+    button.addEventListener("click", () => selectAnswer(choice));
     choiceGrid.appendChild(button);
   });
 
@@ -335,11 +375,33 @@ function updateTimer() {
   }
 }
 
+function selectAnswer(choice) {
+  if (state.locked) return;
+
+  state.selectedChoice = choice;
+  submitAnswerButton.disabled = false;
+  submitAnswerButton.textContent = "Submit Answer";
+
+  choiceGrid.querySelectorAll("button").forEach((button) => {
+    const selected = button.textContent === choice;
+    button.classList.toggle("selected", selected);
+    button.setAttribute("aria-pressed", String(selected));
+  });
+}
+
+function submitSelectedAnswer() {
+  if (state.locked || !state.selectedChoice) return;
+
+  lockAnswer(state.selectedChoice, false);
+}
+
 function lockAnswer(choice, timedOut) {
   if (state.locked) return;
 
   clearInterval(state.timerId);
   state.locked = true;
+  submitAnswerButton.disabled = true;
+  submitAnswerButton.classList.add("hide");
 
   const question = QUESTIONS[state.index];
   const wasOfficial = state.officialActive;
@@ -853,6 +915,7 @@ editorChoices.forEach((input) => input.addEventListener("input", updateEditorDra
 logoButton.addEventListener("click", enterBriefing);
 startButton.addEventListener("click", startGame);
 playAgainButton.addEventListener("click", startGame);
+submitAnswerButton.addEventListener("click", submitSelectedAnswer);
 nextButton.addEventListener("click", goNext);
 finishButton.addEventListener("click", renderResults);
 
