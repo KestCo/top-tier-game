@@ -108,11 +108,24 @@
               <button id="copyDraftButton" class="secondary-editor-action" type="button">
                 Copy Draft JSON
               </button>
+              <button id="saveDraftButton" class="secondary-editor-action" type="button">
+                Save Draft
+              </button>
+              <button id="reviewDraftsButton" class="light-action" type="button">
+                Review Drafts
+              </button>
               <button id="submitFinalButton" class="final-action" type="button">
-                Submit Final
+                Submit for Review
               </button>
             </div>
           </header>
+
+          <section class="editor-panel draft-workflow-panel">
+            <div>
+              <p class="editor-section-title">Draft Branch</p>
+              <p id="draftWorkflowStatus" class="editor-helper-text"></p>
+            </div>
+          </section>
 
           <section class="editor-panel week-panel">
             <div>
@@ -135,6 +148,16 @@
                 <input id="editorOrganizationInput" type="text" />
               </label>
             </div>
+          </section>
+
+          <section id="draftReviewPanel" class="editor-panel draft-review-panel" hidden>
+            <div>
+              <p class="editor-section-title">Saved Drafts</p>
+              <p class="editor-helper-text">
+                Open a saved branch for review, playtest, or export.
+              </p>
+            </div>
+            <div id="draftReviewList" class="draft-review-list"></div>
           </section>
 
           <div class="editor-grid">

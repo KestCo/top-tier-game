@@ -14,6 +14,12 @@ Open `index.html` in a browser to play.
 Open `index.html?editor=1` for the backstage editor.
 Use `index.html?editor=1&week=2&day=1` to jump directly to a specific draft.
 
+## Editor Drafts
+
+Editor changes now create a saved draft branch in the browser. Use `Save Draft` or let autosave keep the branch current, then `Submit for Review` when it is ready.
+
+For shared draft saving, create the Supabase table in `supabase-schema.sql`, then add a local config based on `top-tier-config.example.js` before `app.js` loads.
+
 ## Vercel
 
 This is a plain static site. Import the GitHub repository into Vercel and use the default static-site deployment. No build command is required.

@@ -9,6 +9,39 @@ function cloneGame(game) {
   return JSON.parse(JSON.stringify(game));
 }
 
+const DRAFT_STORAGE_KEY = "topTierEditorDraftBranches";
+
+function getSupabaseDraftConfig() {
+  const config = window.TOP_TIER_SUPABASE || {};
+
+  if (!config.url || !config.anonKey) {
+    return null;
+  }
+
+  return {
+    url: config.url.replace(/\/$/, ""),
+    anonKey: config.anonKey,
+  };
+}
+
+function readDraftBranches() {
+  try {
+    const saved = localStorage.getItem(DRAFT_STORAGE_KEY);
+    const parsed = saved ? JSON.parse(saved) : {};
+    return parsed && typeof parsed === "object" ? parsed : {};
+  } catch (error) {
+    return {};
+  }
+}
+
+function writeDraftBranches(branches) {
+  try {
+    localStorage.setItem(DRAFT_STORAGE_KEY, JSON.stringify(branches));
+  } catch (error) {
+    console.warn("Top Tier could not save draft branches locally.", error);
+  }
+}
+
 const editorParams = new URLSearchParams(window.location.search);
 const isBackstageEditor =
   editorParams.get("editor") === "1" || window.location.hash === "#editor";
@@ -71,6 +104,8 @@ const requestedGameIndex = getRequestedGameIndex();
 const initialGameIndex =
   requestedGameIndex === null ? getScheduledGameIndex() : requestedGameIndex;
 const activeWeekGames = cloneGame(TOP_TIER_WEEK_DRAFTS);
+let draftBranches = readDraftBranches();
+applySavedDraftBranches();
 const finalWeekGames = Array(activeWeekGames.length).fill(null);
 let activeGameIndex = initialGameIndex;
 let activeGame = activeWeekGames[activeGameIndex];
@@ -87,6 +122,8 @@ const editorButton = document.getElementById("editorButton");
 const backToBriefingButton = document.getElementById("backToBriefingButton");
 const previewDraftButton = document.getElementById("previewDraftButton");
 const playtestDraftButton = document.getElementById("playtestDraftButton");
+const saveDraftButton = document.getElementById("saveDraftButton");
+const reviewDraftsButton = document.getElementById("reviewDraftsButton");
 const copyDraftButton = document.getElementById("copyDraftButton");
 const submitFinalButton = document.getElementById("submitFinalButton");
 const playAgainButton = document.getElementById("playAgainButton");
@@ -119,6 +156,9 @@ const welcomePrompt = document.getElementById("welcomePrompt");
 const welcomeFocusList = document.getElementById("welcomeFocusList");
 const gameList = document.getElementById("gameList");
 const editorGameStatus = document.getElementById("editorGameStatus");
+const draftWorkflowStatus = document.getElementById("draftWorkflowStatus");
+const draftReviewPanel = document.getElementById("draftReviewPanel");
+const draftReviewList = document.getElementById("draftReviewList");
 const questionList = document.getElementById("questionList");
 const editorNameInput = document.getElementById("editorNameInput");
 const editorOrganizationInput = document.getElementById(
@@ -137,6 +177,8 @@ const editorChoices = [0, 1, 2, 3].map((index) =>
 
 let state = createInitialState();
 let editorIndex = 0;
+let remoteDraftSaveTimer = null;
+let latestRemoteDraftRecord = null;
 
 function createInitialState() {
   return {
@@ -153,6 +195,305 @@ function createInitialState() {
   };
 }
 
+function getSourceGameId(game = activeGame) {
+  return game.sourceGameId || game.id;
+}
+
+function getDraftId(game = activeGame) {
+  return game.draftId || `${getSourceGameId(game)}-editor-draft`;
+}
+
+function applyDraftMetadata(game, record) {
+  game.sourceGameId = record.sourceGameId;
+  game.draftId = record.draftId;
+  game.draftStatus = record.status;
+  game.draftUpdatedAt = record.updatedAt;
+  game.submittedAt = record.submittedAt || "";
+  game.status = record.status === "submitted" ? "submitted" : "draft";
+}
+
+function applySavedDraftBranches() {
+  Object.values(draftBranches).forEach((record) => {
+    if (!record || !record.sourceGameId || !record.draft) return;
+
+    const index = activeWeekGames.findIndex(
+      (game) => game.id === record.sourceGameId
+    );
+
+    if (index < 0) return;
+
+    activeWeekGames[index] = cloneGame(record.draft);
+    applyDraftMetadata(activeWeekGames[index], record);
+  });
+}
+
+function buildDraftRecord(status = activeGame.draftStatus || "draft") {
+  const now = new Date().toISOString();
+  const sourceGameId = getSourceGameId(activeGame);
+  const draft = cloneGame(activeGame);
+
+  draft.sourceGameId = sourceGameId;
+  draft.draftId = getDraftId(activeGame);
+  draft.draftStatus = status;
+  draft.status = status === "submitted" ? "submitted" : "draft";
+  draft.draftUpdatedAt = now;
+
+  if (status === "submitted") {
+    draft.submittedAt = now;
+  }
+
+  return {
+    draftId: draft.draftId,
+    sourceGameId,
+    week: draft.week,
+    day: draft.day,
+    label: draft.label,
+    title: getGameHeading(draft),
+    status,
+    editorName: draft.editor?.name || "",
+    newsOrganization: draft.editor?.newsOrganization || "",
+    updatedAt: now,
+    submittedAt: status === "submitted" ? now : draft.submittedAt || "",
+    draft,
+  };
+}
+
+function getDraftStatusLabel(status) {
+  if (status === "submitted") return "Submitted for review";
+  if (status === "approved") return "Approved";
+  return "Draft saved";
+}
+
+function formatDraftTime(value) {
+  if (!value) return "Not saved yet";
+
+  return new Date(value).toLocaleString([], {
+    month: "short",
+    day: "numeric",
+    hour: "numeric",
+    minute: "2-digit",
+  });
+}
+
+function escapeHtml(value) {
+  return String(value)
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&#039;");
+}
+
+function renderDraftWorkflowStatus() {
+  const record = draftBranches[getSourceGameId(activeGame)];
+  const remoteReady = Boolean(getSupabaseDraftConfig());
+
+  if (!record) {
+    draftWorkflowStatus.textContent =
+      "Original puzzle loaded. Editing will create a saved draft branch.";
+    return;
+  }
+
+  const remoteText = remoteReady
+    ? "Shared saving is connected."
+    : "Shared saving is not connected yet.";
+
+  draftWorkflowStatus.textContent = `${getDraftStatusLabel(
+    record.status
+  )}. Last saved ${formatDraftTime(record.updatedAt)}. ${remoteText}`;
+}
+
+async function saveDraftRecordToSupabase(record) {
+  const config = getSupabaseDraftConfig();
+  if (!config) return;
+
+  const payload = {
+    draft_id: record.draftId,
+    source_game_id: record.sourceGameId,
+    week: record.week,
+    day: record.day,
+    label: record.label,
+    status: record.status,
+    editor_name: record.editorName,
+    news_organization: record.newsOrganization,
+    updated_at: record.updatedAt,
+    submitted_at: record.submittedAt || null,
+    draft: record.draft,
+  };
+
+  const response = await fetch(
+    `${config.url}/rest/v1/top_tier_drafts?on_conflict=draft_id`,
+    {
+      method: "POST",
+      headers: {
+        apikey: config.anonKey,
+        Authorization: `Bearer ${config.anonKey}`,
+        "Content-Type": "application/json",
+        Prefer: "resolution=merge-duplicates",
+      },
+      body: JSON.stringify(payload),
+    }
+  );
+
+  if (!response.ok) {
+    throw new Error(`Draft save failed with status ${response.status}`);
+  }
+}
+
+function scheduleRemoteDraftSave(record) {
+  latestRemoteDraftRecord = record;
+  window.clearTimeout(remoteDraftSaveTimer);
+
+  remoteDraftSaveTimer = window.setTimeout(async () => {
+    try {
+      await saveDraftRecordToSupabase(latestRemoteDraftRecord);
+      renderDraftWorkflowStatus();
+    } catch (error) {
+      console.warn("Top Tier shared draft save failed.", error);
+
+      if (getSupabaseDraftConfig()) {
+        draftWorkflowStatus.textContent =
+          "Saved on this device. Shared save failed, so Copy Draft JSON is the backup for now.";
+      }
+    }
+  }, 900);
+}
+
+function saveDraftBranch(status = "draft", message = "") {
+  const record = buildDraftRecord(status);
+
+  draftBranches[record.sourceGameId] = record;
+  applyDraftMetadata(activeGame, record);
+  writeDraftBranches(draftBranches);
+  renderDraftWorkflowStatus();
+  renderGameList();
+  renderEditorGameStatus();
+  if (!draftReviewPanel.hidden) {
+    renderDraftReviewList();
+  }
+  scheduleRemoteDraftSave(record);
+
+  if (message) {
+    editorSavedState.textContent = message;
+  }
+
+  return record;
+}
+
+function markDraftEdited(message = "") {
+  saveDraftBranch("draft", message);
+}
+
+function renderDraftReviewList() {
+  const records = Object.values(draftBranches).sort(
+    (a, b) => a.week - b.week || a.day - b.day
+  );
+
+  draftReviewList.innerHTML = "";
+
+  if (records.length === 0) {
+    draftReviewList.innerHTML =
+      '<p class="editor-helper-text">No saved draft branches yet.</p>';
+    return;
+  }
+
+  records.forEach((record) => {
+    const item = document.createElement("div");
+    item.className = "draft-review-item";
+    const editorLine = `${record.editorName || "No editor name"}${
+      record.newsOrganization ? `, ${record.newsOrganization}` : ""
+    }`;
+
+    item.innerHTML = `
+      <div>
+        <strong>${escapeHtml(record.title)}</strong>
+        <p>${getDraftStatusLabel(record.status)} - ${formatDraftTime(
+      record.updatedAt
+    )}</p>
+        <p>${escapeHtml(editorLine)}</p>
+      </div>
+      <button type="button">Open Draft</button>
+    `;
+
+    item.querySelector("button").addEventListener("click", () => {
+      openDraftBranch(record.sourceGameId);
+    });
+
+    draftReviewList.appendChild(item);
+  });
+}
+
+function openDraftBranch(sourceGameId) {
+  const record = draftBranches[sourceGameId];
+  const index = activeWeekGames.findIndex((game) => getSourceGameId(game) === sourceGameId);
+
+  if (!record || index < 0) return;
+
+  activeWeekGames[index] = cloneGame(record.draft);
+  applyDraftMetadata(activeWeekGames[index], record);
+  setActiveGame(index);
+  renderEditorMeta();
+  renderGameList();
+  renderEditor();
+  renderDraftWorkflowStatus();
+}
+
+function toggleDraftReviewPanel() {
+  draftReviewPanel.hidden = !draftReviewPanel.hidden;
+
+  if (!draftReviewPanel.hidden) {
+    renderDraftReviewList();
+  }
+}
+
+async function syncRemoteDraftBranches() {
+  const config = getSupabaseDraftConfig();
+  if (!config) return;
+
+  try {
+    const response = await fetch(
+      `${config.url}/rest/v1/top_tier_drafts?select=*&order=updated_at.desc`,
+      {
+        headers: {
+          apikey: config.anonKey,
+          Authorization: `Bearer ${config.anonKey}`,
+        },
+      }
+    );
+
+    if (!response.ok) return;
+
+    const rows = await response.json();
+
+    rows.forEach((row) => {
+      if (!row.source_game_id || !row.draft) return;
+
+      draftBranches[row.source_game_id] = {
+        draftId: row.draft_id,
+        sourceGameId: row.source_game_id,
+        week: row.week,
+        day: row.day,
+        label: row.label,
+        title: `Week ${row.week}, ${row.label} - Day ${row.day}`,
+        status: row.status || "draft",
+        editorName: row.editor_name || "",
+        newsOrganization: row.news_organization || "",
+        updatedAt: row.updated_at,
+        submittedAt: row.submitted_at || "",
+        draft: row.draft,
+      };
+    });
+
+    writeDraftBranches(draftBranches);
+    applySavedDraftBranches();
+    setActiveGame(activeGameIndex);
+    renderGameList();
+    renderDraftWorkflowStatus();
+  } catch (error) {
+    console.warn("Top Tier could not load shared drafts.", error);
+  }
+}
+
 function getGameHeading(game) {
   return `Week ${game.week}, ${game.label} - Day ${game.day}`;
 }
@@ -163,6 +504,7 @@ function setActiveGame(index) {
   QUESTIONS = activeGame.questions;
   editorIndex = 0;
   renderWelcome();
+  renderDraftWorkflowStatus();
 }
 
 function renderWelcome() {
@@ -212,7 +554,9 @@ function openEditor() {
   renderEditorMeta();
   renderGameList();
   renderEditor();
+  renderDraftWorkflowStatus();
   showScreen(editorScreen);
+  syncRemoteDraftBranches();
 }
 
 function setOptionalCredit(element, text) {
@@ -244,19 +588,31 @@ function renderEditorMeta() {
 }
 
 function saveEditorMeta() {
+  const name = editorNameInput.value.trim();
+  const newsOrganization = editorOrganizationInput.value.trim();
+  const currentEditor = activeGame.editor || {};
+  const changed =
+    (currentEditor.name || "") !== name ||
+    (currentEditor.newsOrganization || "") !== newsOrganization;
+
   activeGame.editor = {
-    ...(activeGame.editor || {}),
-    name: editorNameInput.value.trim(),
-    newsOrganization: editorOrganizationInput.value.trim(),
+    ...currentEditor,
+    name,
+    newsOrganization,
   };
 
   renderWelcomeCredits();
+
+  if (changed) {
+    markDraftEdited("Autosaved editor details");
+  }
 }
 
 function renderEditorGameStatus() {
+  const draftStatus = activeGame.draftStatus || activeGame.status || "draft";
   const status =
-    activeGame.status === "final"
-      ? `Final submitted for ${getGameHeading(activeGame)}`
+    draftStatus === "submitted"
+      ? `Submitted for review: ${getGameHeading(activeGame)}`
       : `Editing draft for ${getGameHeading(activeGame)}`;
 
   editorGameStatus.textContent = `${status}. ${activeGame.theme}.`;
@@ -268,13 +624,29 @@ function renderGameList() {
   activeWeekGames.forEach((game, index) => {
     const button = document.createElement("button");
     button.type = "button";
+    const statusClass =
+      game.draftStatus === "submitted" || game.status === "submitted"
+        ? "submitted"
+        : game.draftId
+        ? "saved"
+        : game.status === "final"
+        ? "final"
+        : "";
+    const statusLabel =
+      game.draftStatus === "submitted" || game.status === "submitted"
+        ? "Review"
+        : game.draftId
+        ? "Saved draft"
+        : game.status === "final"
+        ? "Final"
+        : "Original";
     button.className = `game-list-item ${
       index === activeGameIndex ? "active" : ""
-    } ${game.status === "final" ? "final" : ""}`;
+    } ${statusClass}`;
     button.innerHTML = `
       <strong>${game.label}</strong>
       <span>Week ${game.week} - Day ${game.day} - Difficulty ${game.difficulty}</span>
-      <em>${game.status === "final" ? "Final" : "Draft"}</em>
+      <em>${statusLabel}</em>
     `;
     button.addEventListener("click", () => {
       saveEditorMeta();
@@ -283,6 +655,7 @@ function renderGameList() {
       renderEditorMeta();
       renderGameList();
       renderEditor();
+      renderDraftWorkflowStatus();
     });
     gameList.appendChild(button);
   });
@@ -819,6 +1192,15 @@ function saveEditorQuestion() {
   const question = QUESTIONS[editorIndex];
   const previousChoices = question.choices || [];
   const previousPrompt = question.prompt;
+  const before = JSON.stringify({
+    type: question.type,
+    prompt: question.prompt,
+    promptHtml: question.promptHtml || "",
+    choices: question.choices,
+    answer: question.answer,
+    explanation: question.explanation,
+    editorNotes: question.editorNotes || "",
+  });
   const selectedAnswer = editorAnswer.value;
   const selectedIndex = previousChoices.indexOf(selectedAnswer);
   const choices = editorChoices.map((input) => input.value.trim());
@@ -843,6 +1225,20 @@ function saveEditorQuestion() {
   editorSavedState.textContent = `Saved Q${question.number}`;
   renderAnswerOptions(question.answer);
   renderEditorGameStatus();
+
+  const after = JSON.stringify({
+    type: question.type,
+    prompt: question.prompt,
+    promptHtml: question.promptHtml || "",
+    choices: question.choices,
+    answer: question.answer,
+    explanation: question.explanation,
+    editorNotes: question.editorNotes || "",
+  });
+
+  if (before !== after) {
+    markDraftEdited(`Autosaved Q${question.number}`);
+  }
 }
 
 function updateEditorDraft() {
@@ -877,14 +1273,21 @@ async function copyDraftJson() {
   }
 }
 
-function submitFinal() {
+function saveDraftManually() {
   saveActiveEditorWork();
+  saveDraftBranch("draft", `Saved draft for ${getGameHeading(activeGame)}`);
+}
 
-  activeGame.status = "final";
-  activeGame.finalizedAt = new Date().toISOString();
-  finalWeekGames[activeGameIndex] = cloneGame(activeGame);
-  editorSavedState.textContent = `Submitted final for ${getGameHeading(activeGame)}`;
+function submitForReview() {
+  saveActiveEditorWork();
+  const record = saveDraftBranch(
+    "submitted",
+    `Submitted ${getGameHeading(activeGame)} for review`
+  );
 
+  finalWeekGames[activeGameIndex] = cloneGame(record.draft);
+
+  renderDraftReviewList();
   renderGameList();
   renderEditorGameStatus();
 }
@@ -902,8 +1305,10 @@ playtestDraftButton.addEventListener("click", () => {
   saveActiveEditorWork();
   startGame();
 });
+saveDraftButton.addEventListener("click", saveDraftManually);
+reviewDraftsButton.addEventListener("click", toggleDraftReviewPanel);
 copyDraftButton.addEventListener("click", copyDraftJson);
-submitFinalButton.addEventListener("click", submitFinal);
+submitFinalButton.addEventListener("click", submitForReview);
 editorNameInput.addEventListener("input", saveEditorMeta);
 editorOrganizationInput.addEventListener("input", saveEditorMeta);
 editorType.addEventListener("input", updateEditorDraft);

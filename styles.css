@@ -448,6 +448,12 @@ p {
   box-shadow: 0 10px 22px rgba(17, 19, 24, 0.055);
 }
 
+.draft-workflow-panel {
+  border-color: rgba(36, 87, 214, 0.22);
+  background: #f7faff;
+  box-shadow: 0 10px 22px rgba(36, 87, 214, 0.06);
+}
+
 .week-panel {
   gap: 14px;
 }
@@ -502,10 +508,62 @@ p {
   font-weight: 600;
 }
 
+.game-list-item.saved em {
+  color: var(--blue);
+  font-weight: 600;
+}
+
+.game-list-item.submitted em {
+  color: var(--green);
+  font-weight: 600;
+}
+
 .game-list-item:hover,
 .game-list-item.active {
   border-color: var(--blue);
   background: #eef4ff;
+}
+
+.draft-review-list {
+  display: grid;
+  gap: 10px;
+}
+
+.draft-review-item {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 12px;
+  align-items: center;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: #fbfcff;
+  padding: 12px;
+}
+
+.draft-review-item strong {
+  display: block;
+  margin-bottom: 4px;
+  font-size: 15px;
+}
+
+.draft-review-item p {
+  margin: 0;
+  color: var(--muted);
+  font-size: 12px;
+}
+
+.draft-review-item button {
+  border: 0;
+  border-radius: 8px;
+  background: var(--ink);
+  color: white;
+  padding: 10px 14px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.draft-review-item button:hover {
+  background: #303540;
 }
 
 .editor-panel label {
@@ -1384,7 +1442,8 @@ p {
 
   .editor-grid,
   .editor-row.two-columns,
-  .editor-row.four-columns {
+  .editor-row.four-columns,
+  .draft-review-item {
     grid-template-columns: 1fr;
   }
 
