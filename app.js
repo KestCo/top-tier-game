@@ -124,6 +124,7 @@ const previewDraftButton = document.getElementById("previewDraftButton");
 const playtestDraftButton = document.getElementById("playtestDraftButton");
 const saveDraftButton = document.getElementById("saveDraftButton");
 const reviewDraftsButton = document.getElementById("reviewDraftsButton");
+const workflowGuideButton = document.getElementById("workflowGuideButton");
 const copyDraftButton = document.getElementById("copyDraftButton");
 const submitFinalButton = document.getElementById("submitFinalButton");
 const playAgainButton = document.getElementById("playAgainButton");
@@ -157,6 +158,7 @@ const welcomeFocusList = document.getElementById("welcomeFocusList");
 const gameList = document.getElementById("gameList");
 const editorGameStatus = document.getElementById("editorGameStatus");
 const draftWorkflowStatus = document.getElementById("draftWorkflowStatus");
+const workflowGuidePanel = document.getElementById("workflowGuidePanel");
 const draftReviewPanel = document.getElementById("draftReviewPanel");
 const draftReviewList = document.getElementById("draftReviewList");
 const questionList = document.getElementById("questionList");
@@ -444,6 +446,14 @@ function toggleDraftReviewPanel() {
   if (!draftReviewPanel.hidden) {
     renderDraftReviewList();
   }
+}
+
+function toggleWorkflowGuide() {
+  workflowGuidePanel.hidden = !workflowGuidePanel.hidden;
+  workflowGuideButton.setAttribute(
+    "aria-expanded",
+    String(!workflowGuidePanel.hidden)
+  );
 }
 
 async function syncRemoteDraftBranches() {
@@ -1307,6 +1317,7 @@ playtestDraftButton.addEventListener("click", () => {
 });
 saveDraftButton.addEventListener("click", saveDraftManually);
 reviewDraftsButton.addEventListener("click", toggleDraftReviewPanel);
+workflowGuideButton.addEventListener("click", toggleWorkflowGuide);
 copyDraftButton.addEventListener("click", copyDraftJson);
 submitFinalButton.addEventListener("click", submitForReview);
 editorNameInput.addEventListener("input", saveEditorMeta);

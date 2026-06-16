@@ -454,6 +454,46 @@ p {
   box-shadow: 0 10px 22px rgba(36, 87, 214, 0.06);
 }
 
+.draft-workflow-heading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.workflow-guide-button {
+  border: 1px solid var(--blue);
+  border-radius: 8px;
+  background: white;
+  color: var(--blue);
+  padding: 10px 14px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.workflow-guide-button:hover {
+  background: #eef4ff;
+}
+
+.workflow-guide-panel {
+  border-top: 1px solid rgba(36, 87, 214, 0.18);
+  padding-top: 14px;
+}
+
+.workflow-guide-panel ol {
+  display: grid;
+  gap: 10px;
+  margin: 0;
+  padding-left: 20px;
+  color: var(--muted);
+  font-size: 14px;
+  line-height: 1.45;
+}
+
+.workflow-guide-panel strong {
+  color: var(--ink);
+}
+
 .week-panel {
   gap: 14px;
 }
@@ -1430,6 +1470,15 @@ p {
   .editor-header {
     align-items: stretch;
     flex-direction: column;
+  }
+
+  .draft-workflow-heading {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  .workflow-guide-button {
+    width: 100%;
   }
 
   .editor-actions {

@@ -121,9 +121,25 @@
           </header>
 
           <section class="editor-panel draft-workflow-panel">
-            <div>
-              <p class="editor-section-title">Draft Branch</p>
-              <p id="draftWorkflowStatus" class="editor-helper-text"></p>
+            <div class="draft-workflow-heading">
+              <div>
+                <p class="editor-section-title">Draft Branch</p>
+                <p id="draftWorkflowStatus" class="editor-helper-text"></p>
+              </div>
+              <button id="workflowGuideButton" class="workflow-guide-button" type="button" aria-expanded="false">
+                Workflow Guide
+              </button>
+            </div>
+
+            <div id="workflowGuidePanel" class="workflow-guide-panel" hidden>
+              <p class="editor-section-title">Editor Workflow</p>
+              <ol>
+                <li><strong>Choose a game.</strong> Pick the week and day from the game library.</li>
+                <li><strong>Edit the draft.</strong> Change the prompt, answers, explanation, or notes. Your branch autosaves as you work.</li>
+                <li><strong>Playtest it.</strong> Use Playtest Draft to feel the question flow like a player.</li>
+                <li><strong>Save or submit.</strong> Save Draft keeps it in progress. Submit for Review marks it ready.</li>
+                <li><strong>Use backup export if needed.</strong> Copy Draft JSON is there if shared saving is not connected yet.</li>
+              </ol>
             </div>
           </section>
 
