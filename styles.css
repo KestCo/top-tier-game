@@ -434,6 +434,24 @@ p {
   background: #eef4ff;
 }
 
+.question-list-item.in-progress {
+  border-color: rgba(217, 146, 0, 0.45);
+  background: #fff8e8;
+}
+
+.question-list-item.ready {
+  border-color: rgba(22, 131, 71, 0.42);
+  background: #eef8f2;
+}
+
+.question-list-item.in-progress.active,
+.question-list-item.in-progress:hover,
+.question-list-item.ready.active,
+.question-list-item.ready:hover {
+  border-color: var(--blue);
+  background: #eef4ff;
+}
+
 .editor-panel {
   display: grid;
   gap: 16px;
@@ -654,6 +672,101 @@ p {
 
 .editor-row.four-columns {
   grid-template-columns: repeat(4, minmax(0, 1fr));
+}
+
+.readiness-check-panel {
+  display: grid;
+  gap: 12px;
+  border-top: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+  padding: 16px 0;
+}
+
+.readiness-check-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px;
+}
+
+.readiness-check-item {
+  display: flex !important;
+  align-items: flex-start;
+  gap: 8px !important;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: #fbfcff;
+  padding: 10px;
+  cursor: pointer;
+}
+
+.readiness-check-item:hover {
+  border-color: rgba(22, 131, 71, 0.34);
+  background: #eef8f2;
+}
+
+.editor-panel .readiness-check-item input {
+  width: auto;
+  margin-top: 2px;
+}
+
+.editor-panel .readiness-check-item span {
+  color: var(--ink);
+  font-size: 13px;
+  font-weight: 600;
+  line-height: 1.3;
+  text-transform: none;
+}
+
+.editor-readiness-summary {
+  display: grid;
+  gap: 8px;
+  border-top: 1px solid var(--line);
+  padding-top: 14px;
+}
+
+.readiness-complete {
+  color: var(--green);
+  font-weight: 600;
+}
+
+.readiness-pending {
+  color: var(--muted);
+}
+
+.editor-readiness-summary ul {
+  display: grid;
+  gap: 8px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.editor-readiness-summary li {
+  display: grid;
+  grid-template-columns: 44px minmax(0, 1fr);
+  gap: 10px;
+  align-items: center;
+  padding: 8px 10px;
+}
+
+.editor-readiness-summary li.ready {
+  border-left: 3px solid rgba(22, 131, 71, 0.7);
+  background: #eef8f2;
+}
+
+.editor-readiness-summary li.pending {
+  border-left: 3px solid rgba(217, 146, 0, 0.75);
+  background: #fff8e8;
+}
+
+.editor-readiness-summary li strong {
+  color: var(--ink);
+  font-size: 13px;
+}
+
+.editor-readiness-summary li span {
+  color: var(--muted);
+  font-size: 13px;
 }
 
 .editor-saved-state {
@@ -1492,8 +1605,14 @@ p {
   .editor-grid,
   .editor-row.two-columns,
   .editor-row.four-columns,
+  .readiness-check-grid,
   .draft-review-item {
     grid-template-columns: 1fr;
+  }
+
+  .editor-readiness-summary li {
+    grid-template-columns: 1fr;
+    gap: 4px;
   }
 
   .question-list {

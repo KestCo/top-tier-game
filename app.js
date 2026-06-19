@@ -171,11 +171,40 @@ const editorAnswer = document.getElementById("editorAnswer");
 const editorPrompt = document.getElementById("editorPrompt");
 const editorExplanation = document.getElementById("editorExplanation");
 const editorNotes = document.getElementById("editorNotes");
+const readinessCheckInputs = Array.from(
+  document.querySelectorAll("[data-readiness-check]")
+);
+const editorReadinessSummary = document.getElementById(
+  "editorReadinessSummary"
+);
 const editorSavedState = document.getElementById("editorSavedState");
 const draftJsonOutput = document.getElementById("draftJsonOutput");
 const editorChoices = [0, 1, 2, 3].map((index) =>
   document.getElementById(`editorChoice${index}`)
 );
+
+const EDITOR_READINESS_CHECKS = [
+  {
+    key: "oneCorrectAnswer",
+    label: "Exactly one correct answer",
+  },
+  {
+    key: "wordingClear",
+    label: "Prompt wording is clear",
+  },
+  {
+    key: "difficultyFitsSlot",
+    label: "Difficulty fits this slot",
+  },
+  {
+    key: "distractorsFair",
+    label: "Distractors are fair and tempting",
+  },
+  {
+    key: "explanationReady",
+    label: "Explanation resolves the answer",
+  },
+];
 
 let state = createInitialState();
 let editorIndex = 0;
@@ -284,6 +313,87 @@ function escapeHtml(value) {
     .replace(/>/g, "&gt;")
     .replace(/"/g, "&quot;")
     .replace(/'/g, "&#039;");
+}
+
+function getQuestionReadinessChecks(question) {
+  return question.readinessChecks || {};
+}
+
+function getSelectedReadinessChecks() {
+  const checks = {};
+
+  readinessCheckInputs.forEach((input) => {
+    const key = input.dataset.readinessCheck;
+    if (key && input.checked) {
+      checks[key] = true;
+    }
+  });
+
+  return checks;
+}
+
+function getCompletedReadinessLabels(question) {
+  const checks = getQuestionReadinessChecks(question);
+
+  return EDITOR_READINESS_CHECKS.filter((check) => checks[check.key]).map(
+    (check) => check.label
+  );
+}
+
+function getMissingReadinessLabels(question) {
+  const checks = getQuestionReadinessChecks(question);
+
+  return EDITOR_READINESS_CHECKS.filter((check) => !checks[check.key]).map(
+    (check) => check.label
+  );
+}
+
+function isQuestionReady(question) {
+  return getMissingReadinessLabels(question).length === 0;
+}
+
+function renderReadinessCheckInputs(question) {
+  const checks = getQuestionReadinessChecks(question);
+
+  readinessCheckInputs.forEach((input) => {
+    input.checked = Boolean(checks[input.dataset.readinessCheck]);
+  });
+}
+
+function renderEditorReadinessSummary() {
+  const readyCount = QUESTIONS.filter(isQuestionReady).length;
+  const allReady = readyCount === QUESTIONS.length;
+
+  editorReadinessSummary.innerHTML = `
+    <p class="editor-section-title">Final Check Board</p>
+    <p class="editor-helper-text ${
+      allReady ? "readiness-complete" : "readiness-pending"
+    }">
+      ${readyCount} of ${QUESTIONS.length} questions ready. ${
+    allReady
+      ? "This game has satisfied the final checklist."
+      : "Refine the remaining questions until every check is satisfied."
+  }
+    </p>
+    <ul>
+      ${QUESTIONS.map((question) => {
+        const missing = getMissingReadinessLabels(question);
+        const ready = missing.length === 0;
+
+        return `
+          <li class="${ready ? "ready" : "pending"}">
+            <strong>Q${question.number}</strong>
+            <span>${
+              ready
+                ? "Ready"
+                : `Needs: ${escapeHtml(missing.join(", "))}`
+            }</span>
+          </li>
+        `;
+      })
+        .join("")}
+    </ul>
+  `;
 }
 
 function renderDraftWorkflowStatus() {
@@ -1145,16 +1255,29 @@ function renderResults() {
 }
 
 function renderEditor() {
-  questionList.innerHTML = "";
+  renderQuestionList();
   renderEditorGameStatus();
+  renderEditorFields();
+}
+
+function renderQuestionList() {
+  questionList.innerHTML = "";
 
   QUESTIONS.forEach((question, index) => {
     const button = document.createElement("button");
+    const completedCount = getCompletedReadinessLabels(question).length;
+    const ready = isQuestionReady(question);
     button.type = "button";
     button.className = `question-list-item ${
       index === editorIndex ? "active" : ""
-    }`;
-    button.innerHTML = `<strong>Q${question.number}</strong><span>Tier ${question.tier} - ${question.type}</span>`;
+    } ${ready ? "ready" : "in-progress"}`;
+    button.innerHTML = `<strong>Q${question.number}</strong><span>Tier ${
+      question.tier
+    } - ${escapeHtml(question.type)}${
+      ready
+        ? " - Ready"
+        : ` - ${completedCount}/${EDITOR_READINESS_CHECKS.length} checks`
+    }</span>`;
     button.addEventListener("click", () => {
       saveEditorQuestion();
       editorIndex = index;
@@ -1162,8 +1285,6 @@ function renderEditor() {
     });
     questionList.appendChild(button);
   });
-
-  renderEditorFields();
 }
 
 function renderEditorFields() {
@@ -1173,12 +1294,14 @@ function renderEditorFields() {
   editorPrompt.value = question.prompt;
   editorExplanation.value = question.explanation;
   editorNotes.value = question.editorNotes || "";
+  renderReadinessCheckInputs(question);
 
   editorChoices.forEach((input, index) => {
     input.value = question.choices[index] || "";
   });
 
   renderAnswerOptions(question.answer);
+  renderEditorReadinessSummary();
   editorSavedState.textContent = `Editing Q${question.number}, Tier ${question.tier}`;
 }
 
@@ -1210,11 +1333,13 @@ function saveEditorQuestion() {
     answer: question.answer,
     explanation: question.explanation,
     editorNotes: question.editorNotes || "",
+    readinessChecks: question.readinessChecks || {},
   });
   const selectedAnswer = editorAnswer.value;
   const selectedIndex = previousChoices.indexOf(selectedAnswer);
   const choices = editorChoices.map((input) => input.value.trim());
   const updatedPrompt = editorPrompt.value.trim();
+  const readinessChecks = getSelectedReadinessChecks();
 
   question.type = editorType.value.trim() || "Question";
   question.prompt = updatedPrompt;
@@ -1228,6 +1353,14 @@ function saveEditorQuestion() {
   question.explanation = editorExplanation.value.trim();
   question.editorNotes = editorNotes.value.trim();
 
+  if (Object.keys(readinessChecks).length > 0) {
+    question.readinessChecks = readinessChecks;
+  } else {
+    delete question.readinessChecks;
+  }
+
+  delete question.qualityFlags;
+
   if (question.promptHtml && updatedPrompt !== previousPrompt) {
     delete question.promptHtml;
   }
@@ -1235,6 +1368,8 @@ function saveEditorQuestion() {
   editorSavedState.textContent = `Saved Q${question.number}`;
   renderAnswerOptions(question.answer);
   renderEditorGameStatus();
+  renderQuestionList();
+  renderEditorReadinessSummary();
 
   const after = JSON.stringify({
     type: question.type,
@@ -1244,6 +1379,7 @@ function saveEditorQuestion() {
     answer: question.answer,
     explanation: question.explanation,
     editorNotes: question.editorNotes || "",
+    readinessChecks: question.readinessChecks || {},
   });
 
   if (before !== after) {
@@ -1327,6 +1463,9 @@ editorPrompt.addEventListener("input", saveEditorQuestion);
 editorExplanation.addEventListener("input", saveEditorQuestion);
 editorNotes.addEventListener("input", saveEditorQuestion);
 editorAnswer.addEventListener("change", saveEditorQuestion);
+readinessCheckInputs.forEach((input) =>
+  input.addEventListener("change", saveEditorQuestion)
+);
 editorChoices.forEach((input) => input.addEventListener("input", updateEditorDraft));
 logoButton.addEventListener("click", enterBriefing);
 startButton.addEventListener("click", startGame);
