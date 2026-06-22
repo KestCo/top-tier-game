@@ -606,6 +606,9 @@ async function syncRemoteDraftBranches() {
 
     rows.forEach((row) => {
       if (!row.source_game_id || !row.draft) return;
+      if (!activeWeekGames.some((game) => game.id === row.source_game_id)) {
+        return;
+      }
 
       draftBranches[row.source_game_id] = {
         draftId: row.draft_id,
