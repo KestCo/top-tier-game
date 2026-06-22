@@ -307,6 +307,8 @@ function buildDraftRecord(status = activeGame.draftStatus || "draft") {
 
 function getDraftStatusLabel(status) {
   if (status === "submitted") return "Submitted for review";
+  if (status === "publication_ready") return "Publication ready";
+  if (status === "published") return "Published";
   if (status === "needs_revision") return "Corrections needed";
   if (status === "approved") return "Approved";
   return "Draft saved";
