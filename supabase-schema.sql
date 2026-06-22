@@ -35,3 +35,5 @@ create policy "top_tier_drafts_update"
   for update
   using (true)
   with check (true);
+
+grant select, insert, update on public.top_tier_drafts to anon, authenticated;

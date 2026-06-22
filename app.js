@@ -16,15 +16,26 @@ function trackStudioEvent(eventName, payload = {}) {
 const DRAFT_STORAGE_KEY = "topTierEditorDraftBranches";
 
 function getSupabaseDraftConfig() {
-  const config = window.TOP_TIER_SUPABASE || {};
+  const draftConfig = window.TOP_TIER_SUPABASE || {};
+  const analyticsConfig = window.KestCoStudioAnalyticsConfig || {};
+  const url =
+    draftConfig.url ||
+    draftConfig.supabaseUrl ||
+    analyticsConfig.url ||
+    analyticsConfig.supabaseUrl;
+  const anonKey =
+    draftConfig.anonKey ||
+    draftConfig.supabaseAnonKey ||
+    analyticsConfig.anonKey ||
+    analyticsConfig.supabaseAnonKey;
 
-  if (!config.url || !config.anonKey) {
+  if (!url || !anonKey) {
     return null;
   }
 
   return {
-    url: config.url.replace(/\/$/, ""),
-    anonKey: config.anonKey,
+    url: String(url).replace(/\/$/, ""),
+    anonKey,
   };
 }
 
@@ -406,8 +417,11 @@ function renderDraftWorkflowStatus() {
   const remoteReady = Boolean(getSupabaseDraftConfig());
 
   if (!record) {
+    const remoteText = remoteReady
+      ? "Shared saving is connected."
+      : "Shared saving is not connected yet.";
     draftWorkflowStatus.textContent =
-      "Original puzzle loaded. Editing will create a saved draft branch.";
+      `Original puzzle loaded. Editing will create a saved draft branch. ${remoteText}`;
     return;
   }
 
