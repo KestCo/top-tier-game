@@ -23,3 +23,7 @@ For shared draft saving, create the Supabase table in `supabase-schema.sql`, the
 ## Vercel
 
 This is a plain static site. Import the GitHub repository into Vercel and use the default static-site deployment. No build command is required.
+
+## Studio Analytics
+
+`studio-analytics.js` sends privacy-light gameplay events to the shared KestCo Game Studio dashboard when `studio-analytics-config.js` has a Supabase URL and public anon key.

@@ -9,6 +9,10 @@ function cloneGame(game) {
   return JSON.parse(JSON.stringify(game));
 }
 
+function trackStudioEvent(eventName, payload = {}) {
+  window.KestCoAnalytics?.track(eventName, payload);
+}
+
 const DRAFT_STORAGE_KEY = "topTierEditorDraftBranches";
 
 function getSupabaseDraftConfig() {
@@ -223,6 +227,7 @@ function createInitialState() {
     totalCorrect: 0,
     questionStartedAt: null,
     answers: [],
+    resultsTracked: false,
   };
 }
 
@@ -667,6 +672,12 @@ function startGame() {
   showScreen(gameScreen);
   renderTierTrack();
   renderQuestion();
+  trackStudioEvent("game_started", {
+    week: activeGame.week,
+    day: activeGame.day,
+    difficulty: activeGame.difficulty,
+    game_label: activeGame.label,
+  });
 }
 
 function openEditor() {
@@ -677,6 +688,11 @@ function openEditor() {
   renderDraftWorkflowStatus();
   showScreen(editorScreen);
   syncRemoteDraftBranches();
+  trackStudioEvent("editor_opened", {
+    week: activeGame.week,
+    day: activeGame.day,
+    difficulty: activeGame.difficulty,
+  });
 }
 
 function setOptionalCredit(element, text) {
@@ -923,6 +939,18 @@ function lockAnswer(choice, timedOut) {
   };
 
   state.answers.push(answerRecord);
+  trackStudioEvent("question_answered", {
+    week: activeGame.week,
+    day: activeGame.day,
+    difficulty: activeGame.difficulty,
+    question_number: answerRecord.questionNumber,
+    tier: answerRecord.tier,
+    type: answerRecord.type,
+    correct: answerRecord.isCorrect,
+    timed_out: answerRecord.timedOut,
+    seconds_used: answerRecord.secondsUsed,
+    official: answerRecord.isOfficial,
+  });
 
   if (state.officialActive && !isCorrect) {
     state.officialActive = false;
@@ -1231,6 +1259,19 @@ function renderResults() {
   const officialCorrect = state.officialEnd
     ? state.officialEnd.questionNumber - 1
     : QUESTIONS.length;
+
+  if (!state.resultsTracked) {
+    state.resultsTracked = true;
+    trackStudioEvent("game_completed", {
+      week: activeGame.week,
+      day: activeGame.day,
+      difficulty: activeGame.difficulty,
+      official_result: resultLabel,
+      official_correct: officialCorrect,
+      total_correct: state.totalCorrect,
+      answers_count: state.answers.length,
+    });
+  }
 
   resultTitle.textContent =
     resultLabel === "Top Tier Cleared" ? "Top Tier cleared." : resultLabel;
