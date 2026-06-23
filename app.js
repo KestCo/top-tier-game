@@ -629,10 +629,16 @@ async function syncRemoteDraftBranches() {
       };
     });
 
+    const currentEditorIndex = editorIndex;
     writeDraftBranches(draftBranches);
     applySavedDraftBranches();
-    setActiveGame(activeGameIndex);
+    activeGame = activeWeekGames[activeGameIndex];
+    QUESTIONS = activeGame.questions;
+    editorIndex = Math.min(currentEditorIndex, QUESTIONS.length - 1);
+    renderWelcome();
+    renderEditorMeta();
     renderGameList();
+    renderEditor();
     renderDraftWorkflowStatus();
   } catch (error) {
     console.warn("Top Tier could not load shared drafts.", error);
