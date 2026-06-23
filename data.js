@@ -1280,12 +1280,12 @@ const TOP_TIER_WEEK_DRAFTS = [
       {
         number: 4,
         tier: 2,
-        type: "Hidden Animal",
-        prompt: "Which word hides cat inside it?",
+        type: "Hidden Word",
+        prompt: "Which of these words hides where a lion sleeps?",
         choices: ["Educate", "Window", "Garden", "Planet"],
-        answer: "Educate",
-        explanation: "Educate contains cat: edu-CAT-e.",
-        editorNotes: "Good hidden-word question with only one answer.",
+        answer: "Garden",
+        explanation: "Garden hides den, where a lion might sleep: gar-DEN.",
+        editorNotes: "Cleaner hidden-word clue with one fair answer.",
       },
       {
         number: 5,
