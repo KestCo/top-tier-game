@@ -406,7 +406,9 @@ p {
 
 .question-list-item {
   display: grid;
-  gap: 4px;
+  grid-template-columns: 16px minmax(0, 1fr);
+  gap: 10px;
+  align-items: center;
   min-height: 58px;
   padding: 10px 12px;
   border: 2px solid var(--line);
@@ -414,7 +416,7 @@ p {
   background: white;
   color: var(--ink);
   text-align: left;
-  cursor: pointer;
+  cursor: grab;
 }
 
 .question-list-item strong {
@@ -427,6 +429,42 @@ p {
   font-size: 12px;
   font-weight: 500;
 }
+
+.question-list-copy {
+  display: grid;
+  gap: 4px;
+  min-width: 0;
+  color: inherit;
+  font-size: inherit;
+  font-weight: inherit;
+}
+
+.question-drag-grip {
+  display: block;
+  width: 14px;
+  height: 34px;
+  border-radius: 7px;
+  opacity: 0.5;
+  background-image: radial-gradient(circle, #667085 1.4px, transparent 1.8px);
+  background-position: center;
+  background-size: 6px 6px;
+}
+
+.question-list-item:hover .question-drag-grip,
+.question-list-item.active .question-drag-grip,
+.question-list-item.drop-target .question-drag-grip {
+  opacity: 0.9;
+}
+
+.question-list-item:active {
+  cursor: grabbing;
+}
+
+.question-list-item.dragging {
+  opacity: 0.55;
+  transform: scale(0.99);
+}
+
 
 .question-list-item:hover,
 .question-list-item.active {
@@ -450,6 +488,14 @@ p {
 .question-list-item.ready:hover {
   border-color: var(--blue);
   background: #eef4ff;
+}
+
+.question-list-item.in-progress.drop-target,
+.question-list-item.ready.drop-target,
+.question-list-item.drop-target {
+  border-color: var(--blue);
+  background: #eef4ff;
+  box-shadow: 0 0 0 3px rgba(42, 94, 235, 0.14);
 }
 
 .editor-panel {

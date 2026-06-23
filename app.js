@@ -223,6 +223,7 @@ const EDITOR_READINESS_CHECKS = [
 
 let state = createInitialState();
 let editorIndex = 0;
+let draggedQuestionIndex = null;
 let remoteDraftSaveTimer = null;
 let latestRemoteDraftRecord = null;
 
@@ -1327,6 +1328,42 @@ function renderEditor() {
   renderEditorFields();
 }
 
+function renumberQuestions() {
+  QUESTIONS.forEach((question, index) => {
+    question.number = index + 1;
+    question.tier = getTierIndex(index) + 1;
+  });
+}
+
+function reorderQuestion(fromIndex, toIndex) {
+  if (
+    fromIndex === toIndex ||
+    fromIndex < 0 ||
+    toIndex < 0 ||
+    fromIndex >= QUESTIONS.length ||
+    toIndex >= QUESTIONS.length
+  ) {
+    return;
+  }
+
+  const [movedQuestion] = QUESTIONS.splice(fromIndex, 1);
+  QUESTIONS.splice(toIndex, 0, movedQuestion);
+  renumberQuestions();
+  activeGame.questions = QUESTIONS;
+  editorIndex = QUESTIONS.indexOf(movedQuestion);
+  markDraftEdited(`Moved ${movedQuestion.type} to Q${movedQuestion.number}`);
+  renderEditor();
+}
+
+function clearQuestionDragState() {
+  draggedQuestionIndex = null;
+  questionList
+    .querySelectorAll(".question-list-item")
+    .forEach((item) => {
+      item.classList.remove("dragging", "drop-target");
+      item.setAttribute("aria-grabbed", "false");
+    });
+}
 function renderQuestionList() {
   questionList.innerHTML = "";
 
@@ -1335,25 +1372,73 @@ function renderQuestionList() {
     const completedCount = getCompletedReadinessLabels(question).length;
     const ready = isQuestionReady(question);
     button.type = "button";
+    button.draggable = true;
+    button.dataset.questionIndex = String(index);
+    button.setAttribute("aria-grabbed", "false");
+    button.setAttribute(
+      "aria-label",
+      `Q${question.number}, Tier ${question.tier}, ${question.type}. Drag to reorder or click to edit.`
+    );
     button.className = `question-list-item ${
       index === editorIndex ? "active" : ""
     } ${ready ? "ready" : "in-progress"}`;
-    button.innerHTML = `<strong>Q${question.number}</strong><span>Tier ${
-      question.tier
-    } - ${escapeHtml(question.type)}${
+    button.innerHTML = `
+      <span class="question-drag-grip" aria-hidden="true"></span>
+      <span class="question-list-copy">
+        <strong>Q${question.number}</strong>
+        <span>Tier ${question.tier} - ${escapeHtml(question.type)}${
       ready
         ? " - Ready"
         : ` - ${completedCount}/${EDITOR_READINESS_CHECKS.length} checks`
-    }</span>`;
+    }</span>
+      </span>
+    `;
+
     button.addEventListener("click", () => {
       saveEditorQuestion();
       editorIndex = index;
       renderEditor();
     });
+
+    button.addEventListener("dragstart", (event) => {
+      draggedQuestionIndex = index;
+      button.classList.add("dragging");
+      button.setAttribute("aria-grabbed", "true");
+      event.dataTransfer.effectAllowed = "move";
+      event.dataTransfer.setData("text/plain", String(index));
+    });
+
+    button.addEventListener("dragover", (event) => {
+      if (draggedQuestionIndex === null || draggedQuestionIndex === index) return;
+      event.preventDefault();
+      event.dataTransfer.dropEffect = "move";
+      button.classList.add("drop-target");
+    });
+
+    button.addEventListener("dragleave", () => {
+      button.classList.remove("drop-target");
+    });
+
+    button.addEventListener("dragend", clearQuestionDragState);
+
+    button.addEventListener("drop", (event) => {
+      event.preventDefault();
+      const transferredIndex = Number.parseInt(
+        event.dataTransfer.getData("text/plain"),
+        10
+      );
+      const fromIndex = Number.isInteger(transferredIndex)
+        ? transferredIndex
+        : draggedQuestionIndex;
+      clearQuestionDragState();
+
+      if (!Number.isInteger(fromIndex)) return;
+      reorderQuestion(fromIndex, index);
+    });
+
     questionList.appendChild(button);
   });
 }
-
 function renderEditorFields() {
   const question = QUESTIONS[editorIndex];
 
