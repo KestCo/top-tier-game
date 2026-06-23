@@ -120,7 +120,9 @@ const initialGameIndex =
   requestedGameIndex === null ? getScheduledGameIndex() : requestedGameIndex;
 const activeWeekGames = cloneGame(TOP_TIER_WEEK_DRAFTS);
 let draftBranches = readDraftBranches();
-applySavedDraftBranches();
+if (isBackstageEditor) {
+  applySavedDraftBranches();
+}
 const finalWeekGames = Array(activeWeekGames.length).fill(null);
 let activeGameIndex = initialGameIndex;
 let activeGame = activeWeekGames[activeGameIndex];
@@ -224,6 +226,7 @@ const EDITOR_READINESS_CHECKS = [
 let state = createInitialState();
 let editorIndex = 0;
 let draggedQuestionIndex = null;
+let publishedDraftSyncPromise = null;
 let remoteDraftSaveTimer = null;
 let latestRemoteDraftRecord = null;
 
@@ -257,7 +260,7 @@ function applyDraftMetadata(game, record) {
   game.draftStatus = record.status;
   game.draftUpdatedAt = record.updatedAt;
   game.submittedAt = record.submittedAt || "";
-  game.status = record.status === "submitted" ? "submitted" : "draft";
+  game.status = record.status || game.status || "draft";
 }
 
 function applySavedDraftBranches() {
@@ -275,6 +278,86 @@ function applySavedDraftBranches() {
   });
 }
 
+function buildDraftRecordFromRemoteRow(row) {
+  return {
+    draftId: row.draft_id,
+    sourceGameId: row.source_game_id,
+    week: row.week,
+    day: row.day,
+    label: row.label,
+    title: `Week ${row.week}, ${row.label} - Day ${row.day}`,
+    status: row.status || "draft",
+    editorName: row.editor_name || "",
+    newsOrganization: row.news_organization || "",
+    updatedAt: row.updated_at,
+    submittedAt: row.submitted_at || "",
+    draft: row.draft,
+  };
+}
+
+function applyPublishedDraftRows(rows) {
+  const appliedSourceIds = new Set();
+
+  rows.forEach((row) => {
+    if (
+      row.status !== "published" ||
+      !row.source_game_id ||
+      !row.draft ||
+      appliedSourceIds.has(row.source_game_id)
+    ) {
+      return;
+    }
+
+    const index = activeWeekGames.findIndex(
+      (game) => getSourceGameId(game) === row.source_game_id || game.id === row.source_game_id
+    );
+
+    if (index < 0) return;
+
+    const record = buildDraftRecordFromRemoteRow(row);
+    activeWeekGames[index] = cloneGame(row.draft);
+    applyDraftMetadata(activeWeekGames[index], record);
+    appliedSourceIds.add(row.source_game_id);
+  });
+
+  activeGame = activeWeekGames[activeGameIndex];
+  QUESTIONS = activeGame.questions;
+}
+
+async function syncPublishedDrafts() {
+  const config = getSupabaseDraftConfig();
+  if (!config) return;
+
+  try {
+    const response = await fetch(
+      `${config.url}/rest/v1/top_tier_drafts?select=*&status=eq.published&order=updated_at.desc`,
+      {
+        headers: {
+          apikey: config.anonKey,
+          Authorization: `Bearer ${config.anonKey}`,
+        },
+      }
+    );
+
+    if (!response.ok) return;
+
+    const rows = await response.json();
+    applyPublishedDraftRows(rows);
+    renderWelcome();
+  } catch (error) {
+    console.warn("Top Tier could not load published drafts.", error);
+  }
+}
+
+function loadPublishedDraftsOnce() {
+  if (isBackstageEditor) return Promise.resolve();
+
+  if (!publishedDraftSyncPromise) {
+    publishedDraftSyncPromise = syncPublishedDrafts();
+  }
+
+  return publishedDraftSyncPromise;
+}
 function buildDraftRecord(status = activeGame.draftStatus || "draft") {
   const now = new Date().toISOString();
   const sourceGameId = getSourceGameId(activeGame);
@@ -685,7 +768,8 @@ function showScreen(screen) {
   );
 }
 
-function enterBriefing() {
+async function enterBriefing() {
+  await loadPublishedDraftsOnce();
   entryScreen.classList.add("entry-transitioning");
 
   setTimeout(() => {
@@ -694,7 +778,8 @@ function enterBriefing() {
   }, 950);
 }
 
-function startGame() {
+async function startGame() {
+  await loadPublishedDraftsOnce();
   state = createInitialState();
   showScreen(gameScreen);
   renderTierTrack();
@@ -704,6 +789,8 @@ function startGame() {
     day: activeGame.day,
     difficulty: activeGame.difficulty,
     game_label: activeGame.label,
+    source_game_id: getSourceGameId(activeGame),
+    draft_status: activeGame.draftStatus || activeGame.status || "original",
   });
 }
 
@@ -1627,6 +1714,7 @@ nextButton.addEventListener("click", goNext);
 finishButton.addEventListener("click", renderResults);
 
 renderWelcome();
+loadPublishedDraftsOnce();
 
 if (isBackstageEditor) {
   openEditor();
