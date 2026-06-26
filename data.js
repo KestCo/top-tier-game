@@ -2156,6 +2156,1406 @@ const TOP_TIER_WEEK_DRAFTS = [
       },
     ],
   },
+  {
+    "id": "top-tier-week-3-day-1-draft",
+    "title": "Top Tier",
+    "week": 3,
+    "day": 1,
+    "label": "Monday",
+    "difficulty": 1,
+    "theme": "First Switches",
+    "tagline": "12 questions. 4 tiers. 30 seconds each.",
+    "catchphrase": "Can you reach the Top Tier?",
+    "status": "draft",
+    "finalizedAt": "",
+    "editor": {
+      "name": "",
+      "newsOrganization": "",
+      "notes": ""
+    },
+    "questions": [
+      {
+        "number": 1,
+        "tier": 1,
+        "type": "Odd One Out",
+        "prompt": "Which option does not belong?",
+        "choices": [
+          "Oak",
+          "Rose",
+          "Tulip",
+          "Daisy"
+        ],
+        "answer": "Oak",
+        "explanation": "Rose, tulip, and daisy are flowers. Oak is a tree.",
+        "editorNotes": "Friendly opener with a clean category split."
+      },
+      {
+        "number": 2,
+        "tier": 1,
+        "type": "Switch Count",
+        "prompt": "Four cards show U, D, U, D. U means standing; D means sitting. Everyone switches. How many are standing now?",
+        "choices": [
+          "0",
+          "1",
+          "2",
+          "3"
+        ],
+        "answer": "2",
+        "explanation": "After the switch, the two cards that were D become U, so two are standing.",
+        "editorNotes": "Introduces the stand/sit switch idea in its simplest form."
+      },
+      {
+        "number": 3,
+        "tier": 1,
+        "type": "Word Meaning",
+        "prompt": "Which word means to speak clearly?",
+        "choices": [
+          "Murmur",
+          "Enunciate",
+          "Wander",
+          "Polish"
+        ],
+        "answer": "Enunciate",
+        "explanation": "To enunciate is to pronounce or speak words clearly.",
+        "editorNotes": "Vocabulary warm-up with nearby but not equal distractors."
+      },
+      {
+        "number": 4,
+        "tier": 2,
+        "type": "Step Pattern",
+        "prompt": "What comes next? 2, 5, 8, 11, ?",
+        "choices": [
+          "12",
+          "13",
+          "14",
+          "16"
+        ],
+        "answer": "14",
+        "explanation": "The pattern adds 3 each time: 2, 5, 8, 11, 14.",
+        "editorNotes": "Simple arithmetic step for Tier 2."
+      },
+      {
+        "number": 5,
+        "tier": 2,
+        "type": "Hidden Animal",
+        "prompt": "Which word hides cat inside it?",
+        "choices": [
+          "Delicate",
+          "Winter",
+          "Garden",
+          "Planet"
+        ],
+        "answer": "Delicate",
+        "explanation": "Delicate contains cat in consecutive letters: deli-CAT-e.",
+        "editorNotes": "Clean hidden-word question with one answer."
+      },
+      {
+        "number": 6,
+        "tier": 2,
+        "type": "Word Build",
+        "prompt": "Which build is incorrect?",
+        "choices": [
+          "S + MILE = SMILE",
+          "B + RUSH = BRUSH",
+          "C + LOCK = CLOCK",
+          "P + LANT = PLANE"
+        ],
+        "answer": "P + LANT = PLANE",
+        "explanation": "P + LANT makes plant, not plane.",
+        "editorNotes": "Early version of the picture-word build idea in text form."
+      },
+      {
+        "number": 7,
+        "tier": 3,
+        "type": "Vowel Count",
+        "prompt": "Which choice has exactly one vowel?",
+        "choices": [
+          "Flint",
+          "Marble",
+          "Ocean",
+          "Sprout"
+        ],
+        "answer": "Flint",
+        "explanation": "Flint has one vowel: i. The other choices have more than one vowel.",
+        "editorNotes": "A tidy attention-count question."
+      },
+      {
+        "number": 8,
+        "tier": 3,
+        "type": "Order Logic",
+        "prompt": "Ivy finished before Omar. Omar finished before June. Who finished last?",
+        "choices": [
+          "Ivy",
+          "Omar",
+          "June",
+          "Cannot tell"
+        ],
+        "answer": "June",
+        "explanation": "The order is Ivy, then Omar, then June, so June finished last.",
+        "editorNotes": "Straight order logic before later harder versions."
+      },
+      {
+        "number": 9,
+        "tier": 3,
+        "type": "Switch Count",
+        "prompt": "Six cards show D, U, D, D, U, U. Everyone switches. How many are standing now?",
+        "choices": [
+          "2",
+          "3",
+          "4",
+          "5"
+        ],
+        "answer": "3",
+        "explanation": "The cards that were D become U. There were three D cards, so three are standing after the switch.",
+        "editorNotes": "Reinforces the switch mechanic with a longer list."
+      },
+      {
+        "number": 10,
+        "tier": 4,
+        "type": "Must Be True",
+        "prompt": "Every ziff is a lorn. No lorns are square. What must be true?",
+        "choices": [
+          "No ziffs are square",
+          "Some lorns are ziffs",
+          "All squares are ziffs",
+          "Some ziffs are square"
+        ],
+        "answer": "No ziffs are square",
+        "explanation": "If every ziff is a lorn, and no lorns are square, then no ziffs can be square.",
+        "editorNotes": "First formal-logic final."
+      },
+      {
+        "number": 11,
+        "tier": 4,
+        "type": "Circle Switch",
+        "prompt": "Eight people are shown as U, D, D, U, D, U, D, D around a circle. Everyone switches. How many are standing now?",
+        "choices": [
+          "3",
+          "4",
+          "5",
+          "6"
+        ],
+        "answer": "5",
+        "explanation": "After the switch, everyone who was D is now U. There were five D's.",
+        "editorNotes": "Inspired by the stand/sit circle question."
+      },
+      {
+        "number": 12,
+        "tier": 4,
+        "type": "Grammar Trap",
+        "prompt": "Which sentence can mean either ownership or creation?",
+        "choices": [
+          "The poet's song filled the room",
+          "The glass is empty",
+          "The road is narrow",
+          "The bell is loud"
+        ],
+        "answer": "The poet's song filled the room",
+        "explanation": "The phrase can mean a song owned by the poet or a song written by the poet.",
+        "editorNotes": "A gentle ambiguity final."
+      }
+    ]
+  },
+  {
+    "id": "top-tier-week-3-day-2-draft",
+    "title": "Top Tier",
+    "week": 3,
+    "day": 2,
+    "label": "Tuesday",
+    "difficulty": 2,
+    "theme": "Careful Counts",
+    "tagline": "12 questions. 4 tiers. 30 seconds each.",
+    "catchphrase": "Can you reach the Top Tier?",
+    "status": "draft",
+    "finalizedAt": "",
+    "editor": {
+      "name": "",
+      "newsOrganization": "",
+      "notes": ""
+    },
+    "questions": [
+      {
+        "number": 1,
+        "tier": 1,
+        "type": "Odd One Out",
+        "prompt": "Which option does not belong?",
+        "choices": [
+          "Piano",
+          "Guitar",
+          "Drum",
+          "Easel"
+        ],
+        "answer": "Easel",
+        "explanation": "Piano, guitar, and drum are musical instruments. An easel holds art.",
+        "editorNotes": "Friendly category opener."
+      },
+      {
+        "number": 2,
+        "tier": 1,
+        "type": "Double Pattern",
+        "prompt": "What comes next? 4, 8, 16, 32, ?",
+        "choices": [
+          "40",
+          "48",
+          "60",
+          "64"
+        ],
+        "answer": "64",
+        "explanation": "Each number doubles, so 32 becomes 64.",
+        "editorNotes": "Quick confidence builder."
+      },
+      {
+        "number": 3,
+        "tier": 1,
+        "type": "Word Meaning",
+        "prompt": "Which word means to reach a conclusion from clues?",
+        "choices": [
+          "Deduce",
+          "Decorate",
+          "Delay",
+          "Divide"
+        ],
+        "answer": "Deduce",
+        "explanation": "To deduce is to figure something out from evidence or clues.",
+        "editorNotes": "Useful reasoning vocabulary."
+      },
+      {
+        "number": 4,
+        "tier": 2,
+        "type": "Compound Pair",
+        "prompt": "Which word can follow both fire and play to make common words?",
+        "choices": [
+          "House",
+          "Stone",
+          "River",
+          "Cloud"
+        ],
+        "answer": "House",
+        "explanation": "Firehouse and playhouse are both common words.",
+        "editorNotes": "Clean compound-word pair."
+      },
+      {
+        "number": 5,
+        "tier": 2,
+        "type": "Switch Count",
+        "prompt": "Six cards show D, U, D, D, U, U. Everyone switches. How many are sitting now?",
+        "choices": [
+          "2",
+          "3",
+          "4",
+          "5"
+        ],
+        "answer": "3",
+        "explanation": "After the switch, the three cards that were U become D, so three are sitting.",
+        "editorNotes": "Same mechanic, but asks for sitting instead of standing."
+      },
+      {
+        "number": 6,
+        "tier": 2,
+        "type": "Hidden Sound",
+        "prompt": "Which word hides a sound inside it?",
+        "choices": [
+          "Human",
+          "River",
+          "Cloud",
+          "Table"
+        ],
+        "answer": "Human",
+        "explanation": "Human begins with hum, which is a sound.",
+        "editorNotes": "A light hidden-signal question."
+      },
+      {
+        "number": 7,
+        "tier": 3,
+        "type": "Word Build",
+        "prompt": "Which build is incorrect?",
+        "choices": [
+          "F + LAME = FLAME",
+          "C + RANE = CRANE",
+          "T + RAIL = TRAIL",
+          "B + OAT = BOAST"
+        ],
+        "answer": "B + OAT = BOAST",
+        "explanation": "B + OAT makes boat, not boast.",
+        "editorNotes": "Text-only version of image-plus-word assembly."
+      },
+      {
+        "number": 8,
+        "tier": 3,
+        "type": "Attention Count",
+        "prompt": "In the phrase \"Tiny turtles turn twice,\" how many lowercase t's appear?",
+        "choices": [
+          "3",
+          "4",
+          "5",
+          "6"
+        ],
+        "answer": "4",
+        "explanation": "The capital T in Tiny does not count. Turtles has two lowercase t's, turn has one, and twice has one.",
+        "editorNotes": "Capital-letter trap with a fair explanation."
+      },
+      {
+        "number": 9,
+        "tier": 3,
+        "type": "Letter Shift",
+        "prompt": "If DUST becomes EVTU, what does LAMP become?",
+        "choices": [
+          "MBNQ",
+          "KZLO",
+          "MBOQ",
+          "LBNQ"
+        ],
+        "answer": "MBNQ",
+        "explanation": "Each letter moves forward one place: L-A-M-P becomes M-B-N-Q.",
+        "editorNotes": "Classic code shift."
+      },
+      {
+        "number": 10,
+        "tier": 4,
+        "type": "Probability Check",
+        "prompt": "A bag has 1 blue tile, 3 red tiles, and 2 green tiles. What is the chance of drawing blue?",
+        "choices": [
+          "1 in 2",
+          "1 in 3",
+          "1 in 4",
+          "1 in 6"
+        ],
+        "answer": "1 in 6",
+        "explanation": "There are six tiles total and one is blue, so the chance is 1 in 6.",
+        "editorNotes": "A more serious probability slot."
+      },
+      {
+        "number": 11,
+        "tier": 4,
+        "type": "Logic Trap",
+        "prompt": "All mavs are rils. Some rils are tans. Which conclusion must follow?",
+        "choices": [
+          "Some mavs are tans",
+          "No mavs are tans",
+          "All tans are mavs",
+          "No conclusion about mavs and tans"
+        ],
+        "answer": "No conclusion about mavs and tans",
+        "explanation": "The statements do not tell us whether any mavs are among the rils that are tans.",
+        "editorNotes": "Good counter-logic question."
+      },
+      {
+        "number": 12,
+        "tier": 4,
+        "type": "Letter Sum",
+        "prompt": "If TEAM = 39 by adding letter positions, what does GAME equal?",
+        "choices": [
+          "24",
+          "26",
+          "28",
+          "30"
+        ],
+        "answer": "26",
+        "explanation": "G is 7, A is 1, M is 13, and E is 5. Together they make 26.",
+        "editorNotes": "First alphabet-value final of the week."
+      }
+    ]
+  },
+  {
+    "id": "top-tier-week-3-day-3-draft",
+    "title": "Top Tier",
+    "week": 3,
+    "day": 3,
+    "label": "Wednesday",
+    "difficulty": 3,
+    "theme": "Hidden Signals",
+    "tagline": "12 questions. 4 tiers. 30 seconds each.",
+    "catchphrase": "Can you reach the Top Tier?",
+    "status": "draft",
+    "finalizedAt": "",
+    "editor": {
+      "name": "",
+      "newsOrganization": "",
+      "notes": ""
+    },
+    "questions": [
+      {
+        "number": 1,
+        "tier": 1,
+        "type": "Odd One Out",
+        "prompt": "Which option does not belong?",
+        "choices": [
+          "North",
+          "South",
+          "East",
+          "Summer"
+        ],
+        "answer": "Summer",
+        "explanation": "North, south, and east are directions. Summer is a season.",
+        "editorNotes": "Fast orientation opener."
+      },
+      {
+        "number": 2,
+        "tier": 1,
+        "type": "Step Pattern",
+        "prompt": "What comes next? 1, 5, 9, 13, ?",
+        "choices": [
+          "15",
+          "16",
+          "17",
+          "18"
+        ],
+        "answer": "17",
+        "explanation": "The pattern adds 4 each time.",
+        "editorNotes": "Clean numeric warm-up."
+      },
+      {
+        "number": 3,
+        "tier": 1,
+        "type": "Word Meaning",
+        "prompt": "Which word means to make something less intense?",
+        "choices": [
+          "Soften",
+          "Shatter",
+          "Invite",
+          "Repeat"
+        ],
+        "answer": "Soften",
+        "explanation": "To soften can mean to make something gentler, weaker, or less intense.",
+        "editorNotes": "Vocabulary with close emotional use."
+      },
+      {
+        "number": 4,
+        "tier": 2,
+        "type": "Hidden Place",
+        "prompt": "Which word hides den inside it?",
+        "choices": [
+          "Golden",
+          "Marble",
+          "Forest",
+          "Window"
+        ],
+        "answer": "Golden",
+        "explanation": "Golden contains den in consecutive letters: gol-DEN.",
+        "editorNotes": "Aha hidden-place moment."
+      },
+      {
+        "number": 5,
+        "tier": 2,
+        "type": "Switch Count",
+        "prompt": "Eight cards show D, U, D, U, U, D, D, U. Everyone switches. How many are standing now?",
+        "choices": [
+          "3",
+          "4",
+          "5",
+          "6"
+        ],
+        "answer": "4",
+        "explanation": "There were four D cards, and those become U after the switch.",
+        "editorNotes": "Medium switch count."
+      },
+      {
+        "number": 6,
+        "tier": 2,
+        "type": "Word Build",
+        "prompt": "Which build is incorrect?",
+        "choices": [
+          "C + LASH = CLASH",
+          "S + TACK = STACK",
+          "B + LADE = BLADE",
+          "F + RAME = FLAME"
+        ],
+        "answer": "F + RAME = FLAME",
+        "explanation": "F + RAME makes frame, not flame.",
+        "editorNotes": "Sharper word-build distractor."
+      },
+      {
+        "number": 7,
+        "tier": 3,
+        "type": "Letter Sum",
+        "prompt": "If CAT = 24 by adding letter positions, what does DOG equal?",
+        "choices": [
+          "24",
+          "25",
+          "26",
+          "27"
+        ],
+        "answer": "26",
+        "explanation": "D is 4, O is 15, and G is 7. The total is 26.",
+        "editorNotes": "Simple alphabet math."
+      },
+      {
+        "number": 8,
+        "tier": 3,
+        "type": "Order Logic",
+        "prompt": "Cole finished before Nia. Nia finished before Theo. Theo finished before Mara. Who finished first?",
+        "choices": [
+          "Cole",
+          "Nia",
+          "Theo",
+          "Mara"
+        ],
+        "answer": "Cole",
+        "explanation": "The order given is Cole, Nia, Theo, Mara.",
+        "editorNotes": "Longer but still direct order chain."
+      },
+      {
+        "number": 9,
+        "tier": 3,
+        "type": "Attention Count",
+        "prompt": "In the phrase \"seven clever levels,\" how many e's appear?",
+        "choices": [
+          "4",
+          "5",
+          "6",
+          "7"
+        ],
+        "answer": "6",
+        "explanation": "Seven has two e's, clever has two, and levels has two.",
+        "editorNotes": "Counting question with repeated e-heavy words."
+      },
+      {
+        "number": 10,
+        "tier": 4,
+        "type": "Prefix Trap",
+        "prompt": "Which word becomes its opposite by adding dis to the front?",
+        "choices": [
+          "Agree",
+          "Legal",
+          "Possible",
+          "Certain"
+        ],
+        "answer": "Agree",
+        "explanation": "Agree becomes disagree. The other words use different opposite-making prefixes.",
+        "editorNotes": "Keeps the prefix idea fresh without the old legal/possible answer."
+      },
+      {
+        "number": 11,
+        "tier": 4,
+        "type": "Circle Switch",
+        "prompt": "Eight people are shown as U, D, D, D, U, D, U, D around a circle. Everyone switches. How many are standing now?",
+        "choices": [
+          "4",
+          "5",
+          "6",
+          "7"
+        ],
+        "answer": "5",
+        "explanation": "The five people marked D become standing after the switch.",
+        "editorNotes": "Harder visual-count version."
+      },
+      {
+        "number": 12,
+        "tier": 4,
+        "type": "Ambiguity",
+        "prompt": "Which sentence is unclear because with the telescope could describe either person?",
+        "choices": [
+          "The guide saw the tourist with the telescope",
+          "The baker opened the shop",
+          "The river crossed the valley",
+          "The singer chose the blue coat"
+        ],
+        "answer": "The guide saw the tourist with the telescope",
+        "explanation": "The guide may have used the telescope, or the tourist may have had it.",
+        "editorNotes": "Strong grammar ambiguity final."
+      }
+    ]
+  },
+  {
+    "id": "top-tier-week-3-day-4-draft",
+    "title": "Top Tier",
+    "week": 3,
+    "day": 4,
+    "label": "Thursday",
+    "difficulty": 4,
+    "theme": "Second Looks",
+    "tagline": "12 questions. 4 tiers. 30 seconds each.",
+    "catchphrase": "Can you reach the Top Tier?",
+    "status": "draft",
+    "finalizedAt": "",
+    "editor": {
+      "name": "",
+      "newsOrganization": "",
+      "notes": ""
+    },
+    "questions": [
+      {
+        "number": 1,
+        "tier": 1,
+        "type": "Odd One Out",
+        "prompt": "Which option does not belong?",
+        "choices": [
+          "Cedar",
+          "Willow",
+          "Birch",
+          "Velvet"
+        ],
+        "answer": "Velvet",
+        "explanation": "Cedar, willow, and birch are trees. Velvet is a fabric.",
+        "editorNotes": "Simple but not childish opener."
+      },
+      {
+        "number": 2,
+        "tier": 1,
+        "type": "Growing Pattern",
+        "prompt": "What comes next? 1, 2, 4, 7, 11, ?",
+        "choices": [
+          "14",
+          "15",
+          "16",
+          "18"
+        ],
+        "answer": "16",
+        "explanation": "The differences grow by one: +1, +2, +3, +4, then +5.",
+        "editorNotes": "Ramps beyond a straight add pattern."
+      },
+      {
+        "number": 3,
+        "tier": 1,
+        "type": "Word Meaning",
+        "prompt": "Which word means to make something known publicly?",
+        "choices": [
+          "Announce",
+          "Hide",
+          "Borrow",
+          "Fold"
+        ],
+        "answer": "Announce",
+        "explanation": "To announce is to make something known or public.",
+        "editorNotes": "Direct vocabulary slot."
+      },
+      {
+        "number": 4,
+        "tier": 2,
+        "type": "Switch Count",
+        "prompt": "Ten cards show U, U, D, D, D, U, D, U, D, D. Everyone switches. How many are standing now?",
+        "choices": [
+          "4",
+          "5",
+          "6",
+          "7"
+        ],
+        "answer": "6",
+        "explanation": "The six cards marked D become U after the switch.",
+        "editorNotes": "Longer switch count for Thursday."
+      },
+      {
+        "number": 5,
+        "tier": 2,
+        "type": "Compound Pair",
+        "prompt": "Which word can follow both over and under to make common words?",
+        "choices": [
+          "Coat",
+          "Stone",
+          "Cloud",
+          "Frame"
+        ],
+        "answer": "Coat",
+        "explanation": "Overcoat and undercoat are both common words.",
+        "editorNotes": "Cleaner than line/pass because the compounds are unambiguous."
+      },
+      {
+        "number": 6,
+        "tier": 2,
+        "type": "Hidden Number",
+        "prompt": "Which word hides a number inside it?",
+        "choices": [
+          "Someone",
+          "Window",
+          "Planet",
+          "Branch"
+        ],
+        "answer": "Someone",
+        "explanation": "Someone contains one: some-ONE.",
+        "editorNotes": "Hidden-number question."
+      },
+      {
+        "number": 7,
+        "tier": 3,
+        "type": "Word Build",
+        "prompt": "Which build is incorrect?",
+        "choices": [
+          "S + LATE = SLATE",
+          "P + LANE = PLANE",
+          "C + ROWN = CROWN",
+          "B + READ = BRAIN"
+        ],
+        "answer": "B + READ = BRAIN",
+        "explanation": "B + READ makes bread, not brain.",
+        "editorNotes": "More deceptive word build."
+      },
+      {
+        "number": 8,
+        "tier": 3,
+        "type": "Alphabet Rule",
+        "prompt": "Which word has letters in alphabetical order?",
+        "choices": [
+          "Frost",
+          "Forty",
+          "Front",
+          "Frown"
+        ],
+        "answer": "Forty",
+        "explanation": "F, o, r, t, y appear in alphabetical order.",
+        "editorNotes": "Fresh alphabet-order word."
+      },
+      {
+        "number": 9,
+        "tier": 3,
+        "type": "Must Be True",
+        "prompt": "Every blue card is round. No round cards are small. What must be true?",
+        "choices": [
+          "No blue cards are small",
+          "All small cards are blue",
+          "Some round cards are small",
+          "Every card is round"
+        ],
+        "answer": "No blue cards are small",
+        "explanation": "Blue cards are round, and round cards are not small, so blue cards cannot be small.",
+        "editorNotes": "Clear formal logic."
+      },
+      {
+        "number": 10,
+        "tier": 4,
+        "type": "Letter Sum",
+        "prompt": "If BAG = 10 by adding letter positions, what does CAB equal?",
+        "choices": [
+          "5",
+          "6",
+          "7",
+          "8"
+        ],
+        "answer": "6",
+        "explanation": "C is 3, A is 1, and B is 2. The total is 6.",
+        "editorNotes": "Short but slightly tricky because the letters reorder."
+      },
+      {
+        "number": 11,
+        "tier": 4,
+        "type": "Constraint Logic",
+        "prompt": "Which option has exactly two vowels, starts with a consonant, and can be a noun or a verb?",
+        "choices": [
+          "Market",
+          "Idea",
+          "Silver",
+          "Planet"
+        ],
+        "answer": "Market",
+        "explanation": "Market has two vowels, starts with m, and can be both a noun and a verb.",
+        "editorNotes": "Good checklist-style Top Tier question."
+      },
+      {
+        "number": 12,
+        "tier": 4,
+        "type": "Sentence Trap",
+        "prompt": "Which sentence changes meaning most if only the word only moves to the front?",
+        "choices": [
+          "Mara only invited Leo",
+          "The lamp is on",
+          "The snow fell quietly",
+          "The clock struck noon"
+        ],
+        "answer": "Mara only invited Leo",
+        "explanation": "Mara only invited Leo means she invited him and did nothing else, while Only Mara invited Leo means nobody else invited him.",
+        "editorNotes": "Careful wording final."
+      }
+    ]
+  },
+  {
+    "id": "top-tier-week-3-day-5-draft",
+    "title": "Top Tier",
+    "week": 3,
+    "day": 5,
+    "label": "Friday",
+    "difficulty": 5,
+    "theme": "Sharper Turns",
+    "tagline": "12 questions. 4 tiers. 30 seconds each.",
+    "catchphrase": "Can you reach the Top Tier?",
+    "status": "draft",
+    "finalizedAt": "",
+    "editor": {
+      "name": "",
+      "newsOrganization": "",
+      "notes": ""
+    },
+    "questions": [
+      {
+        "number": 1,
+        "tier": 1,
+        "type": "Odd One Out",
+        "prompt": "Which option does not belong?",
+        "choices": [
+          "Circle",
+          "Square",
+          "Triangle",
+          "Friday"
+        ],
+        "answer": "Friday",
+        "explanation": "Circle, square, and triangle are shapes. Friday is a day.",
+        "editorNotes": "Quick Friday opener."
+      },
+      {
+        "number": 2,
+        "tier": 1,
+        "type": "Growing Pattern",
+        "prompt": "What comes next? 3, 4, 6, 9, 13, ?",
+        "choices": [
+          "16",
+          "17",
+          "18",
+          "19"
+        ],
+        "answer": "18",
+        "explanation": "The differences are +1, +2, +3, +4, so the next difference is +5.",
+        "editorNotes": "Good early Friday ramp."
+      },
+      {
+        "number": 3,
+        "tier": 1,
+        "type": "Word Meaning",
+        "prompt": "Which word means refusing to bend or change?",
+        "choices": [
+          "Rigid",
+          "Flexible",
+          "Gentle",
+          "Brief"
+        ],
+        "answer": "Rigid",
+        "explanation": "Rigid can mean stiff or unwilling to change.",
+        "editorNotes": "Accessible vocabulary with conceptual meaning."
+      },
+      {
+        "number": 4,
+        "tier": 2,
+        "type": "Switch Count",
+        "prompt": "Eight cards show D, D, U, D, U, D, D, U. Everyone switches. How many are standing now?",
+        "choices": [
+          "3",
+          "4",
+          "5",
+          "6"
+        ],
+        "answer": "5",
+        "explanation": "There were five D cards, and those become U after the switch.",
+        "editorNotes": "Friday switch count."
+      },
+      {
+        "number": 5,
+        "tier": 2,
+        "type": "Hidden Color",
+        "prompt": "Which word hides a color inside it?",
+        "choices": [
+          "Creditor",
+          "Planet",
+          "Window",
+          "Basket"
+        ],
+        "answer": "Creditor",
+        "explanation": "Creditor contains red in consecutive letters: c-RED-itor.",
+        "editorNotes": "Hidden color as an attention shift."
+      },
+      {
+        "number": 6,
+        "tier": 2,
+        "type": "Compound Pair",
+        "prompt": "Which word can follow both black and white to make common words?",
+        "choices": [
+          "Board",
+          "Stone",
+          "River",
+          "Tower"
+        ],
+        "answer": "Board",
+        "explanation": "Blackboard and whiteboard are both common words.",
+        "editorNotes": "Clean compound pair."
+      },
+      {
+        "number": 7,
+        "tier": 3,
+        "type": "Letter Shift",
+        "prompt": "If MOTH becomes NPUI, what does RAIN become?",
+        "choices": [
+          "SBJO",
+          "QZHM",
+          "SCHO",
+          "RBJO"
+        ],
+        "answer": "SBJO",
+        "explanation": "Each letter moves forward one place: R-A-I-N becomes S-B-J-O.",
+        "editorNotes": "Friday code-shift question."
+      },
+      {
+        "number": 8,
+        "tier": 3,
+        "type": "Doubled Letters",
+        "prompt": "How many doubled-letter pairs are in bookkeeper?",
+        "choices": [
+          "2",
+          "3",
+          "4",
+          "5"
+        ],
+        "answer": "3",
+        "explanation": "Bookkeeper has oo, kk, and ee: three doubled-letter pairs.",
+        "editorNotes": "Nice word-attention count."
+      },
+      {
+        "number": 9,
+        "tier": 3,
+        "type": "Order Logic",
+        "prompt": "Rae is taller than Finn. Finn is taller than Sol. Bea is shorter than Sol. Who is tallest?",
+        "choices": [
+          "Rae",
+          "Finn",
+          "Sol",
+          "Bea"
+        ],
+        "answer": "Rae",
+        "explanation": "The order is Rae, Finn, Sol, Bea from tallest to shortest.",
+        "editorNotes": "Multi-step comparison."
+      },
+      {
+        "number": 10,
+        "tier": 4,
+        "type": "Probability Check",
+        "prompt": "A bag has 1 blue tile and 3 red tiles. What is the probability of drawing blue?",
+        "choices": [
+          "66%",
+          "33%",
+          "75%",
+          "25%"
+        ],
+        "answer": "25%",
+        "explanation": "There are four tiles total and one is blue, so the chance is 1 out of 4, or 25%.",
+        "editorNotes": "Uses the user's suggested probability trap."
+      },
+      {
+        "number": 11,
+        "tier": 4,
+        "type": "Must Be True",
+        "prompt": "Every flern is a brindle. Some brindles are not cold. What must be true?",
+        "choices": [
+          "Every flern is a brindle",
+          "Some flerns are not cold",
+          "No brindles are cold",
+          "Every cold thing is a flern"
+        ],
+        "answer": "Every flern is a brindle",
+        "explanation": "That statement is given. The other statements do not necessarily follow.",
+        "editorNotes": "Counter-logic: the given statement is the only guarantee."
+      },
+      {
+        "number": 12,
+        "tier": 4,
+        "type": "Hidden Path",
+        "prompt": "Read every other letter starting with the first: S T T A O R R Y M. What word appears?",
+        "choices": [
+          "STORM",
+          "STORY",
+          "START",
+          "TORN"
+        ],
+        "answer": "STORM",
+        "explanation": "The 1st, 3rd, 5th, 7th, and 9th letters spell S-T-O-R-M.",
+        "editorNotes": "Strong Friday final with a fair extraction rule."
+      }
+    ]
+  },
+  {
+    "id": "top-tier-week-3-day-6-draft",
+    "title": "Top Tier",
+    "week": 3,
+    "day": 6,
+    "label": "Saturday",
+    "difficulty": 6,
+    "theme": "Weekend Pressure",
+    "tagline": "12 questions. 4 tiers. 30 seconds each.",
+    "catchphrase": "Can you reach the Top Tier?",
+    "status": "draft",
+    "finalizedAt": "",
+    "editor": {
+      "name": "",
+      "newsOrganization": "",
+      "notes": ""
+    },
+    "questions": [
+      {
+        "number": 1,
+        "tier": 1,
+        "type": "Odd One Out",
+        "prompt": "Which option does not belong?",
+        "choices": [
+          "Inhale",
+          "Exhale",
+          "Breathe",
+          "Lantern"
+        ],
+        "answer": "Lantern",
+        "explanation": "Inhale, exhale, and breathe are actions related to breathing. Lantern is an object.",
+        "editorNotes": "Fast weekend opener."
+      },
+      {
+        "number": 2,
+        "tier": 1,
+        "type": "Growing Pattern",
+        "prompt": "What comes next? 2, 3, 5, 8, 12, ?",
+        "choices": [
+          "15",
+          "16",
+          "17",
+          "18"
+        ],
+        "answer": "17",
+        "explanation": "The differences are +1, +2, +3, +4, so the next difference is +5.",
+        "editorNotes": "Pattern stays familiar but longer."
+      },
+      {
+        "number": 3,
+        "tier": 1,
+        "type": "Word Meaning",
+        "prompt": "Which word means to wear away gradually?",
+        "choices": [
+          "Erode",
+          "Ignite",
+          "Gather",
+          "Polish"
+        ],
+        "answer": "Erode",
+        "explanation": "To erode is to wear away gradually, often through time or pressure.",
+        "editorNotes": "Good weekend vocabulary."
+      },
+      {
+        "number": 4,
+        "tier": 2,
+        "type": "Switch Count",
+        "prompt": "Ten cards show D, U, D, D, U, D, U, D, D, U. Everyone switches. How many are standing now?",
+        "choices": [
+          "4",
+          "5",
+          "6",
+          "7"
+        ],
+        "answer": "6",
+        "explanation": "The six D cards become U after the switch.",
+        "editorNotes": "Long count with mixed positions."
+      },
+      {
+        "number": 5,
+        "tier": 2,
+        "type": "Word Build",
+        "prompt": "Which build is incorrect?",
+        "choices": [
+          "C + LUE = CLUE",
+          "B + LEND = BLEND",
+          "G + RAIN = GRAIN",
+          "S + PEAK = SPECK"
+        ],
+        "answer": "S + PEAK = SPECK",
+        "explanation": "S + PEAK makes speak, not speck.",
+        "editorNotes": "Sound-alike visual trap."
+      },
+      {
+        "number": 6,
+        "tier": 2,
+        "type": "Hidden Place",
+        "prompt": "Which word hides room inside it?",
+        "choices": [
+          "Broomstick",
+          "Lantern",
+          "Planet",
+          "River"
+        ],
+        "answer": "Broomstick",
+        "explanation": "Broomstick contains room in consecutive letters: b-ROOM-stick.",
+        "editorNotes": "Good hidden-place question."
+      },
+      {
+        "number": 7,
+        "tier": 3,
+        "type": "Letter Sum",
+        "prompt": "If EAST = 45 by adding letter positions, what does WEST equal?",
+        "choices": [
+          "61",
+          "65",
+          "67",
+          "70"
+        ],
+        "answer": "67",
+        "explanation": "W is 23, E is 5, S is 19, and T is 20. The total is 67.",
+        "editorNotes": "Letter-value climb."
+      },
+      {
+        "number": 8,
+        "tier": 3,
+        "type": "Attention Count",
+        "prompt": "In the phrase \"Start strong, stay steady,\" how many lowercase s's appear?",
+        "choices": [
+          "2",
+          "3",
+          "4",
+          "5"
+        ],
+        "answer": "3",
+        "explanation": "The capital S in Start does not count. Strong, stay, and steady each add one lowercase s.",
+        "editorNotes": "Capitalization trap."
+      },
+      {
+        "number": 9,
+        "tier": 3,
+        "type": "Logic Chain",
+        "prompt": "Some lums are nays. All nays are veks. What must be true?",
+        "choices": [
+          "Some lums are veks",
+          "All veks are lums",
+          "No lums are veks",
+          "All lums are nays"
+        ],
+        "answer": "Some lums are veks",
+        "explanation": "The lums that are nays must also be veks because all nays are veks.",
+        "editorNotes": "Harder formal logic."
+      },
+      {
+        "number": 10,
+        "tier": 4,
+        "type": "Code Constraint",
+        "prompt": "Which code has a Roman numeral, an odd digit, and a compass direction?",
+        "choices": [
+          "IV-7-East",
+          "AB-8-West",
+          "VX-4-Table",
+          "MO-2-North"
+        ],
+        "answer": "IV-7-East",
+        "explanation": "IV is a Roman numeral, 7 is odd, and East is a compass direction.",
+        "editorNotes": "Checklist logic with traps."
+      },
+      {
+        "number": 11,
+        "tier": 4,
+        "type": "Letter Sum",
+        "prompt": "If TEAM = 39 by adding letter positions, what does TIER equal?",
+        "choices": [
+          "46",
+          "50",
+          "52",
+          "56"
+        ],
+        "answer": "52",
+        "explanation": "T is 20, I is 9, E is 5, and R is 18. The total is 52.",
+        "editorNotes": "Uses the game's name as a Top Tier calculation."
+      },
+      {
+        "number": 12,
+        "tier": 4,
+        "type": "Hidden Letters",
+        "prompt": "Read the capital letter hidden inside each word: sCale fLight brIght caMera taBle. What word appears?",
+        "choices": [
+          "CLIMB",
+          "CLAIM",
+          "BLIMP",
+          "LIMBO"
+        ],
+        "answer": "CLIMB",
+        "explanation": "The hidden capital letters are C, L, I, M, and B.",
+        "editorNotes": "Visual extraction final with a Top Tier phrase."
+      }
+    ]
+  },
+  {
+    "id": "top-tier-week-3-day-7-draft",
+    "title": "Top Tier",
+    "week": 3,
+    "day": 7,
+    "label": "Sunday",
+    "difficulty": 7,
+    "theme": "Top Tier Tricks",
+    "tagline": "12 questions. 4 tiers. 30 seconds each.",
+    "catchphrase": "Can you reach the Top Tier?",
+    "status": "draft",
+    "finalizedAt": "",
+    "editor": {
+      "name": "",
+      "newsOrganization": "",
+      "notes": ""
+    },
+    "questions": [
+      {
+        "number": 1,
+        "tier": 1,
+        "type": "Odd One Out",
+        "prompt": "Which option does not belong?",
+        "choices": [
+          "Comet",
+          "Asteroid",
+          "Meteor",
+          "Compass"
+        ],
+        "answer": "Compass",
+        "explanation": "Comets, asteroids, and meteors are objects associated with space. A compass is a navigation tool.",
+        "editorNotes": "Fresh Sunday opener before the harder climb."
+      },
+      {
+        "number": 2,
+        "tier": 1,
+        "type": "Pattern Jump",
+        "prompt": "What comes next? 1, 4, 10, 19, 31, ?",
+        "choices": [
+          "43",
+          "45",
+          "46",
+          "49"
+        ],
+        "answer": "46",
+        "explanation": "The differences are +3, +6, +9, +12, so the next difference is +15.",
+        "editorNotes": "Harder difference pattern."
+      },
+      {
+        "number": 3,
+        "tier": 1,
+        "type": "Word Meaning",
+        "prompt": "Which word means to hint indirectly?",
+        "choices": [
+          "Allude",
+          "Elude",
+          "Exude",
+          "Include"
+        ],
+        "answer": "Allude",
+        "explanation": "To allude is to refer to something indirectly.",
+        "editorNotes": "Good Sunday vocabulary; allude/elude trap."
+      },
+      {
+        "number": 4,
+        "tier": 2,
+        "type": "Switch Count",
+        "prompt": "Twelve cards show U, D, D, D, U, D, U, D, D, U, D, U. Everyone switches. How many are standing now?",
+        "choices": [
+          "5",
+          "6",
+          "7",
+          "8"
+        ],
+        "answer": "7",
+        "explanation": "There were seven D cards, and those become U after the switch.",
+        "editorNotes": "Hardest straight switch count."
+      },
+      {
+        "number": 5,
+        "tier": 2,
+        "type": "Hidden Body Part",
+        "prompt": "Which word hides a body part inside it?",
+        "choices": [
+          "Search",
+          "Puzzle",
+          "Mountain",
+          "Bright"
+        ],
+        "answer": "Search",
+        "explanation": "Search contains ear in consecutive letters: s-EAR-ch.",
+        "editorNotes": "Hidden-word clue with a body-part twist."
+      },
+      {
+        "number": 6,
+        "tier": 2,
+        "type": "Word Build",
+        "prompt": "Which build is incorrect?",
+        "choices": [
+          "C + OUNT = COUNT",
+          "F + LOUR = FLOUR",
+          "S + CENT = SCENT",
+          "B + RIGHT = BRIDGE"
+        ],
+        "answer": "B + RIGHT = BRIDGE",
+        "explanation": "B + RIGHT makes bright, not bridge.",
+        "editorNotes": "Good high-pressure word-build trap."
+      },
+      {
+        "number": 7,
+        "tier": 3,
+        "type": "Letter Sum",
+        "prompt": "If LOGIC = 46 by adding letter positions, what does BRAIN equal?",
+        "choices": [
+          "40",
+          "42",
+          "44",
+          "46"
+        ],
+        "answer": "44",
+        "explanation": "B is 2, R is 18, A is 1, I is 9, and N is 14. The total is 44.",
+        "editorNotes": "Longer alphabet-value calculation."
+      },
+      {
+        "number": 8,
+        "tier": 3,
+        "type": "Must Be True",
+        "prompt": "All raths are meens. No meens are dols. Some nids are raths. What must be true?",
+        "choices": [
+          "Some nids are not dols",
+          "All nids are dols",
+          "No raths are meens",
+          "Some dols are raths"
+        ],
+        "answer": "Some nids are not dols",
+        "explanation": "Some nids are raths, all raths are meens, and no meens are dols. So those nids are not dols.",
+        "editorNotes": "Strong multi-step logic."
+      },
+      {
+        "number": 9,
+        "tier": 3,
+        "type": "Hidden Number",
+        "prompt": "Which word hides the number ten when spoken aloud?",
+        "choices": [
+          "Attend",
+          "Window",
+          "Marble",
+          "Planet"
+        ],
+        "answer": "Attend",
+        "explanation": "Attend begins with a sound like a ten: a-TEN-d.",
+        "editorNotes": "Sound-based hidden number."
+      },
+      {
+        "number": 10,
+        "tier": 4,
+        "type": "Extraction",
+        "prompt": "Read the letters after each dash: A-T, B-I, C-E, D-R. What word appears?",
+        "choices": [
+          "TIER",
+          "TIRE",
+          "TRIE",
+          "RITE"
+        ],
+        "answer": "TIER",
+        "explanation": "The letters after the dashes are T, I, E, and R.",
+        "editorNotes": "Simple-looking but timer-friendly extraction."
+      },
+      {
+        "number": 11,
+        "tier": 4,
+        "type": "Constraint Logic",
+        "prompt": "Which option has a hidden number word, exactly two vowels, and starts with a consonant?",
+        "choices": [
+          "Stone",
+          "Alone",
+          "Idea",
+          "Branch"
+        ],
+        "answer": "Stone",
+        "explanation": "Stone hides one, has two vowels, and starts with s, a consonant.",
+        "editorNotes": "Checklist final with several tempting misses."
+      },
+      {
+        "number": 12,
+        "tier": 4,
+        "type": "Circle Switch",
+        "prompt": "Before a switch, twelve people are U, D, D, U, D, D, U, U, D, D, D, U. After everyone switches, which statement is true?",
+        "choices": [
+          "7 are standing and 5 are sitting",
+          "5 are standing and 7 are sitting",
+          "6 are standing and 6 are sitting",
+          "8 are standing and 4 are sitting"
+        ],
+        "answer": "7 are standing and 5 are sitting",
+        "explanation": "There were seven D's before the switch, so seven people are standing after it. The five U's become sitting.",
+        "editorNotes": "Inspired by the circle-switch question, but asks for the final state."
+      }
+    ]
+  }
 ];
 
 const TOP_TIER_DRAFT_GAME = TOP_TIER_WEEK_DRAFTS[0];
