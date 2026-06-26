@@ -173,6 +173,7 @@ const organizationCredit = document.getElementById("organizationCredit");
 const welcomePrompt = document.getElementById("welcomePrompt");
 const welcomeFocusList = document.getElementById("welcomeFocusList");
 const gameList = document.getElementById("gameList");
+const editorWeekSelect = document.getElementById("editorWeekSelect");
 const editorGameStatus = document.getElementById("editorGameStatus");
 const draftWorkflowStatus = document.getElementById("draftWorkflowStatus");
 const workflowGuidePanel = document.getElementById("workflowGuidePanel");
@@ -243,6 +244,7 @@ function createInitialState() {
     questionStartedAt: null,
     answers: [],
     resultsTracked: false,
+    returnToEditorOnComplete: false,
   };
 }
 
@@ -778,9 +780,10 @@ async function enterBriefing() {
   }, 950);
 }
 
-async function startGame() {
+async function startGame(options = {}) {
   await loadPublishedDraftsOnce();
   state = createInitialState();
+  state.returnToEditorOnComplete = Boolean(options.returnToEditorOnComplete);
   showScreen(gameScreen);
   renderTierTrack();
   renderQuestion();
@@ -868,39 +871,74 @@ function renderEditorGameStatus() {
   editorGameStatus.textContent = `${status}. ${activeGame.theme}.`;
 }
 
+function getAvailableEditorWeeks() {
+  return [...new Set(activeWeekGames.map((game) => game.week))].sort(
+    (a, b) => a - b
+  );
+}
+
+function getEditorWeekGames(week) {
+  return activeWeekGames
+    .map((game, index) => ({ game, index }))
+    .filter((entry) => entry.game.week === week)
+    .sort((a, b) => a.game.day - b.game.day);
+}
+
+function renderEditorWeekSelect() {
+  if (!editorWeekSelect) return;
+
+  const currentWeek = activeGame.week;
+  editorWeekSelect.innerHTML = "";
+
+  getAvailableEditorWeeks().forEach((week) => {
+    const option = document.createElement("option");
+    option.value = String(week);
+    option.textContent = `Week ${week}`;
+    editorWeekSelect.appendChild(option);
+  });
+
+  editorWeekSelect.value = String(currentWeek);
+}
+
+function getGameStatusClass(game) {
+  return game.draftStatus === "submitted" || game.status === "submitted"
+    ? "submitted"
+    : game.draftId
+    ? "saved"
+    : game.status === "final"
+    ? "final"
+    : "";
+}
+
+function getGameStatusLabel(game) {
+  return game.draftStatus === "submitted" || game.status === "submitted"
+    ? "Review"
+    : game.draftId
+    ? "Saved draft"
+    : game.status === "final"
+    ? "Final"
+    : "Original";
+}
+
 function renderGameList() {
   gameList.innerHTML = "";
+  renderEditorWeekSelect();
 
-  activeWeekGames.forEach((game, index) => {
+  getEditorWeekGames(activeGame.week).forEach(({ game, index }) => {
     const button = document.createElement("button");
     button.type = "button";
-    const statusClass =
-      game.draftStatus === "submitted" || game.status === "submitted"
-        ? "submitted"
-        : game.draftId
-        ? "saved"
-        : game.status === "final"
-        ? "final"
-        : "";
-    const statusLabel =
-      game.draftStatus === "submitted" || game.status === "submitted"
-        ? "Review"
-        : game.draftId
-        ? "Saved draft"
-        : game.status === "final"
-        ? "Final"
-        : "Original";
+    const statusClass = getGameStatusClass(game);
+    const statusLabel = getGameStatusLabel(game);
     button.className = `game-list-item ${
       index === activeGameIndex ? "active" : ""
     } ${statusClass}`;
     button.innerHTML = `
       <strong>${game.label}</strong>
-      <span>Week ${game.week} - Day ${game.day} - Difficulty ${game.difficulty}</span>
+      <span>Day ${game.day} - Difficulty ${game.difficulty}</span>
       <em>${statusLabel}</em>
     `;
     button.addEventListener("click", () => {
-      saveEditorMeta();
-      saveEditorQuestion();
+      saveActiveEditorWork();
       setActiveGame(index);
       renderEditorMeta();
       renderGameList();
@@ -911,6 +949,21 @@ function renderGameList() {
   });
 
   renderEditorGameStatus();
+}
+
+function handleEditorWeekChange() {
+  if (!editorWeekSelect) return;
+
+  const selectedWeek = Number(editorWeekSelect.value);
+  const firstGameForWeek = getEditorWeekGames(selectedWeek)[0];
+  if (!firstGameForWeek) return;
+
+  saveActiveEditorWork();
+  setActiveGame(firstGameForWeek.index);
+  renderEditorMeta();
+  renderGameList();
+  renderEditor();
+  renderDraftWorkflowStatus();
 }
 
 function renderTierTrack() {
@@ -935,7 +988,11 @@ function renderQuestion() {
   state.questionStartedAt = Date.now();
 
   renderTierTrack();
-  modeLabel.textContent = state.officialActive ? "Official Run" : "Practice Finish";
+  modeLabel.textContent = state.returnToEditorOnComplete
+    ? "Playtest Draft"
+    : state.officialActive
+    ? "Official Run"
+    : "Practice Finish";
   questionCounter.textContent = `Question ${state.index + 1} of ${QUESTIONS.length}`;
   tierLabel.textContent = `Tier ${getTierIndex(state.index) + 1}: ${getTierName(
     state.index
@@ -1387,6 +1444,12 @@ function renderResults() {
     });
   }
 
+  if (state.returnToEditorOnComplete) {
+    openEditor();
+    editorSavedState.textContent = `Returned from playtest for ${getGameHeading(activeGame)}`;
+    return;
+  }
+
   resultTitle.textContent =
     resultLabel === "Top Tier Cleared" ? "Top Tier cleared." : resultLabel;
   resultSubtitle.textContent =
@@ -1688,7 +1751,7 @@ backToBriefingButton.addEventListener("click", () => {
 previewDraftButton.addEventListener("click", previewDraft);
 playtestDraftButton.addEventListener("click", () => {
   saveActiveEditorWork();
-  startGame();
+  startGame({ returnToEditorOnComplete: true });
 });
 saveDraftButton.addEventListener("click", saveDraftManually);
 reviewDraftsButton.addEventListener("click", toggleDraftReviewPanel);
@@ -1697,6 +1760,9 @@ copyDraftButton.addEventListener("click", copyDraftJson);
 submitFinalButton.addEventListener("click", submitForReview);
 editorNameInput.addEventListener("input", saveEditorMeta);
 editorOrganizationInput.addEventListener("input", saveEditorMeta);
+if (editorWeekSelect) {
+  editorWeekSelect.addEventListener("change", handleEditorWeekChange);
+}
 editorType.addEventListener("input", updateEditorDraft);
 editorPrompt.addEventListener("input", saveEditorQuestion);
 editorExplanation.addEventListener("input", saveEditorQuestion);
@@ -1708,7 +1774,14 @@ readinessCheckInputs.forEach((input) =>
 editorChoices.forEach((input) => input.addEventListener("input", updateEditorDraft));
 logoButton.addEventListener("click", enterBriefing);
 startButton.addEventListener("click", startGame);
-playAgainButton.addEventListener("click", startGame);
+playAgainButton.addEventListener("click", () => {
+  if (state.returnToEditorOnComplete) {
+    openEditor();
+    return;
+  }
+
+  startGame();
+});
 submitAnswerButton.addEventListener("click", submitSelectedAnswer);
 nextButton.addEventListener("click", goNext);
 finishButton.addEventListener("click", renderResults);

@@ -146,12 +146,19 @@
           </section>
 
           <section class="editor-panel week-panel">
-            <div>
-              <p class="editor-section-title">Game Library</p>
-              <p id="editorGameStatus" class="editor-helper-text"></p>
+            <div class="game-library-heading">
+              <div>
+                <p class="editor-section-title">Game Library</p>
+                <p id="editorGameStatus" class="editor-helper-text"></p>
+              </div>
+
+              <label class="week-picker">
+                <span>Week</span>
+                <select id="editorWeekSelect"></select>
+              </label>
             </div>
 
-            <nav id="gameList" class="game-list" aria-label="Week games"></nav>
+            <nav id="gameList" class="game-list" aria-label="Week days"></nav>
           </section>
 
           <section class="editor-panel editor-meta-panel">

@@ -2174,8 +2174,24 @@ const TOP_TIER_WEEK_DRAFTS = [
       "notes": ""
     },
     "questions": [
-      {
+{
         "number": 1,
+        "tier": 1,
+        "type": "Animal Equation",
+        "prompt": "What animal is made by this word equation? GOAL - L + T = ?",
+        "promptHtml": "<span class=\"rebus-question\">What animal is made by this word equation?</span><span class=\"rebus-clue\" aria-label=\"GOAL minus L plus T equals question mark\"><span class=\"rebus-letter\">GOAL</span><span class=\"rebus-plus\">- L</span><span class=\"rebus-plus\">+ T</span><span class=\"rebus-plus\">= ?</span></span>",
+        "choices": [
+          "Goat",
+          "Gnat",
+          "Colt",
+          "Toad"
+        ],
+        "answer": "Goat",
+        "explanation": "GOAL minus L leaves GOA. Add T to make GOAT.",
+        "editorNotes": "Replaces a repeated flip-card question with an animal word-equation puzzle."
+      },
+{
+        "number": 2,
         "tier": 1,
         "type": "Odd One Out",
         "prompt": "Which option does not belong?",
@@ -2189,11 +2205,11 @@ const TOP_TIER_WEEK_DRAFTS = [
         "explanation": "Cotton, silk, and linen are materials used for fabric. A hammer is a tool.",
         "editorNotes": "Fresh opener that avoids repeating the tree/flower split."
       },
-      {
-        "number": 2,
+{
+        "number": 3,
         "tier": 1,
-        "type": "Switch Count",
-        "prompt": "Four cards show U, D, U, D. U means standing; D means sitting. Everyone switches. How many are standing now?",
+        "type": "Flip Count",
+        "prompt": "Four cards show U, D, U, D. U means face up; D means face down. Every card is flipped. How many are face up now?",
         "choices": [
           "0",
           "1",
@@ -2201,12 +2217,12 @@ const TOP_TIER_WEEK_DRAFTS = [
           "3"
         ],
         "answer": "2",
-        "explanation": "After the switch, the two cards that were D become U, so two are standing.",
-        "editorNotes": "Introduces the stand/sit switch idea in its simplest form."
+        "explanation": "After the flip, the two D cards become face up, so two cards are face up.",
+        "editorNotes": "Introduces the face-up/face-down flip idea in its simplest form."
       },
-      {
-        "number": 3,
-        "tier": 1,
+{
+        "number": 4,
+        "tier": 2,
         "type": "Word Meaning",
         "prompt": "Which word means to speak clearly?",
         "choices": [
@@ -2219,8 +2235,8 @@ const TOP_TIER_WEEK_DRAFTS = [
         "explanation": "To enunciate is to pronounce or speak words clearly.",
         "editorNotes": "Vocabulary warm-up with nearby but not equal distractors."
       },
-      {
-        "number": 4,
+{
+        "number": 5,
         "tier": 2,
         "type": "Step Pattern",
         "prompt": "What comes next? 2, 5, 8, 11, ?",
@@ -2234,24 +2250,24 @@ const TOP_TIER_WEEK_DRAFTS = [
         "explanation": "The pattern adds 3 each time: 2, 5, 8, 11, 14.",
         "editorNotes": "Simple arithmetic step for Tier 2."
       },
-      {
-        "number": 5,
-        "tier": 2,
-        "type": "Hidden Object",
-        "prompt": "Which word hides pen inside it?",
-        "choices": [
-          "Openly",
-          "Winter",
-          "Garden",
-          "Planet"
-        ],
-        "answer": "Openly",
-        "explanation": "Openly contains pen in consecutive letters: o-PEN-ly.",
-        "editorNotes": "Replaces the hidden-cat pattern from earlier weeks."
-      },
-      {
+{
         "number": 6,
         "tier": 2,
+        "type": "Hidden Art Material",
+        "prompt": "Which word has an art material inside of it?",
+        "choices": [
+          "Thinking",
+          "Meadow",
+          "Lantern",
+          "Puzzle"
+        ],
+        "answer": "Thinking",
+        "explanation": "Thinking contains ink in consecutive letters: th-INK-ing.",
+        "editorNotes": "Uses a broader art-material clue so players have to search for the hidden supply."
+      },
+{
+        "number": 7,
+        "tier": 3,
         "type": "Word Build",
         "prompt": "Which build is incorrect?",
         "choices": [
@@ -2264,8 +2280,8 @@ const TOP_TIER_WEEK_DRAFTS = [
         "explanation": "P + LANT makes plant, not plane.",
         "editorNotes": "Early version of the picture-word build idea in text form."
       },
-      {
-        "number": 7,
+{
+        "number": 8,
         "tier": 3,
         "type": "Vowel Count",
         "prompt": "Which choice has exactly one vowel?",
@@ -2279,8 +2295,8 @@ const TOP_TIER_WEEK_DRAFTS = [
         "explanation": "Flint has one vowel: i. The other choices have more than one vowel.",
         "editorNotes": "A tidy attention-count question."
       },
-      {
-        "number": 8,
+{
+        "number": 9,
         "tier": 3,
         "type": "Order Logic",
         "prompt": "Ivy finished before Omar. Omar finished before June. Who finished last?",
@@ -2294,22 +2310,7 @@ const TOP_TIER_WEEK_DRAFTS = [
         "explanation": "The order is Ivy, then Omar, then June, so June finished last.",
         "editorNotes": "Straight order logic before later harder versions."
       },
-      {
-        "number": 9,
-        "tier": 3,
-        "type": "Switch Count",
-        "prompt": "Six cards show D, U, D, D, U, U. Everyone switches. How many are standing now?",
-        "choices": [
-          "2",
-          "3",
-          "4",
-          "5"
-        ],
-        "answer": "3",
-        "explanation": "The cards that were D become U. There were three D cards, so three are standing after the switch.",
-        "editorNotes": "Reinforces the switch mechanic with a longer list."
-      },
-      {
+{
         "number": 10,
         "tier": 4,
         "type": "Must Be True",
@@ -2324,22 +2325,22 @@ const TOP_TIER_WEEK_DRAFTS = [
         "explanation": "If every ziff is a lorn, and no lorns are square, then no ziffs can be square.",
         "editorNotes": "First formal-logic final."
       },
-      {
+{
         "number": 11,
         "tier": 4,
-        "type": "Circle Switch",
-        "prompt": "Eight people are shown as U, D, D, U, D, U, D, D around a circle. Everyone switches. How many are standing now?",
+        "type": "Letter Removal",
+        "prompt": "Which word becomes a common word after removing its first and last letters?",
         "choices": [
-          "3",
-          "4",
-          "5",
-          "6"
+          "Crown",
+          "Lantern",
+          "Pebble",
+          "Harvest"
         ],
-        "answer": "5",
-        "explanation": "After the switch, everyone who was D is now U. There were five D's.",
-        "editorNotes": "Inspired by the stand/sit circle question."
+        "answer": "Crown",
+        "explanation": "Crown without its first and last letters leaves row, which is a common word.",
+        "editorNotes": "Replaces the circle-flip repeat with a compact letter-removal puzzle."
       },
-      {
+{
         "number": 12,
         "tier": 4,
         "type": "Letter Move",
@@ -2437,8 +2438,8 @@ const TOP_TIER_WEEK_DRAFTS = [
       {
         "number": 5,
         "tier": 2,
-        "type": "Switch Count",
-        "prompt": "Six cards show D, U, D, D, U, U. Everyone switches. How many are sitting now?",
+        "type": "Flip Count",
+        "prompt": "Six cards show D, U, D, D, U, U. U means face up; D means face down. Every card is flipped. How many are face down now?",
         "choices": [
           "2",
           "3",
@@ -2446,23 +2447,24 @@ const TOP_TIER_WEEK_DRAFTS = [
           "5"
         ],
         "answer": "3",
-        "explanation": "After the switch, the three cards that were U become D, so three are sitting.",
-        "editorNotes": "Same mechanic, but asks for sitting instead of standing."
+        "explanation": "After the flip, the three U cards become face down.",
+        "editorNotes": "Same mechanic, but asks for face-down cards instead of face-up cards."
       },
       {
         "number": 6,
         "tier": 2,
-        "type": "Hidden Note",
-        "prompt": "Which word hides the musical note do inside it?",
+        "type": "Color Path",
+        "prompt": "What color word replaces the question mark? RED -> ORANGE -> YELLOW -> ? -> BLUE -> INDIGO -> VIOLET",
+        "promptHtml": "<span class=\"color-path-question\">What color word replaces the question mark?</span><span class=\"color-path\" aria-label=\"RED to ORANGE to YELLOW to question mark to BLUE to INDIGO to VIOLET\"><span class=\"color-tile red\">RED</span><span class=\"color-arrow\">&rarr;</span><span class=\"color-tile orange\">ORANGE</span><span class=\"color-arrow\">&rarr;</span><span class=\"color-tile yellow\">YELLOW</span><span class=\"color-arrow\">&rarr;</span><span class=\"color-tile mystery\">?</span><span class=\"color-arrow\">&rarr;</span><span class=\"color-tile blue\">BLUE</span><span class=\"color-arrow\">&rarr;</span><span class=\"color-tile indigo\">INDIGO</span><span class=\"color-arrow\">&rarr;</span><span class=\"color-tile violet\">VIOLET</span></span>",
         "choices": [
-          "Donate",
-          "River",
-          "Brick",
-          "Table"
+          "Green",
+          "Purple",
+          "Black",
+          "Grey"
         ],
-        "answer": "Donate",
-        "explanation": "Donate begins with do, a musical note.",
-        "editorNotes": "Replaces a hidden-sound clue that felt too close to prior weeks."
+        "answer": "Green",
+        "explanation": "The path follows rainbow order: red, orange, yellow, green, blue, indigo, violet.",
+        "editorNotes": "Replaces the hidden-note clue with a visual color-path pattern."
       },
       {
         "number": 7,
@@ -2497,21 +2499,6 @@ const TOP_TIER_WEEK_DRAFTS = [
       {
         "number": 9,
         "tier": 3,
-        "type": "Letter Shift",
-        "prompt": "If DUST becomes EVTU, what does LAMP become?",
-        "choices": [
-          "MBNQ",
-          "KZLO",
-          "MBOQ",
-          "LBNQ"
-        ],
-        "answer": "MBNQ",
-        "explanation": "Each letter moves forward one place: L-A-M-P becomes M-B-N-Q.",
-        "editorNotes": "Classic code shift."
-      },
-      {
-        "number": 10,
-        "tier": 4,
         "type": "Probability Check",
         "prompt": "A spinner has 8 equal sections: 3 blue, 3 red, and 2 yellow. What is the chance of landing on yellow?",
         "choices": [
@@ -2525,19 +2512,34 @@ const TOP_TIER_WEEK_DRAFTS = [
         "editorNotes": "Keeps probability but avoids the repeated one-blue-three-red tile setup."
       },
       {
+        "number": 10,
+        "tier": 4,
+        "type": "Shape Rule",
+        "prompt": "Lee always paints exactly one circle, never paints squares, and always paints exactly four triangles. Which painting could be Lee's?",
+        "choices": [
+          "One circle, four triangles, no squares",
+          "One circle, four triangles, one square",
+          "One circle, three triangles, no squares",
+          "Four triangles, no circle, no squares"
+        ],
+        "answer": "One circle, four triangles, no squares",
+        "explanation": "The correct painting has exactly one circle, exactly four triangles, and no squares.",
+        "editorNotes": "Text version of a visual shape-constraint question."
+      },
+      {
         "number": 11,
         "tier": 4,
-        "type": "Logic Trap",
-        "prompt": "All mavs are rils. Some rils are tans. Which conclusion must follow?",
+        "type": "Endpoint Shift",
+        "prompt": "Change the first letter to the next alphabet letter and the last letter to the previous alphabet letter. Which choice becomes another common word?",
         "choices": [
-          "Some mavs are tans",
-          "No mavs are tans",
-          "All tans are mavs",
-          "No conclusion about mavs and tans"
+          "Line",
+          "Lake",
+          "Card",
+          "Pine"
         ],
-        "answer": "No conclusion about mavs and tans",
-        "explanation": "The statements do not tell us whether any mavs are among the rils that are tans.",
-        "editorNotes": "Good counter-logic question."
+        "answer": "Line",
+        "explanation": "Line becomes mind: l moves forward to m, e moves back to d, and the middle letters stay in place.",
+        "editorNotes": "Fresh letter-rule variation; only the endpoints change."
       },
       {
         "number": 12,
@@ -2622,23 +2624,53 @@ const TOP_TIER_WEEK_DRAFTS = [
       {
         "number": 4,
         "tier": 2,
-        "type": "Hidden Place",
-        "prompt": "Which word hides den inside it?",
+        "type": "Prefix Pair",
+        "prompt": "What two letters can be placed in front of all five word pieces to make five common words? __AVE  __ICK  __USH  __EAD  __ING",
         "choices": [
-          "Golden",
-          "Marble",
-          "Forest",
-          "Window"
+          "BR",
+          "CR",
+          "DR",
+          "TR"
         ],
-        "answer": "Golden",
-        "explanation": "Golden contains den in consecutive letters: gol-DEN.",
-        "editorNotes": "Aha hidden-place moment."
+        "answer": "BR",
+        "explanation": "BR makes brave, brick, brush, bread, and bring.",
+        "editorNotes": "Fresh two-letter prefix puzzle; only one pair completes all five words."
       },
       {
         "number": 5,
         "tier": 2,
-        "type": "Switch Count",
-        "prompt": "Eight cards show D, U, D, U, U, D, D, U. Everyone switches. How many are standing now?",
+        "type": "Comparison Logic",
+        "prompt": "A shelf has more blue books than red books, and fewer blue books than green books. Which statement must be true?",
+        "choices": [
+          "There are more green books than blue books",
+          "There are more red books than green books",
+          "There are equal numbers of red and blue books",
+          "There are fewer green books than red books"
+        ],
+        "answer": "There are more green books than blue books",
+        "explanation": "Blue is fewer than green, so green must be greater than blue.",
+        "editorNotes": "Moved earlier as a midweek logic check."
+      },
+      {
+        "number": 6,
+        "tier": 2,
+        "type": "Double Meaning",
+        "prompt": "Which word can mean both a season and a sudden jump?",
+        "choices": [
+          "Spring",
+          "Autumn",
+          "Winter",
+          "Summer"
+        ],
+        "answer": "Spring",
+        "explanation": "Spring can name a season, and it can also mean to jump suddenly.",
+        "editorNotes": "Moved earlier so the final tier can carry fresher twists."
+      },
+      {
+        "number": 7,
+        "tier": 3,
+        "type": "Flip Count",
+        "prompt": "Eight cards show D, U, D, U, U, D, D, U. U means face up; D means face down. Every card is flipped. How many are face up now?",
         "choices": [
           "3",
           "4",
@@ -2646,26 +2678,11 @@ const TOP_TIER_WEEK_DRAFTS = [
           "6"
         ],
         "answer": "4",
-        "explanation": "There were four D cards, and those become U after the switch.",
-        "editorNotes": "Medium switch count."
+        "explanation": "There were four D cards, and those become face up after the flip.",
+        "editorNotes": "Kept as one of the three weekly flip questions, now in Tier 3."
       },
       {
-        "number": 6,
-        "tier": 2,
-        "type": "Word Build",
-        "prompt": "Which build is incorrect?",
-        "choices": [
-          "C + LASH = CLASH",
-          "S + TACK = STACK",
-          "B + LADE = BLADE",
-          "F + RAME = FLAME"
-        ],
-        "answer": "F + RAME = FLAME",
-        "explanation": "F + RAME makes frame, not flame.",
-        "editorNotes": "Sharper word-build distractor."
-      },
-      {
-        "number": 7,
+        "number": 8,
         "tier": 3,
         "type": "Letter Sum",
         "prompt": "If CAT = 24 by adding letter positions, what does DOG equal?",
@@ -2677,11 +2694,26 @@ const TOP_TIER_WEEK_DRAFTS = [
         ],
         "answer": "26",
         "explanation": "D is 4, O is 15, and G is 7. The total is 26.",
-        "editorNotes": "Simple alphabet math."
+        "editorNotes": "Simple alphabet math in the middle climb."
       },
       {
-        "number": 8,
+        "number": 9,
         "tier": 3,
+        "type": "Word Equation",
+        "prompt": "Which word equation is incorrect? Read the numbers by sound.",
+        "choices": [
+          "H + 8 - E = HAT",
+          "GR + 8 = GREAT",
+          "L + 8 + R = LATER",
+          "B + 4 + E = BRAVE"
+        ],
+        "answer": "B + 4 + E = BRAVE",
+        "explanation": "B + 4 + E sounds like before, not brave. The other equations work by using number sounds.",
+        "editorNotes": "Adds number sounds and subtraction, so this belongs in Tier 3."
+      },
+      {
+        "number": 10,
+        "tier": 4,
         "type": "Order Logic",
         "prompt": "Cole finished before Nia. Nia finished before Theo. Theo finished before Mara. Who finished first?",
         "choices": [
@@ -2692,67 +2724,37 @@ const TOP_TIER_WEEK_DRAFTS = [
         ],
         "answer": "Cole",
         "explanation": "The order given is Cole, Nia, Theo, Mara.",
-        "editorNotes": "Longer but still direct order chain."
-      },
-      {
-        "number": 9,
-        "tier": 3,
-        "type": "Attention Count",
-        "prompt": "In the phrase \"seven clever levels,\" how many e's appear?",
-        "choices": [
-          "4",
-          "5",
-          "6",
-          "7"
-        ],
-        "answer": "6",
-        "explanation": "Seven has two e's, clever has two, and levels has two.",
-        "editorNotes": "Counting question with repeated e-heavy words."
-      },
-      {
-        "number": 10,
-        "tier": 4,
-        "type": "Prefix Trap",
-        "prompt": "Which word becomes its opposite by adding mis to the front?",
-        "choices": [
-          "Trust",
-          "Legal",
-          "Possible",
-          "Certain"
-        ],
-        "answer": "Trust",
-        "explanation": "Trust becomes mistrust. The other words do not use mis to form their opposites.",
-        "editorNotes": "Avoids repeating the dis + agree clue."
+        "editorNotes": "Moved up into the final tier as a quick logic setup before the attention finale."
       },
       {
         "number": 11,
         "tier": 4,
-        "type": "Circle Switch",
-        "prompt": "Eight people are shown as U, D, D, D, U, D, U, D around a circle. Everyone switches. How many are standing now?",
+        "type": "Attention Count",
+        "prompt": "In the phrase \"seven clever levels,\" how many e's appear directly next to an l?",
         "choices": [
+          "2",
+          "3",
           "4",
-          "5",
-          "6",
-          "7"
+          "5"
         ],
-        "answer": "5",
-        "explanation": "The five people marked D become standing after the switch.",
-        "editorNotes": "Harder visual-count version."
+        "answer": "3",
+        "explanation": "Clever has one e next to l. Levels has two e's next to l's: the first e follows l, and the second e comes before l. That makes three.",
+        "editorNotes": "Sharper attention count: players must count only e's touching l's."
       },
       {
         "number": 12,
         "tier": 4,
-        "type": "Double Meaning",
-        "prompt": "Which word can mean both a season and a sudden jump?",
+        "type": "Missing Letter Sentence",
+        "prompt": "What one letter replaces every asterisk to complete this sentence? *uby's b*ave *ebels ca**ied *ed *ibbons ove* the *idge.",
         "choices": [
-          "Spring",
-          "Autumn",
-          "Winter",
-          "Summer"
+          "R",
+          "L",
+          "B",
+          "P"
         ],
-        "answer": "Spring",
-        "explanation": "Spring can name a season, and it can also mean to jump suddenly.",
-        "editorNotes": "Fresh double-meaning final instead of another telescope/binoculars ambiguity."
+        "answer": "R",
+        "explanation": "R completes the sentence: Ruby's brave rebels carried red ribbons over the ridge.",
+        "editorNotes": "Final question: a sentence-wide missing-letter puzzle."
       }
     ]
   },
@@ -2822,17 +2824,17 @@ const TOP_TIER_WEEK_DRAFTS = [
       {
         "number": 4,
         "tier": 2,
-        "type": "Switch Count",
-        "prompt": "Ten cards show U, U, D, D, D, U, D, U, D, D. Everyone switches. How many are standing now?",
+        "type": "Calendar Logic",
+        "prompt": "Two days after tomorrow is Monday. What day is today?",
         "choices": [
-          "4",
-          "5",
-          "6",
-          "7"
+          "Thursday",
+          "Friday",
+          "Saturday",
+          "Sunday"
         ],
-        "answer": "6",
-        "explanation": "The six cards marked D become U after the switch.",
-        "editorNotes": "Longer switch count for Thursday."
+        "answer": "Friday",
+        "explanation": "If two days after tomorrow is Monday, then tomorrow is Saturday, so today is Friday.",
+        "editorNotes": "Replaces an extra flip question with a compact calendar puzzle."
       },
       {
         "number": 5,
@@ -2867,17 +2869,17 @@ const TOP_TIER_WEEK_DRAFTS = [
       {
         "number": 7,
         "tier": 3,
-        "type": "Word Build",
-        "prompt": "Which build is incorrect?",
+        "type": "Silent Letter",
+        "prompt": "Which word can gain one letter at the front and still sound the same?",
         "choices": [
-          "S + LATE = SLATE",
-          "P + LANE = PLANE",
-          "C + ROWN = CROWN",
-          "B + READ = BRAIN"
+          "Ring",
+          "Plant",
+          "Stone",
+          "Light"
         ],
-        "answer": "B + READ = BRAIN",
-        "explanation": "B + READ makes bread, not brain.",
-        "editorNotes": "More deceptive word build."
+        "answer": "Ring",
+        "explanation": "Adding w makes wring, which is pronounced like ring.",
+        "editorNotes": "Replaces a plain word-build clue with a sound/spelling trap."
       },
       {
         "number": 8,
@@ -2912,17 +2914,17 @@ const TOP_TIER_WEEK_DRAFTS = [
       {
         "number": 10,
         "tier": 4,
-        "type": "Letter Sum",
-        "prompt": "If BAG = 10 by adding letter positions, what does CAB equal?",
+        "type": "Letter Move",
+        "prompt": "Move the first letter to the end. Which word becomes another common word?",
         "choices": [
-          "5",
-          "6",
-          "7",
-          "8"
+          "Heart",
+          "Stone",
+          "Chair",
+          "Plant"
         ],
-        "answer": "6",
-        "explanation": "C is 3, A is 1, and B is 2. The total is 6.",
-        "editorNotes": "Short but slightly tricky because the letters reorder."
+        "answer": "Heart",
+        "explanation": "Moving h from the front of heart to the end makes earth.",
+        "editorNotes": "Replaces a plain letter-sum slot with a compact letter-move puzzle."
       },
       {
         "number": 11,
@@ -3022,32 +3024,32 @@ const TOP_TIER_WEEK_DRAFTS = [
       {
         "number": 4,
         "tier": 2,
-        "type": "Switch Count",
-        "prompt": "Eight cards show D, D, U, D, U, D, D, U. Everyone switches. How many are standing now?",
+        "type": "One-Letter Change",
+        "prompt": "Change one letter in COLD to make a word meaning courageous. Which word works?",
         "choices": [
-          "3",
-          "4",
-          "5",
-          "6"
+          "Bold",
+          "Gold",
+          "Fold",
+          "Told"
         ],
-        "answer": "5",
-        "explanation": "There were five D cards, and those become U after the switch.",
-        "editorNotes": "Friday switch count."
+        "answer": "Bold",
+        "explanation": "Changing c to b turns cold into bold, which can mean courageous.",
+        "editorNotes": "Replaces an extra flip question with a word-change clue."
       },
       {
         "number": 5,
         "tier": 2,
-        "type": "Hidden Art",
-        "prompt": "Which word hides art inside it?",
+        "type": "Hidden Object",
+        "prompt": "Which word has a writing utensil inside of it?",
         "choices": [
-          "Carton",
-          "Planet",
-          "Window",
-          "Basket"
+          "Carpenter",
+          "Lantern",
+          "Harvest",
+          "Pebble"
         ],
-        "answer": "Carton",
-        "explanation": "Carton contains art in consecutive letters: c-ART-on.",
-        "editorNotes": "Replaces a hidden-red clue that was too close to Week 2."
+        "answer": "Carpenter",
+        "explanation": "Carpenter contains pen in consecutive letters: car-PEN-ter.",
+        "editorNotes": "Fresh hidden-object question with a broader clue so players have to search for the utensil."
       },
       {
         "number": 6,
@@ -3127,32 +3129,33 @@ const TOP_TIER_WEEK_DRAFTS = [
       {
         "number": 11,
         "tier": 4,
-        "type": "Must Be True",
-        "prompt": "Every flern is a brindle. Some brindles are not cold. What must be true?",
+        "type": "Initial Pattern",
+        "prompt": "Maya's dream dinner party would include Olivia Parker, Quinn Reed, and Stella Thomas. What is Maya's surname?",
         "choices": [
-          "Every flern is a brindle",
-          "Some flerns are not cold",
-          "No brindles are cold",
-          "Every cold thing is a flern"
+          "Noble",
+          "Parker",
+          "River",
+          "Stone"
         ],
-        "answer": "Every flern is a brindle",
-        "explanation": "That statement is given. The other statements do not necessarily follow.",
-        "editorNotes": "Counter-logic: the given statement is the only guarantee."
+        "answer": "Noble",
+        "explanation": "The guests' initials form consecutive letter pairs: O-P, Q-R, and S-T. Maya needs M-N, so her surname must begin with N.",
+        "editorNotes": "Inspired by a dinner-party initials pattern, but rebuilt with original names."
       },
       {
         "number": 12,
         "tier": 4,
-        "type": "Hidden Path",
-        "prompt": "Read every other letter starting with the first: S T T A O R R Y M. What word appears?",
+        "type": "Sound Rebus",
+        "prompt": "Say the visual clue aloud. What word is represented?",
+        "promptHtml": "<span class=\"rebus-question\">Say the visual clue aloud. What word is represented?</span><span class=\"rebus-clue\" aria-label=\"S plus crib plus L\"><span class=\"rebus-letter\">S</span><span class=\"rebus-plus\">+</span><span class=\"rebus-crib\" aria-hidden=\"true\"><span></span><span></span><span></span><span></span><span></span></span><span class=\"rebus-plus\">+</span><span class=\"rebus-letter\">L</span></span>",
         "choices": [
-          "STORM",
-          "STORY",
-          "START",
-          "TORN"
+          "Scribble",
+          "Scrabble",
+          "Scramble",
+          "Symbol"
         ],
-        "answer": "STORM",
-        "explanation": "The 1st, 3rd, 5th, 7th, and 9th letters spell S-T-O-R-M.",
-        "editorNotes": "Strong Friday final with a fair extraction rule."
+        "answer": "Scribble",
+        "explanation": "S + crib + L sounds like scribble when the pieces are said together.",
+        "editorNotes": "Original visual sound-rebus; uses a crib clue instead of copying the board-game example."
       }
     ]
   },
@@ -3222,17 +3225,17 @@ const TOP_TIER_WEEK_DRAFTS = [
       {
         "number": 4,
         "tier": 2,
-        "type": "Switch Count",
-        "prompt": "Ten cards show D, U, D, D, U, D, U, D, D, U. Everyone switches. How many are standing now?",
+        "type": "Direction Turn",
+        "prompt": "You are facing west. You turn right, turn around, then turn left. Which direction are you facing?",
         "choices": [
-          "4",
-          "5",
-          "6",
-          "7"
+          "North",
+          "East",
+          "South",
+          "West"
         ],
-        "answer": "6",
-        "explanation": "The six D cards become U after the switch.",
-        "editorNotes": "Long count with mixed positions."
+        "answer": "East",
+        "explanation": "Facing west, a right turn points north. Turning around points south. A left turn from south points east.",
+        "editorNotes": "Replaces an extra flip question with spatial direction logic."
       },
       {
         "number": 5,
@@ -3252,17 +3255,17 @@ const TOP_TIER_WEEK_DRAFTS = [
       {
         "number": 6,
         "tier": 2,
-        "type": "Hidden Place",
-        "prompt": "Which word hides room inside it?",
+        "type": "Suffix Pair",
+        "prompt": "What two letters can follow all four pieces to make common words? HI__  BE__  WA__  STI__",
         "choices": [
-          "Broomstick",
-          "Lantern",
-          "Planet",
-          "River"
+          "LL",
+          "CK",
+          "ND",
+          "SH"
         ],
-        "answer": "Broomstick",
-        "explanation": "Broomstick contains room in consecutive letters: b-ROOM-stick.",
-        "editorNotes": "Good hidden-place question."
+        "answer": "LL",
+        "explanation": "LL makes hill, bell, wall, and still.",
+        "editorNotes": "Replaces an obvious hidden-place clue with a suffix pattern."
       },
       {
         "number": 7,
@@ -3327,17 +3330,17 @@ const TOP_TIER_WEEK_DRAFTS = [
       {
         "number": 11,
         "tier": 4,
-        "type": "Letter Sum",
-        "prompt": "If GAME = 26 by adding letter positions, what does PLAY equal?",
+        "type": "Shape Rule",
+        "prompt": "A logo must contain exactly one circle, exactly two triangles, and no squares. Which option could be the logo?",
         "choices": [
-          "50",
-          "52",
-          "54",
-          "56"
+          "1 circle, 2 triangles, 0 squares",
+          "1 circle, 2 triangles, 1 square",
+          "2 circles, 2 triangles, 0 squares",
+          "1 circle, 1 triangle, 0 squares"
         ],
-        "answer": "54",
-        "explanation": "P is 16, L is 12, A is 1, and Y is 25. The total is 54.",
-        "editorNotes": "Keeps alphabet-value logic without repeating TIER from Week 2."
+        "answer": "1 circle, 2 triangles, 0 squares",
+        "explanation": "Only that option has exactly one circle, exactly two triangles, and no squares.",
+        "editorNotes": "Replaces a repeated letter-sum top-tier slot with a shape-constraint check."
       },
       {
         "number": 12,
@@ -3422,17 +3425,17 @@ const TOP_TIER_WEEK_DRAFTS = [
       {
         "number": 4,
         "tier": 2,
-        "type": "Switch Count",
-        "prompt": "Twelve cards show U, D, D, D, U, D, U, D, D, U, D, U. Everyone switches. How many are standing now?",
+        "type": "Number Rule",
+        "prompt": "Use this rule: first number plus last number, then subtract the middle number. If 4-3-8 becomes 9, what does 6-5-7 become?",
         "choices": [
-          "5",
           "6",
-          "7",
-          "8"
+          "8",
+          "10",
+          "12"
         ],
-        "answer": "7",
-        "explanation": "There were seven D cards, and those become U after the switch.",
-        "editorNotes": "Hardest straight switch count."
+        "answer": "8",
+        "explanation": "Use the rule on 6-5-7: 6 plus 7 is 13, and 13 minus 5 is 8.",
+        "editorNotes": "Replaces an extra flip question with a short number-rule puzzle."
       },
       {
         "number": 5,
@@ -3497,17 +3500,17 @@ const TOP_TIER_WEEK_DRAFTS = [
       {
         "number": 9,
         "tier": 3,
-        "type": "Hidden Direction",
-        "prompt": "Which word hides a compass direction inside it?",
+        "type": "Attention Count",
+        "prompt": "In the phrase \"calm columns collect clues,\" how many c's are immediately followed by o?",
         "choices": [
-          "Feast",
-          "Window",
-          "Marble",
-          "Planet"
+          "1",
+          "2",
+          "3",
+          "4"
         ],
-        "answer": "Feast",
-        "explanation": "Feast contains east in consecutive letters: f-EAST.",
-        "editorNotes": "Replaces another hidden-number clue."
+        "answer": "2",
+        "explanation": "Columns and collect each start with co. Calm starts with ca, and clues starts with cl.",
+        "editorNotes": "Replaces an easy hidden-direction clue with a tighter attention count."
       },
       {
         "number": 10,
@@ -3542,17 +3545,17 @@ const TOP_TIER_WEEK_DRAFTS = [
       {
         "number": 12,
         "tier": 4,
-        "type": "Circle Switch",
-        "prompt": "Before a switch, twelve people are U, D, D, U, D, D, U, U, D, D, D, U. After everyone switches, which statement is true?",
+        "type": "Number Insight",
+        "prompt": "Seven consecutive odd numbers starting with 5 add up to 77. What do the seven even numbers immediately after them add up to?",
         "choices": [
-          "7 are standing and 5 are sitting",
-          "5 are standing and 7 are sitting",
-          "6 are standing and 6 are sitting",
-          "8 are standing and 4 are sitting"
+          "77",
+          "82",
+          "84",
+          "91"
         ],
-        "answer": "7 are standing and 5 are sitting",
-        "explanation": "There were seven D's before the switch, so seven people are standing after it. The five U's become sitting.",
-        "editorNotes": "Inspired by the circle-switch question, but asks for the final state."
+        "answer": "84",
+        "explanation": "Each matching even number is 1 higher than its odd number, and there are seven numbers. Add 7 to 77 to get 84.",
+        "editorNotes": "Uses the odd/even sum insight, but with shifted numbers so it is less recognizable."
       }
     ]
   }
