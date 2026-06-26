@@ -2180,14 +2180,14 @@ const TOP_TIER_WEEK_DRAFTS = [
         "type": "Odd One Out",
         "prompt": "Which option does not belong?",
         "choices": [
-          "Oak",
-          "Rose",
-          "Tulip",
-          "Daisy"
+          "Cotton",
+          "Silk",
+          "Linen",
+          "Hammer"
         ],
-        "answer": "Oak",
-        "explanation": "Rose, tulip, and daisy are flowers. Oak is a tree.",
-        "editorNotes": "Friendly opener with a clean category split."
+        "answer": "Hammer",
+        "explanation": "Cotton, silk, and linen are materials used for fabric. A hammer is a tool.",
+        "editorNotes": "Fresh opener that avoids repeating the tree/flower split."
       },
       {
         "number": 2,
@@ -2237,17 +2237,17 @@ const TOP_TIER_WEEK_DRAFTS = [
       {
         "number": 5,
         "tier": 2,
-        "type": "Hidden Animal",
-        "prompt": "Which word hides cat inside it?",
+        "type": "Hidden Object",
+        "prompt": "Which word hides pen inside it?",
         "choices": [
-          "Delicate",
+          "Openly",
           "Winter",
           "Garden",
           "Planet"
         ],
-        "answer": "Delicate",
-        "explanation": "Delicate contains cat in consecutive letters: deli-CAT-e.",
-        "editorNotes": "Clean hidden-word question with one answer."
+        "answer": "Openly",
+        "explanation": "Openly contains pen in consecutive letters: o-PEN-ly.",
+        "editorNotes": "Replaces the hidden-cat pattern from earlier weeks."
       },
       {
         "number": 6,
@@ -2342,17 +2342,17 @@ const TOP_TIER_WEEK_DRAFTS = [
       {
         "number": 12,
         "tier": 4,
-        "type": "Grammar Trap",
-        "prompt": "Which sentence can mean either ownership or creation?",
+        "type": "Letter Move",
+        "prompt": "Move the last letter to the front. Which word becomes a new common word?",
         "choices": [
-          "The poet's song filled the room",
-          "The glass is empty",
-          "The road is narrow",
-          "The bell is loud"
+          "Evil",
+          "Stone",
+          "Paper",
+          "Cloud"
         ],
-        "answer": "The poet's song filled the room",
-        "explanation": "The phrase can mean a song owned by the poet or a song written by the poet.",
-        "editorNotes": "A gentle ambiguity final."
+        "answer": "Evil",
+        "explanation": "Moving the last letter of evil to the front makes vile.",
+        "editorNotes": "Fresh Monday final instead of another ownership/creation ambiguity."
       }
     ]
   },
@@ -2392,17 +2392,17 @@ const TOP_TIER_WEEK_DRAFTS = [
       {
         "number": 2,
         "tier": 1,
-        "type": "Double Pattern",
-        "prompt": "What comes next? 4, 8, 16, 32, ?",
+        "type": "Shrinking Pattern",
+        "prompt": "What comes next? 10, 9, 7, 4, ?",
         "choices": [
-          "40",
-          "48",
-          "60",
-          "64"
+          "0",
+          "1",
+          "2",
+          "3"
         ],
-        "answer": "64",
-        "explanation": "Each number doubles, so 32 becomes 64.",
-        "editorNotes": "Quick confidence builder."
+        "answer": "0",
+        "explanation": "The pattern subtracts 1, then 2, then 3, so the next step subtracts 4.",
+        "editorNotes": "Avoids another straight doubling pattern."
       },
       {
         "number": 3,
@@ -2452,17 +2452,17 @@ const TOP_TIER_WEEK_DRAFTS = [
       {
         "number": 6,
         "tier": 2,
-        "type": "Hidden Sound",
-        "prompt": "Which word hides a sound inside it?",
+        "type": "Hidden Note",
+        "prompt": "Which word hides the musical note do inside it?",
         "choices": [
-          "Human",
+          "Donate",
           "River",
-          "Cloud",
+          "Brick",
           "Table"
         ],
-        "answer": "Human",
-        "explanation": "Human begins with hum, which is a sound.",
-        "editorNotes": "A light hidden-signal question."
+        "answer": "Donate",
+        "explanation": "Donate begins with do, a musical note.",
+        "editorNotes": "Replaces a hidden-sound clue that felt too close to prior weeks."
       },
       {
         "number": 7,
@@ -2483,16 +2483,16 @@ const TOP_TIER_WEEK_DRAFTS = [
         "number": 8,
         "tier": 3,
         "type": "Attention Count",
-        "prompt": "In the phrase \"Tiny turtles turn twice,\" how many lowercase t's appear?",
+        "prompt": "In the phrase \"Brave riders rarely rest,\" how many lowercase r's appear?",
         "choices": [
-          "3",
           "4",
           "5",
-          "6"
+          "6",
+          "7"
         ],
-        "answer": "4",
-        "explanation": "The capital T in Tiny does not count. Turtles has two lowercase t's, turn has one, and twice has one.",
-        "editorNotes": "Capital-letter trap with a fair explanation."
+        "answer": "6",
+        "explanation": "Brave has one r, riders has two, rarely has two, and rest has one, for six lowercase r's.",
+        "editorNotes": "Avoids repeating the Tiny turtles wording from Week 2."
       },
       {
         "number": 9,
@@ -2513,16 +2513,16 @@ const TOP_TIER_WEEK_DRAFTS = [
         "number": 10,
         "tier": 4,
         "type": "Probability Check",
-        "prompt": "A bag has 1 blue tile, 3 red tiles, and 2 green tiles. What is the chance of drawing blue?",
+        "prompt": "A spinner has 8 equal sections: 3 blue, 3 red, and 2 yellow. What is the chance of landing on yellow?",
         "choices": [
-          "1 in 2",
-          "1 in 3",
-          "1 in 4",
-          "1 in 6"
+          "1/8",
+          "1/4",
+          "3/8",
+          "1/2"
         ],
-        "answer": "1 in 6",
-        "explanation": "There are six tiles total and one is blue, so the chance is 1 in 6.",
-        "editorNotes": "A more serious probability slot."
+        "answer": "1/4",
+        "explanation": "Two of the eight sections are yellow, so the chance is 2/8, which simplifies to 1/4.",
+        "editorNotes": "Keeps probability but avoids the repeated one-blue-three-red tile setup."
       },
       {
         "number": 11,
@@ -2580,14 +2580,14 @@ const TOP_TIER_WEEK_DRAFTS = [
         "type": "Odd One Out",
         "prompt": "Which option does not belong?",
         "choices": [
-          "North",
-          "South",
-          "East",
-          "Summer"
+          "Penny",
+          "Nickel",
+          "Dime",
+          "Folder"
         ],
-        "answer": "Summer",
-        "explanation": "North, south, and east are directions. Summer is a season.",
-        "editorNotes": "Fast orientation opener."
+        "answer": "Folder",
+        "explanation": "Penny, nickel, and dime are coins. A folder is not a coin.",
+        "editorNotes": "Fresh odd-one-out set; avoids repeating the compass-direction group."
       },
       {
         "number": 2,
@@ -2713,16 +2713,16 @@ const TOP_TIER_WEEK_DRAFTS = [
         "number": 10,
         "tier": 4,
         "type": "Prefix Trap",
-        "prompt": "Which word becomes its opposite by adding dis to the front?",
+        "prompt": "Which word becomes its opposite by adding mis to the front?",
         "choices": [
-          "Agree",
+          "Trust",
           "Legal",
           "Possible",
           "Certain"
         ],
-        "answer": "Agree",
-        "explanation": "Agree becomes disagree. The other words use different opposite-making prefixes.",
-        "editorNotes": "Keeps the prefix idea fresh without the old legal/possible answer."
+        "answer": "Trust",
+        "explanation": "Trust becomes mistrust. The other words do not use mis to form their opposites.",
+        "editorNotes": "Avoids repeating the dis + agree clue."
       },
       {
         "number": 11,
@@ -2742,17 +2742,17 @@ const TOP_TIER_WEEK_DRAFTS = [
       {
         "number": 12,
         "tier": 4,
-        "type": "Ambiguity",
-        "prompt": "Which sentence is unclear because with the telescope could describe either person?",
+        "type": "Double Meaning",
+        "prompt": "Which word can mean both a season and a sudden jump?",
         "choices": [
-          "The guide saw the tourist with the telescope",
-          "The baker opened the shop",
-          "The river crossed the valley",
-          "The singer chose the blue coat"
+          "Spring",
+          "Autumn",
+          "Winter",
+          "Summer"
         ],
-        "answer": "The guide saw the tourist with the telescope",
-        "explanation": "The guide may have used the telescope, or the tourist may have had it.",
-        "editorNotes": "Strong grammar ambiguity final."
+        "answer": "Spring",
+        "explanation": "Spring can name a season, and it can also mean to jump suddenly.",
+        "editorNotes": "Fresh double-meaning final instead of another telescope/binoculars ambiguity."
       }
     ]
   },
@@ -2838,31 +2838,31 @@ const TOP_TIER_WEEK_DRAFTS = [
         "number": 5,
         "tier": 2,
         "type": "Compound Pair",
-        "prompt": "Which word can follow both over and under to make common words?",
+        "prompt": "Which word can follow both sun and moon to make common words?",
         "choices": [
-          "Coat",
+          "Light",
           "Stone",
           "Cloud",
           "Frame"
         ],
-        "answer": "Coat",
-        "explanation": "Overcoat and undercoat are both common words.",
-        "editorNotes": "Cleaner than line/pass because the compounds are unambiguous."
+        "answer": "Light",
+        "explanation": "Sunlight and moonlight are both common words.",
+        "editorNotes": "Keeps compound logic without repeating the over/under setup."
       },
       {
         "number": 6,
         "tier": 2,
-        "type": "Hidden Number",
-        "prompt": "Which word hides a number inside it?",
+        "type": "Hidden Direction",
+        "prompt": "Which word hides a compass direction inside it?",
         "choices": [
-          "Someone",
-          "Window",
+          "Western",
+          "Marble",
           "Planet",
-          "Branch"
+          "Cloud"
         ],
-        "answer": "Someone",
-        "explanation": "Someone contains one: some-ONE.",
-        "editorNotes": "Hidden-number question."
+        "answer": "Western",
+        "explanation": "Western contains west, a compass direction.",
+        "editorNotes": "Replaces another hidden-number question."
       },
       {
         "number": 7,
@@ -2882,17 +2882,17 @@ const TOP_TIER_WEEK_DRAFTS = [
       {
         "number": 8,
         "tier": 3,
-        "type": "Alphabet Rule",
-        "prompt": "Which word has letters in alphabetical order?",
+        "type": "Vowel Set",
+        "prompt": "Which word contains all five vowels exactly once?",
         "choices": [
-          "Frost",
-          "Forty",
-          "Front",
-          "Frown"
+          "Sequoia",
+          "Ocean",
+          "Planet",
+          "Rhythm"
         ],
-        "answer": "Forty",
-        "explanation": "F, o, r, t, y appear in alphabetical order.",
-        "editorNotes": "Fresh alphabet-order word."
+        "answer": "Sequoia",
+        "explanation": "Sequoia contains a, e, i, o, and u exactly once each.",
+        "editorNotes": "Fresh letter-attention question instead of another alphabet-order word."
       },
       {
         "number": 9,
@@ -2993,16 +2993,16 @@ const TOP_TIER_WEEK_DRAFTS = [
         "number": 2,
         "tier": 1,
         "type": "Growing Pattern",
-        "prompt": "What comes next? 3, 4, 6, 9, 13, ?",
+        "prompt": "What comes next? 5, 6, 8, 11, 15, ?",
         "choices": [
-          "16",
-          "17",
-          "18",
-          "19"
+          "19",
+          "20",
+          "21",
+          "22"
         ],
-        "answer": "18",
+        "answer": "20",
         "explanation": "The differences are +1, +2, +3, +4, so the next difference is +5.",
-        "editorNotes": "Good early Friday ramp."
+        "editorNotes": "Same family, but avoids the exact Week 1 sequence."
       },
       {
         "number": 3,
@@ -3037,17 +3037,17 @@ const TOP_TIER_WEEK_DRAFTS = [
       {
         "number": 5,
         "tier": 2,
-        "type": "Hidden Color",
-        "prompt": "Which word hides a color inside it?",
+        "type": "Hidden Art",
+        "prompt": "Which word hides art inside it?",
         "choices": [
-          "Creditor",
+          "Carton",
           "Planet",
           "Window",
           "Basket"
         ],
-        "answer": "Creditor",
-        "explanation": "Creditor contains red in consecutive letters: c-RED-itor.",
-        "editorNotes": "Hidden color as an attention shift."
+        "answer": "Carton",
+        "explanation": "Carton contains art in consecutive letters: c-ART-on.",
+        "editorNotes": "Replaces a hidden-red clue that was too close to Week 2."
       },
       {
         "number": 6,
@@ -3112,17 +3112,17 @@ const TOP_TIER_WEEK_DRAFTS = [
       {
         "number": 10,
         "tier": 4,
-        "type": "Probability Check",
-        "prompt": "A bag has 1 blue tile and 3 red tiles. What is the probability of drawing blue?",
+        "type": "Probability Trap",
+        "prompt": "A fair coin is flipped twice. Which exact outcome is most likely?",
         "choices": [
-          "66%",
-          "33%",
-          "75%",
-          "25%"
+          "HH",
+          "HT",
+          "TH",
+          "All equally likely"
         ],
-        "answer": "25%",
-        "explanation": "There are four tiles total and one is blue, so the chance is 1 out of 4, or 25%.",
-        "editorNotes": "Uses the user's suggested probability trap."
+        "answer": "All equally likely",
+        "explanation": "HH, HT, TH, and TT are each equally likely exact outcomes. None of the listed exact outcomes is more likely than another.",
+        "editorNotes": "Fresh probability trap instead of another colored-tile draw."
       },
       {
         "number": 11,
@@ -3193,16 +3193,16 @@ const TOP_TIER_WEEK_DRAFTS = [
         "number": 2,
         "tier": 1,
         "type": "Growing Pattern",
-        "prompt": "What comes next? 2, 3, 5, 8, 12, ?",
+        "prompt": "What comes next? 2, 4, 7, 11, 16, ?",
         "choices": [
-          "15",
-          "16",
-          "17",
-          "18"
+          "20",
+          "21",
+          "22",
+          "23"
         ],
-        "answer": "17",
-        "explanation": "The differences are +1, +2, +3, +4, so the next difference is +5.",
-        "editorNotes": "Pattern stays familiar but longer."
+        "answer": "22",
+        "explanation": "The differences are +2, +3, +4, +5, so the next difference is +6.",
+        "editorNotes": "Avoids repeating the exact 2, 3, 5, 8, 12 pattern."
       },
       {
         "number": 3,
@@ -3328,16 +3328,16 @@ const TOP_TIER_WEEK_DRAFTS = [
         "number": 11,
         "tier": 4,
         "type": "Letter Sum",
-        "prompt": "If TEAM = 39 by adding letter positions, what does TIER equal?",
+        "prompt": "If GAME = 26 by adding letter positions, what does PLAY equal?",
         "choices": [
-          "46",
           "50",
           "52",
+          "54",
           "56"
         ],
-        "answer": "52",
-        "explanation": "T is 20, I is 9, E is 5, and R is 18. The total is 52.",
-        "editorNotes": "Uses the game's name as a Top Tier calculation."
+        "answer": "54",
+        "explanation": "P is 16, L is 12, A is 1, and Y is 25. The total is 54.",
+        "editorNotes": "Keeps alphabet-value logic without repeating TIER from Week 2."
       },
       {
         "number": 12,
@@ -3440,14 +3440,14 @@ const TOP_TIER_WEEK_DRAFTS = [
         "type": "Hidden Body Part",
         "prompt": "Which word hides a body part inside it?",
         "choices": [
-          "Search",
+          "Clearly",
           "Puzzle",
           "Mountain",
           "Bright"
         ],
-        "answer": "Search",
-        "explanation": "Search contains ear in consecutive letters: s-EAR-ch.",
-        "editorNotes": "Hidden-word clue with a body-part twist."
+        "answer": "Clearly",
+        "explanation": "Clearly contains ear in consecutive letters: cl-EAR-ly.",
+        "editorNotes": "Avoids repeating Search as the hidden-ear answer."
       },
       {
         "number": 6,
@@ -3497,47 +3497,47 @@ const TOP_TIER_WEEK_DRAFTS = [
       {
         "number": 9,
         "tier": 3,
-        "type": "Hidden Number",
-        "prompt": "Which word hides the number ten when spoken aloud?",
+        "type": "Hidden Direction",
+        "prompt": "Which word hides a compass direction inside it?",
         "choices": [
-          "Attend",
+          "Feast",
           "Window",
           "Marble",
           "Planet"
         ],
-        "answer": "Attend",
-        "explanation": "Attend begins with a sound like a ten: a-TEN-d.",
-        "editorNotes": "Sound-based hidden number."
+        "answer": "Feast",
+        "explanation": "Feast contains east in consecutive letters: f-EAST.",
+        "editorNotes": "Replaces another hidden-number clue."
       },
       {
         "number": 10,
         "tier": 4,
         "type": "Extraction",
-        "prompt": "Read the letters after each dash: A-T, B-I, C-E, D-R. What word appears?",
+        "prompt": "Read the letters after each dash: A-M, B-I, C-N, D-D. What word appears?",
         "choices": [
-          "TIER",
-          "TIRE",
-          "TRIE",
-          "RITE"
+          "MIND",
+          "MINE",
+          "DIME",
+          "NINE"
         ],
-        "answer": "TIER",
-        "explanation": "The letters after the dashes are T, I, E, and R.",
-        "editorNotes": "Simple-looking but timer-friendly extraction."
+        "answer": "MIND",
+        "explanation": "The letters after the dashes are M, I, N, and D.",
+        "editorNotes": "Fresh extraction answer instead of another TIER clue."
       },
       {
         "number": 11,
         "tier": 4,
         "type": "Constraint Logic",
-        "prompt": "Which option has a hidden number word, exactly two vowels, and starts with a consonant?",
+        "prompt": "Which option has exactly two vowels, starts and ends with consonants, and can be a verb?",
         "choices": [
-          "Stone",
-          "Alone",
+          "Render",
           "Idea",
-          "Branch"
+          "Orange",
+          "Almost"
         ],
-        "answer": "Stone",
-        "explanation": "Stone hides one, has two vowels, and starts with s, a consonant.",
-        "editorNotes": "Checklist final with several tempting misses."
+        "answer": "Render",
+        "explanation": "Render has two vowels, starts with r, ends with r, and can be a verb.",
+        "editorNotes": "Removes the hidden-number overlap from the constraint question."
       },
       {
         "number": 12,
