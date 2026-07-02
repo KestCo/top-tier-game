@@ -1013,17 +1013,72 @@ function renderQuestion() {
   finishButton.classList.remove("show");
   choiceGrid.innerHTML = "";
 
-  question.choices.forEach((choice) => {
+  getShuffledChoices(question.choices).forEach((choice) => {
     const button = document.createElement("button");
     button.className = "choice-button";
     button.type = "button";
-    button.textContent = choice;
+    button.dataset.choice = choice;
+    renderChoiceButtonContent(button, choice, question.choiceVisuals?.[choice]);
     button.setAttribute("aria-pressed", "false");
     button.addEventListener("click", () => selectAnswer(choice));
     choiceGrid.appendChild(button);
   });
 
   startTimer();
+}
+
+function getShuffledChoices(choices) {
+  const shuffled = [...choices];
+
+  for (let index = shuffled.length - 1; index > 0; index -= 1) {
+    const swapIndex = Math.floor(Math.random() * (index + 1));
+    [shuffled[index], shuffled[swapIndex]] = [
+      shuffled[swapIndex],
+      shuffled[index],
+    ];
+  }
+
+  return shuffled;
+}
+
+function renderChoiceButtonContent(button, choice, visual) {
+  if (!visual) {
+    button.textContent = choice;
+    return;
+  }
+
+  button.classList.add("visual-choice-button");
+  button.setAttribute("aria-label", choice);
+  button.innerHTML = `
+    <span class="visually-hidden">${escapeHtml(choice)}</span>
+    <span class="choice-art" aria-hidden="true">
+      ${renderChoiceArtShapes(visual.shapes || [])}
+    </span>
+  `;
+}
+
+function renderChoiceArtShapes(shapes) {
+  return shapes
+    .map((shape) => {
+      const kind = ["circle", "triangle", "square"].includes(shape.kind)
+        ? shape.kind
+        : "circle";
+      const size = Number(shape.size) || 30;
+      const style = [
+        `left: ${Number(shape.x) || 50}%`,
+        `top: ${Number(shape.y) || 50}%`,
+        `--shape-size: ${size}px`,
+        `--shape-half: ${Math.round(size * 0.52)}px`,
+        `--shape-color: ${escapeHtml(shape.color || "#2f5f9a")}`,
+      ].join("; ");
+
+      return `<span class="art-shape ${kind}" style="${style}"></span>`;
+    })
+    .join("");
+}
+
+function getButtonChoice(button) {
+  return button.dataset.choice || button.textContent;
 }
 
 function startTimer() {
@@ -1063,7 +1118,7 @@ function selectAnswer(choice) {
   submitAnswerButton.textContent = "Submit Answer";
 
   choiceGrid.querySelectorAll("button").forEach((button) => {
-    const selected = button.textContent === choice;
+    const selected = getButtonChoice(button) === choice;
     button.classList.toggle("selected", selected);
     button.setAttribute("aria-pressed", String(selected));
   });
@@ -1149,12 +1204,13 @@ function updateChoiceButtons(selected, answer, timedOut) {
 
   buttons.forEach((button) => {
     button.disabled = true;
+    const buttonChoice = getButtonChoice(button);
 
-    if (button.textContent === answer) {
+    if (buttonChoice === answer) {
       button.classList.add("correct");
     }
 
-    if (!timedOut && button.textContent === selected && selected !== answer) {
+    if (!timedOut && buttonChoice === selected && selected !== answer) {
       button.classList.add("wrong");
     }
   });
