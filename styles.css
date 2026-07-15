@@ -659,6 +659,43 @@ p {
   background: #eef4ff;
 }
 
+.week-variety-summary {
+  display: grid;
+  gap: 4px;
+  border: 1px solid rgba(22, 131, 71, 0.22);
+  border-radius: 8px;
+  background: #f2faf5;
+  padding: 10px 12px;
+}
+
+.week-variety-summary.over-limit {
+  border-color: rgba(217, 146, 0, 0.38);
+  background: #fff8e8;
+}
+
+.week-variety-summary strong {
+  color: var(--ink);
+  font-size: 13px;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+.week-variety-summary span {
+  color: var(--green);
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.week-variety-summary.over-limit span {
+  color: #9b5f00;
+}
+
+.week-variety-summary em {
+  color: var(--muted);
+  font-size: 12px;
+  font-style: normal;
+}
+
 .draft-review-list {
   display: grid;
   gap: 10px;
@@ -1323,6 +1360,81 @@ p {
 
 .letter-amber {
   color: var(--amber);
+}
+
+.color-scan-question,
+.pane-word-question {
+  display: block;
+  margin-bottom: 18px;
+}
+
+.color-scan-line {
+  display: inline-flex;
+  flex-wrap: wrap;
+  gap: 4px;
+  width: fit-content;
+  max-width: 100%;
+  border: 1px solid rgba(208, 169, 92, 0.48);
+  border-radius: 8px;
+  background: #fbf8f0;
+  padding: clamp(14px, 2vw, 22px);
+  font-family: var(--font-display);
+  font-size: clamp(34px, 6vw, 58px);
+  font-weight: 900;
+  line-height: 1;
+}
+
+.gold-letter {
+  color: #b88a2d;
+  text-shadow: 0 1px 0 rgba(255, 255, 255, 0.7);
+}
+
+.color-scan-line span:not(.gold-letter) {
+  color: rgba(80, 89, 105, 0.34);
+}
+
+.pane-word-clue {
+  display: block;
+  width: min(100%, 520px);
+  border: 1px solid rgba(208, 169, 92, 0.5);
+  border-radius: 8px;
+  background: linear-gradient(180deg, #f7fbff, #eef4fb);
+  padding: clamp(12px, 2vw, 18px);
+}
+
+.pane-word-clue svg {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.pane-word-clue rect {
+  fill: rgba(255, 255, 255, 0.45);
+  stroke: rgba(47, 65, 88, 0.24);
+  stroke-width: 2;
+}
+
+.pane-word-clue text {
+  fill: transparent;
+  stroke: #192435;
+  stroke-width: 4;
+  stroke-linejoin: round;
+  font-family: var(--font-display);
+  font-size: 88px;
+  font-weight: 900;
+  letter-spacing: 5px;
+}
+
+.pane-word-clue text:nth-of-type(1) {
+  stroke: #1f5d8f;
+}
+
+.pane-word-clue text:nth-of-type(2) {
+  stroke: #d0a95c;
+}
+
+.pane-word-clue text:nth-of-type(3) {
+  stroke: #182235;
 }
 
 .rebus-question,

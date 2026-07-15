@@ -174,6 +174,7 @@ const welcomePrompt = document.getElementById("welcomePrompt");
 const welcomeFocusList = document.getElementById("welcomeFocusList");
 const gameList = document.getElementById("gameList");
 const editorWeekSelect = document.getElementById("editorWeekSelect");
+const weekVarietySummary = document.getElementById("weekVarietySummary");
 const editorGameStatus = document.getElementById("editorGameStatus");
 const draftWorkflowStatus = document.getElementById("draftWorkflowStatus");
 const workflowGuidePanel = document.getElementById("workflowGuidePanel");
@@ -227,6 +228,7 @@ const EDITOR_READINESS_CHECKS = [
 let state = createInitialState();
 let editorIndex = 0;
 let draggedQuestionIndex = null;
+const FORMAL_LOGIC_WEEK_LIMIT = 3;
 let publishedDraftSyncPromise = null;
 let remoteDraftSaveTimer = null;
 let latestRemoteDraftRecord = null;
@@ -884,6 +886,55 @@ function getEditorWeekGames(week) {
     .sort((a, b) => a.game.day - b.game.day);
 }
 
+function isFormalLogicQuestion(question) {
+  const type = (question.type || "").toLowerCase();
+  const prompt = (question.prompt || "").toLowerCase();
+
+  return (
+    type === "must be true" ||
+    type === "formal logic" ||
+    type === "two-step logic" ||
+    prompt.includes("what must be true")
+  );
+}
+
+function getFormalLogicQuestionsForWeek(week) {
+  return getEditorWeekGames(week).flatMap(({ game }) =>
+    game.questions
+      .filter(isFormalLogicQuestion)
+      .map((question) => ({
+        day: game.day,
+        number: question.number,
+      }))
+  );
+}
+
+function renderWeekVarietySummary() {
+  if (!weekVarietySummary) return;
+
+  const formalLogicQuestions = getFormalLogicQuestionsForWeek(activeGame.week);
+  const count = formalLogicQuestions.length;
+  const withinLimit = count <= FORMAL_LOGIC_WEEK_LIMIT;
+  const questionListText = formalLogicQuestions
+    .map((question) => `Day ${question.day} Q${question.number}`)
+    .join(", ");
+
+  weekVarietySummary.className = `week-variety-summary ${
+    withinLimit ? "within-limit" : "over-limit"
+  }`;
+  weekVarietySummary.innerHTML = `
+    <strong>Week Variety Check</strong>
+    <span>${
+      withinLimit
+        ? "Formal logic is within the weekly limit."
+        : "Too many formal logic questions this week."
+    }</span>
+    <em>${count}/${FORMAL_LOGIC_WEEK_LIMIT} used${
+    questionListText ? `: ${escapeHtml(questionListText)}` : ""
+  }</em>
+  `;
+}
+
 function renderEditorWeekSelect() {
   if (!editorWeekSelect) return;
 
@@ -948,6 +999,7 @@ function renderGameList() {
     gameList.appendChild(button);
   });
 
+  renderWeekVarietySummary();
   renderEditorGameStatus();
 }
 
@@ -1727,6 +1779,7 @@ function saveEditorQuestion() {
   renderAnswerOptions(question.answer);
   renderEditorGameStatus();
   renderQuestionList();
+  renderWeekVarietySummary();
   renderEditorReadinessSummary();
 
   const after = JSON.stringify({
