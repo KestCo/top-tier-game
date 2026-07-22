@@ -240,6 +240,7 @@ function createInitialState() {
     timerId: null,
     locked: false,
     selectedChoice: null,
+    typedAnswer: "",
     officialActive: true,
     officialEnd: null,
     totalCorrect: 0,
@@ -1036,6 +1037,7 @@ function renderQuestion() {
   const question = QUESTIONS[state.index];
   state.locked = false;
   state.selectedChoice = null;
+  state.typedAnswer = "";
   state.timeLeft = 30;
   state.questionStartedAt = Date.now();
 
@@ -1065,18 +1067,61 @@ function renderQuestion() {
   finishButton.classList.remove("show");
   choiceGrid.innerHTML = "";
 
-  getShuffledChoices(question.choices).forEach((choice) => {
-    const button = document.createElement("button");
-    button.className = "choice-button";
-    button.type = "button";
-    button.dataset.choice = choice;
-    renderChoiceButtonContent(button, choice, question.choiceVisuals?.[choice]);
-    button.setAttribute("aria-pressed", "false");
-    button.addEventListener("click", () => selectAnswer(choice));
-    choiceGrid.appendChild(button);
-  });
+  if (isTextAnswerQuestion(question)) {
+    const panel = document.createElement("div");
+    panel.className = "typed-answer-panel";
+    panel.innerHTML = `
+      <label class="typed-answer-label" for="typedAnswerInput">Type your answer</label>
+      <input id="typedAnswerInput" class="typed-answer-input" type="text" autocomplete="off" autocapitalize="characters" spellcheck="false" placeholder="Enter the word" />
+    `;
+    const typedAnswerInput = panel.querySelector("#typedAnswerInput");
+
+    typedAnswerInput.addEventListener("input", () => {
+      state.typedAnswer = typedAnswerInput.value;
+      const hasAnswer = state.typedAnswer.trim().length > 0;
+      submitAnswerButton.disabled = !hasAnswer;
+      submitAnswerButton.textContent = hasAnswer
+        ? "Submit Answer"
+        : "Type an answer";
+    });
+
+    typedAnswerInput.addEventListener("keydown", (event) => {
+      if (event.key === "Enter" && state.typedAnswer.trim()) {
+        submitSelectedAnswer();
+      }
+    });
+
+    submitAnswerButton.textContent = "Type an answer";
+    choiceGrid.appendChild(panel);
+  } else {
+    getShuffledChoices(question.choices).forEach((choice) => {
+      const button = document.createElement("button");
+      button.className = "choice-button";
+      button.type = "button";
+      button.dataset.choice = choice;
+      renderChoiceButtonContent(
+        button,
+        choice,
+        question.choiceVisuals?.[choice]
+      );
+      button.setAttribute("aria-pressed", "false");
+      button.addEventListener("click", () => selectAnswer(choice));
+      choiceGrid.appendChild(button);
+    });
+  }
 
   startTimer();
+}
+
+function isTextAnswerQuestion(question) {
+  return question && question.answerMode === "text";
+}
+
+function normalizeTextAnswer(value) {
+  return String(value || "")
+    .trim()
+    .toLowerCase()
+    .replace(/[^a-z0-9]/g, "");
 }
 
 function getShuffledChoices(choices) {
@@ -1177,6 +1222,15 @@ function selectAnswer(choice) {
 }
 
 function submitSelectedAnswer() {
+  const question = QUESTIONS[state.index];
+
+  if (isTextAnswerQuestion(question)) {
+    if (state.locked || !state.typedAnswer.trim()) return;
+
+    lockAnswer(state.typedAnswer, false);
+    return;
+  }
+
   if (state.locked || !state.selectedChoice) return;
 
   lockAnswer(state.selectedChoice, false);
@@ -1191,6 +1245,7 @@ function lockAnswer(choice, timedOut) {
   submitAnswerButton.classList.add("hide");
 
   const question = QUESTIONS[state.index];
+  const textAnswerMode = isTextAnswerQuestion(question);
   const wasOfficial = state.officialActive;
   const secondsUsed = timedOut
     ? 30
@@ -1198,7 +1253,11 @@ function lockAnswer(choice, timedOut) {
         1,
         Math.min(30, Math.ceil((Date.now() - state.questionStartedAt) / 1000))
       );
-  const isCorrect = !timedOut && choice === question.answer;
+  const isCorrect =
+    !timedOut &&
+    (textAnswerMode
+      ? normalizeTextAnswer(choice) === normalizeTextAnswer(question.answer)
+      : choice === question.answer);
 
   if (isCorrect) {
     state.totalCorrect += 1;
@@ -1235,7 +1294,11 @@ function lockAnswer(choice, timedOut) {
     state.officialEnd = answerRecord;
   }
 
-  updateChoiceButtons(choice, question.answer, timedOut);
+  if (textAnswerMode) {
+    updateTypedAnswerInput(choice, question.answer, timedOut);
+  } else {
+    updateChoiceButtons(choice, question.answer, timedOut);
+  }
   renderAnswerState(question, answerRecord);
 
   nextButton.textContent =
@@ -1266,6 +1329,22 @@ function updateChoiceButtons(selected, answer, timedOut) {
       button.classList.add("wrong");
     }
   });
+}
+
+function updateTypedAnswerInput(selected, answer, timedOut) {
+  const input = document.getElementById("typedAnswerInput");
+  if (!input) return;
+
+  input.disabled = true;
+  input.classList.remove("correct", "wrong");
+
+  if (timedOut) return;
+
+  input.classList.add(
+    normalizeTextAnswer(selected) === normalizeTextAnswer(answer)
+      ? "correct"
+      : "wrong"
+  );
 }
 
 function renderAnswerState(question, answerRecord) {
