@@ -60,6 +60,7 @@ function writeDraftBranches(branches) {
 const editorParams = new URLSearchParams(window.location.search);
 const isBackstageEditor =
   editorParams.get("editor") === "1" || window.location.hash === "#editor";
+const useSourceData = editorParams.get("source") === "1";
 const requestedDay = Number(editorParams.get("day"));
 const requestedWeek = Number(editorParams.get("week"));
 const requestedGame = Number(editorParams.get("game"));
@@ -120,7 +121,7 @@ const initialGameIndex =
   requestedGameIndex === null ? getScheduledGameIndex() : requestedGameIndex;
 const activeWeekGames = cloneGame(TOP_TIER_WEEK_DRAFTS);
 let draftBranches = readDraftBranches();
-if (isBackstageEditor) {
+if (isBackstageEditor && !useSourceData) {
   applySavedDraftBranches();
 }
 const finalWeekGames = Array(activeWeekGames.length).fill(null);

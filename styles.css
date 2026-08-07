@@ -3104,3 +3104,439 @@ p {
     grid-template-columns: repeat(4, minmax(0, 1fr));
   }
 }
+
+.tt-visual-question {
+  display: block;
+}
+
+.tt-playing-card-row {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(64px, 92px));
+  gap: 12px;
+  align-items: stretch;
+  width: min(100%, 404px);
+  margin-top: 20px;
+}
+
+.tt-playing-card {
+  position: relative;
+  display: grid;
+  place-items: center;
+  min-width: 0;
+  aspect-ratio: 5 / 7;
+  padding: 10px;
+  overflow: hidden;
+  color: #b4232c;
+  background: #fff;
+  border: 1px solid #cbd3df;
+  border-radius: 8px;
+  box-shadow: 0 5px 14px rgba(20, 29, 43, 0.12);
+}
+
+.tt-playing-card b {
+  position: absolute;
+  top: 8px;
+  left: 9px;
+  font-size: 18px;
+  line-height: 1;
+}
+
+.tt-card-suit {
+  font-size: 38px;
+  line-height: 1;
+}
+
+@media (max-width: 540px) {
+  .tt-playing-card-row {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 8px;
+    width: 100%;
+    margin-top: 16px;
+  }
+
+  .tt-playing-card {
+    padding: 7px;
+  }
+
+  .tt-playing-card b {
+    top: 6px;
+    left: 7px;
+    font-size: 15px;
+  }
+
+  .tt-card-suit {
+    font-size: 30px;
+  }
+}
+
+/* Week 7 shared visual components. Keep these self-contained so prompt markup
+   remains readable in both the player and backstage editor. */
+.tt-playing-card.red {
+  color: #b4232c;
+}
+
+.tt-playing-card.tt-hearts {
+  color: #b4232c;
+}
+
+.tt-pips {
+  display: block;
+  font-style: normal;
+  font-size: 19px;
+  line-height: 1.15;
+  text-align: center;
+}
+
+.tt-pips.compact {
+  font-size: 30px;
+}
+
+.tt-picture-link-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 14px;
+  width: min(100%, 680px);
+  margin: 18px auto 4px;
+}
+
+.tt-picture-link-item {
+  display: grid;
+  place-items: center;
+  gap: 8px;
+  min-width: 0;
+  padding: 18px 10px 14px;
+  background: #fff;
+  border: 1px solid #c8d2df;
+  border-radius: 14px;
+}
+
+.tt-picture-link-item > span {
+  display: grid;
+  place-items: center;
+  width: 86px;
+  height: 86px;
+  background: #fbf7ed;
+  border: 2px solid #d7b45d;
+  border-radius: 50%;
+}
+
+.tt-picture-link-item > span::before {
+  font-size: 48px;
+  line-height: 1;
+}
+
+.tt-picture-link-item b {
+  font-size: 15px;
+  text-align: center;
+}
+
+.tt-door-icon::before { content: "\1F512"; }
+.tt-piano-icon::before { content: "\1F3B9"; }
+.tt-map-icon::before { content: "\1F5FA"; }
+.tt-tennis-icon::before { content: "\1F3BE"; }
+.tt-judge-icon::before { content: "\2696"; }
+.tt-crown-icon::before { content: "\1F451"; }
+.tt-frame-icon::before { content: "\1F5BC"; }
+.tt-glasses-icon::before { content: "\1F453"; }
+.tt-bike-icon::before { content: "\1F6B2"; }
+
+.tt-picture-link-item > span > i {
+  display: none;
+}
+
+.tt-card-layout,
+.tt-card-matrix {
+  display: grid;
+  gap: 10px;
+  width: min(100%, 460px);
+  margin: 18px auto 4px;
+}
+
+.tt-card-layout > span,
+.tt-card-matrix > span {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(44px, 1fr));
+  gap: 8px;
+}
+
+.tt-card-layout i,
+.tt-card-matrix i {
+  display: grid;
+  place-items: center;
+  min-height: 54px;
+  color: #17243a;
+  background: #fff;
+  border: 1px solid #afbdd0;
+  border-radius: 8px;
+  box-shadow: 0 3px 9px rgba(20, 29, 43, 0.08);
+  font-size: 24px;
+  font-style: normal;
+  font-weight: 800;
+}
+
+.tt-card-layout .missing i,
+.tt-card-matrix .missing i {
+  color: #9a721f;
+  background: #fffaf0;
+  border: 2px dashed #d7b45d;
+  box-shadow: none;
+}
+
+.tt-spiral-wrap {
+  display: grid;
+  justify-items: center;
+  gap: 8px;
+  margin: 18px auto 4px;
+}
+
+.tt-spiral-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(58px, 86px));
+  gap: 7px;
+  padding: 14px;
+  background: #fbf7ed;
+  border: 1px solid #d7b45d;
+  border-radius: 14px;
+}
+
+.tt-spiral-grid i,
+.tt-letter-bank i,
+.tt-route-grid i {
+  display: grid;
+  place-items: center;
+  aspect-ratio: 1;
+  color: #17243a;
+  background: #fff;
+  border: 1px solid #afbdd0;
+  border-radius: 9px;
+  font-size: 26px;
+  font-style: normal;
+  font-weight: 800;
+}
+
+.tt-spiral-grid i.start,
+.tt-route-grid i.start {
+  background: #f2c75c;
+  border: 3px solid #9c741c;
+}
+
+.tt-spiral-grid i.center {
+  color: #fff;
+  background: #17243a;
+  border-color: #17243a;
+}
+
+.tt-spiral-note {
+  color: #8a641d;
+  font-size: 14px;
+  font-weight: 800;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.tt-card-hand-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+  width: min(100%, 560px);
+  margin: 18px auto 4px;
+}
+
+.tt-card-hand-grid > span {
+  display: grid;
+  grid-template-columns: 32px repeat(3, 1fr);
+  gap: 7px;
+  align-items: center;
+  padding: 10px;
+  background: #fbf7ed;
+  border: 1px solid #d7b45d;
+  border-radius: 12px;
+}
+
+.tt-card-hand-grid b {
+  text-align: center;
+}
+
+.tt-card-hand-grid i {
+  display: grid;
+  place-items: center;
+  min-height: 58px;
+  color: #17243a;
+  background: #fff;
+  border: 1px solid #afbdd0;
+  border-radius: 7px;
+  font-size: 22px;
+  font-style: normal;
+  font-weight: 800;
+}
+
+.tt-route-wrap {
+  display: grid;
+  grid-template-columns: minmax(210px, 330px) minmax(150px, 1fr);
+  gap: 16px;
+  align-items: center;
+  width: min(100%, 620px);
+  margin: 18px auto 4px;
+}
+
+.tt-route-grid,
+.tt-letter-bank {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(52px, 82px));
+  gap: 7px;
+  justify-content: center;
+  width: fit-content;
+  max-width: 100%;
+  margin: 18px auto 4px;
+  padding: 13px;
+  background: #fbf7ed;
+  border: 1px solid #d7b45d;
+  border-radius: 14px;
+}
+
+.tt-route-wrap .tt-route-grid {
+  margin: 0;
+}
+
+.tt-route-steps {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 7px;
+  align-content: center;
+}
+
+.tt-route-steps b {
+  flex-basis: 100%;
+  color: #8a641d;
+  font-size: 14px;
+  text-transform: uppercase;
+}
+
+.tt-route-steps em {
+  padding: 7px 9px;
+  color: #17243a;
+  background: #eef3f9;
+  border: 1px solid #afbdd0;
+  border-radius: 999px;
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 800;
+}
+
+.tt-shape-code {
+  display: grid;
+  gap: 9px;
+  width: min(100%, 560px);
+  margin: 18px auto 4px;
+  padding: 15px;
+  background: #fbf7ed;
+  border: 1px solid #d7b45d;
+  border-radius: 14px;
+}
+
+.tt-shape-code > b {
+  text-align: center;
+  letter-spacing: 0.18em;
+}
+
+.tt-shape-code .code-key,
+.tt-shape-code .code-row {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(38px, 1fr));
+  gap: 7px;
+  align-items: center;
+}
+
+.tt-shape-code .code-key {
+  padding: 10px 38px;
+  background: #fff;
+  border: 2px solid #17243a;
+  border-radius: 9px;
+}
+
+.tt-shape-code .code-row {
+  grid-template-columns: 30px repeat(5, minmax(38px, 1fr));
+  padding: 7px;
+  background: #fff;
+  border: 1px solid #c8d2df;
+  border-radius: 9px;
+}
+
+.tt-shape-code i {
+  display: block;
+  width: 30px;
+  height: 30px;
+  margin: auto;
+  border: 2px solid rgba(23, 36, 58, 0.25);
+}
+
+.tt-shape-code .circle { border-radius: 50%; }
+.tt-shape-code .square { border-radius: 3px; }
+.tt-shape-code .triangle { clip-path: polygon(50% 0, 100% 100%, 0 100%); }
+.tt-shape-code .diamond { transform: rotate(45deg) scale(0.76); }
+.tt-shape-code .oval { width: 36px; border-radius: 50%; }
+.tt-shape-code .green { background: #43a66f; }
+.tt-shape-code .red { background: #d85b53; }
+.tt-shape-code .gold { background: #e5b743; }
+.tt-shape-code .blue { background: #4387c5; }
+.tt-shape-code .purple { background: #8b67b5; }
+
+@media (max-width: 620px) {
+  .tt-picture-link-grid {
+    gap: 8px;
+  }
+
+  .tt-picture-link-item {
+    padding: 12px 5px 10px;
+  }
+
+  .tt-picture-link-item > span {
+    width: 64px;
+    height: 64px;
+  }
+
+  .tt-picture-link-item > span::before {
+    font-size: 38px;
+  }
+
+  .tt-card-hand-grid,
+  .tt-route-wrap {
+    grid-template-columns: 1fr;
+  }
+
+  .tt-route-wrap .tt-route-grid {
+    margin: auto;
+  }
+
+  .tt-route-steps {
+    justify-content: center;
+  }
+
+  .tt-route-steps b {
+    text-align: center;
+  }
+}
+
+@media (max-width: 430px) {
+  .tt-spiral-grid,
+  .tt-route-grid,
+  .tt-letter-bank {
+    grid-template-columns: repeat(3, minmax(44px, 70px));
+  }
+
+  .tt-card-layout i,
+  .tt-card-matrix i {
+    min-height: 46px;
+    font-size: 20px;
+  }
+
+  .tt-shape-code .code-key,
+  .tt-shape-code .code-row {
+    gap: 3px;
+  }
+
+  .tt-shape-code i {
+    width: 24px;
+    height: 24px;
+  }
+}
